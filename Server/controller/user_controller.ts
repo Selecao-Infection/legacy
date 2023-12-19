@@ -36,7 +36,7 @@ export const createUser = async (req: Request, res: Response) => {
             pdp       : pdp,
           }
         const user = await prisma.user.create({
-            data    :userBody
+            data:userBody
         });
         res.json(user);
     } catch (err) {
