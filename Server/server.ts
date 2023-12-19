@@ -3,7 +3,7 @@ import cors from 'cors'
 import {userRoute} from './router/user_routes'
 import {questionRoute} from './router/question_routes'
 import { productRoute } from "./router/product_routes";
-
+import { postRoute } from "./router/post_routes";
 
 const app = express()
 const PORT = 4000
@@ -16,6 +16,8 @@ app.use('/api',userRoute)
 
 app.use('/api',productRoute)
 
+
+app.use('/api',postRoute)
 
 
 
