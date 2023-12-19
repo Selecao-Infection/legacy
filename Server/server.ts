@@ -1,6 +1,7 @@
 import express from "express";
 import cors from 'cors'
 import {userRoute} from './router/user_routes'
+import {questionRoute} from './router/question_routes'
 import { productRoute } from "./router/product_routes";
 
 
