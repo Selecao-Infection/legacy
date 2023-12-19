@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String      @id @default(uuid())
+  userName  String
+  email     String      @unique
+  birthday  String
+  password  String
+  coverUrl  String
+  bio       String
+  pdp       String
+  posts     Post[]
+  questions Question[]
+  favorites Favorites[]
+  followers Followers[]
+  basket    Basket[]
+}
+
+model Brand {
+  id        String      @id @default(uuid())
+  brandName String
+  imageUrl  String
+  products  Product[]
+  followers Followers[]
+}
+
+model Product {
+  id          String  @id @default(uuid())
+  productName String
+  price       Int
+  likes       Int
+  category    String
+  imageUrl    String
+  new         Boolean @default(true)
+  userId      String
+  brandId     String
+
+  Brand     Brand       @relation(fields: [brandId], references: [id])
+  favorites Favorites[]
+  basket    Basket[]
+}
+
+model Post {
+  id       String @id @default(uuid())
+  content  String
+  imageUrl String
+  userId   String
+  User     User   @relation(fields: [userId], references: [id])
+}
+
+model Question {
+  id      String @id @default(uuid())
+  content String
+  userId  String
+
+  User User @relation(fields: [userId], references: [id])
+}
+
+model Favorites {
+  id        String  @id @default(uuid())
+  userId    String
+  User      User    @relation(fields: [userId], references: [id])
+  productId String
+  Product   Product @relation(fields: [productId], references: [id])
+}
+
+model Followers {
+  id      String @id @default(uuid())
+  brandId String
+  Brand   Brand  @relation(fields: [brandId], references: [id])
+  userId  String
+  User    User   @relation(fields: [userId], references: [id])
+}
+
+model Basket {
+  id        String  @id @default(uuid())
+  userId    String
+  Product   Product @relation(fields: [productId], references: [id])
+  productId String
+  User      User    @relation(fields: [userId], references: [id])
+}
