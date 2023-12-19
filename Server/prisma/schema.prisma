@@ -42,7 +42,6 @@ model Product {
   category    String
   imageUrl    String
   new         Boolean @default(true)
-  userId      String
   brandId     String
 
   Brand     Brand       @relation(fields: [brandId], references: [id])
