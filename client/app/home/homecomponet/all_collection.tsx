@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 interface Product {
-  productID: number;
+  id: number;
   productName: string;
   imageUrl: string;
   price: number;
+  new: boolean;
   category: string;
   like: boolean;
 }
@@ -27,33 +28,38 @@ const AllCollection: React.FC = () => {
       });
   }, []);
 
-  const handleBuyNow = (productID: number) => {
-    const updatedProducts = products.map((product) => {
-      if (product.productID === productID) {
-        return { ...product, like: !product.like };
-      }
-      return product;
-    });
+  const handleBuyNow = async (id: number) => {
+    try {
+      await axios
+        .put(`http://localhost:4000/api/put/product/update/${id}`)
+        .then((response) => {
+          setProducts(response.data);
+        })
+        .catch((err) => {
+          console.error(err, "Error updating the like");
+        });
 
-    const product = updatedProducts.find(
-      (product) => product.productID === productID
-    );
+      const updatedProducts = products.map((product) => {
+        if (product.id === id) {
+          return { ...product, like: !product.like };
+        }
+        return product;
+      });
 
-    setSelectedProduct(product || null);
-    setProducts(updatedProducts);
-    setShowAlert(true);
+      setSelectedProduct(null);
+      setProducts(updatedProducts);
+      setShowAlert(true);
 
-    console.log(`Buy Now clicked for product ID: ${productID}`);
-  };
-
-  const AddToBasket = (productID: number) => {
-    console.log(`Added to basket: ${productID}`);
+      console.log(`Buy Now clicked for product ID: ${id}`);
+    } catch (error) {
+      console.error("Error updating like status:", error);
+    }
   };
 
   return (
     <>
       {showAlert && (
-        <div className="bg-green-500 text-white p-2 fixed bottom-0 left-2  m-4 rounded-md">
+        <div className="bg-green-500 text-white p-2 fixed bottom-0 rigth-2  m-4 rounded-md">
           {selectedProduct?.like
             ? `Added ${selectedProduct.productName} to favorites!`
             : `Removed ${selectedProduct?.productName} from favorites!`}
@@ -80,7 +86,7 @@ const AllCollection: React.FC = () => {
         {products.map((product) => (
           <div className="w-80 h-80 ">
             <div
-              key={product.productID}
+              key={product.id}
               className="mt-12 p-4 hover:scale-105 transition-transform bg-opacity-10 bg-white rounded-lg shadow w-80 h-80"
             >
               <img
@@ -111,16 +117,11 @@ const AllCollection: React.FC = () => {
                       className={`w-6 h-6 transition-transform fill-current text-gray-600 hover:scale-110 ${
                         product.like ? "text-red-500" : ""
                       }`}
-                      onClick={() => handleBuyNow(product.productID)}
+                      onClick={() => handleBuyNow(product.id)}
                     >
                       <path d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z"></path>
                     </svg>
-                    <button
-                      className="text-white bg-violet-600 rounded-full w-[190px] p-2"
-                      onClick={() => {
-                        AddToBasket(product.productID);
-                      }}
-                    >
+                    <button className="text-white bg-violet-600 rounded-full w-[190px] p-2">
                       Buy Now
                     </button>
                   </div>
