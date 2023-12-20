@@ -1,11 +1,12 @@
 "use client"
 import React, { useState } from "react";
-
+import '../globals.css'
 
 const About: React.FC = () => {
   const [showMoreWhoWeAre, setShowMoreWhoWeAre] = useState<boolean>(false);
   const [showMoreWhatWeDo, setShowMoreWhatWeDo] = useState<boolean>(false);
   const [showMoreWhenWeStart, setShowMoreWhenWeStart] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   const handleShowMoreWhoWeAre = () => {
     setShowMoreWhoWeAre(!showMoreWhoWeAre);
@@ -18,7 +19,12 @@ const About: React.FC = () => {
   const handleShowMoreWhenWeStart = () => {
     setShowMoreWhenWeStart(!showMoreWhenWeStart);
   };
+  
   return (
+    // <div className={`bg-dynamic text-dynamic ${darkMode ? 'dark' : 'light'}`}>
+    //   <button className={`btn-dynamic`} onClick={() => setDarkMode(!darkMode)}>
+    //     {darkMode ? ' Light Mode' : ' Dark Mode'}
+    //   </button>
     <div>
     <section className="my-8 flex flex-col gap-5 items-center justify-center mx-auto max-w-[40rem] text-white text-center">
       <p className="text-violet-700 underline">About us</p>
@@ -186,6 +192,7 @@ const About: React.FC = () => {
         </div>
       </section>
     </div>
+  // </div>
   )
 }
 

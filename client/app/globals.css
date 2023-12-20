@@ -25,3 +25,27 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+/* .light {
+  --bg-color: #fff;
+  --text-color: #333;
+  --btn-bg-color: #000;
+}
+
+.dark {
+  --bg-color: #000000;
+  --text-color: #d2d6dc;
+  --btn-bg-color: #fff;
+}
+
+.bg-dynamic {
+  background-color: var(--bg-color);
+}
+
+.text-dynamic {
+  color: var(--text-color);
+}
+
+.btn-dynamic {
+  background-color: var(--btn-bg-color);
+  color: var(--text-color);
+} */

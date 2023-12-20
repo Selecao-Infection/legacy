@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { RiLogoutBoxRLine } from "react-icons/ri";
-
+// import "../globals.css"
 const Header = () => {
 //   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   return (
