@@ -92,7 +92,7 @@ const AllCollection: React.FC = () => {
               <img
                 src={product.imageUrl}
                 alt={product.productName}
-                className="w-50 h-40 object-cover mb-4"
+                className="w-[350px] h-40 object-cover mb-4"
               />
               <div className="text-white">
                 <h2 className="text-xl font-bold mb-2">
