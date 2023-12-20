@@ -4,6 +4,7 @@ import { FaYoutube } from "react-icons/fa";
 import { FaDiscord } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import Link from "next/link";
+// import '../globals.css'
 const Footer = () => {
 
 
@@ -17,6 +18,7 @@ const Footer = () => {
           </Link>
           <h2 className="text-gray-600">Contact</h2>
           <h3 className="text-gray-600">+21624797498</h3>
+
           <h2
             
             className="cursor-pointer text-gray-600"
