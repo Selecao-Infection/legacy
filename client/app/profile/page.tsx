@@ -1,5 +1,11 @@
 "use client"
-
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { storage } from "../../firebase";
 import React,{useState}from "react";
 import { FaCamera } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
@@ -9,22 +15,22 @@ const Page = () => {
 
   const [openPopup, setOpenPopup] = useState<boolean>(false);
 const  [content ,setContent] = useState<string>("")
-const []
+// const []
 
-const handlePostClick = () => {
-  const post = {
-  content:content
-  , imageUrl, userId
-  };
-  axios.post("http://localhost:5001/api/posts/createPost", post)
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-  window.location.reload();
-};
+// const handlePostClick = () => {
+//   const post = {
+//   content:content
+//   , imageUrl, userId
+//   };
+//   axios.post("http://localhost:5001/api/posts/createPost", post)
+//   .then((response) => {
+//     console.log(response);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   })
+//   window.location.reload();
+// };
 const handleClosePoP = ()=>setOpenPopup(!openPopup)
   return (
     <>

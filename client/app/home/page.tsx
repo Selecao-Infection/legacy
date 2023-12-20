@@ -1,11 +1,14 @@
+"use client"
 import React from "react";
-import NewTreding from "./homecomponet/newTreding";
 import { SiNike, SiAdidas, SiPuma } from "react-icons/si";
 import { FaCopyright } from "react-icons/fa";
 import { FaHandHoldingDollar, FaArrowRightArrowLeft } from "react-icons/fa6";
+import NewTreding from "./home_componet/newTreding";
+import AllCollection from "./home_componet/all_collection";
+import BrandsCard from "./home_componet/incoming_Brands"
 
 
-const Home = () => {
+const Home :React.FC = () => {
   return (
     <div className="text-center p-8 md:p-12 lg:p-16 xl:p-20">
       <div className=" gap-[10rem] flex mb-8 px-[10%] ">
@@ -205,7 +208,7 @@ const Home = () => {
           <p className="text-white font-semibold">Fast And Easy Transactions</p>
         </div>
       </div>
-      {/* <Products /> */}
+      <AllCollection />
       <div className="flex flex-col gap-4 p-4 mx-auto mt-[10rem] ">
         <h1 className="text-white text-6xl font-bold ">New & Trending</h1>
         <p className="text-gray-500">
@@ -216,7 +219,7 @@ const Home = () => {
         </p>
       </div>
 
-      {/* <NewTrending /> */}
+      <NewTreding/>
 
       <div className="flex flex-col gap-4 p-4 mx-auto mt-[10rem] ">
         <h1 className="text-white text-6xl font-bold ">Upcoming Creators</h1>
@@ -233,7 +236,7 @@ const Home = () => {
           inventore labore voluptas elig
         </p>
       </div>
-      {/* <BrandsCard /> */}
+      <BrandsCard />
       <div className="text-white text-2xl md:text-3xl lg:text-4xl  md:mt-[10rem]">
         Frequently Asked Questions
         <h1 className="text-gray-500 text-md md:text-xl lg:text-2xl">

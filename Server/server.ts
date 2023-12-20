@@ -15,7 +15,7 @@ app.use(express.json())
 
 
 
-app.use('/api',userRoute)
+app.use('/api/user',userRoute)
 app.use('/brand',brandRoute)
 app.use('/api',productRoute)
 
