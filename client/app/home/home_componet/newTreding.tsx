@@ -6,7 +6,7 @@ import { useState } from "react";
 import  Link  from "next/link";
 import axios from "axios";
 interface Product {
-  productID: number;
+  id: number;
   productName: string;
   imageUrl: string;
   price: number;
@@ -36,13 +36,13 @@ const NewTrending = () => {
         {products.map((product) => (
           <div className="w-80 h-80 ">
             <div
-              key={product.productID}
+              key={product.id}
               className="mt-12 p-4 hover:scale-105 transition-transform bg-opacity-10 bg-white rounded-lg shadow w-80 h-80"
             >
               <img
                 src={product.imageUrl}
                 alt={product.productName}
-                className="w-50 h-40 object-cover mb-4"
+                className="w-[350px] h-40 object-cover mb-4"
               />
               <div className="text-white">
                 <h2 className="text-xl font-bold mb-2">
