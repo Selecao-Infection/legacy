@@ -16,11 +16,11 @@ const Home :React.FC = () => {
           <h1 className="text-2xl  md:text-3xl lg:text-4xl xl:text-5xl text-white text-left font-bold mb-6">
             Shoes are the Spirit of Fashion
           </h1>
-          <p className="text-gray-500 text-left mb-6">
+          <div className="text-gray-500 text-left mb-6">
             Shoes define style, telling a unique story through personal choices.
             They are the essence of self-expression and individuality in
             fashion.
-          </p>
+          </div>
           <button
             className="text-white bg-violet-600 max-w-[10rem] rounded-full p-2"
             // onClick={handleExploreClick}
@@ -28,21 +28,21 @@ const Home :React.FC = () => {
             Explore now
           </button>
           <div className=" items-center w-[40rem] flex gap-[20%]">
-            <p className="text-gray-500 flex flex-col items-center">
+            <div className="text-gray-500 flex flex-col items-center">
               {" "}
               <h2 className="text-white font-bold text-3xl">100K</h2>
-              <p className="text-gray-500 text-sm"> Brands</p>
-            </p>
-            <p className="text-gray-500 flex flex-col items-center">
+              <div className="text-gray-500 text-sm"> Brands</div>
+            </div>
+            <div className="text-gray-500 flex flex-col items-center">
               {" "}
               <h2 className="text-white font-bold text-3xl">20K</h2>
-              <p className="text-gray-500 text-sm"> Fashion Designer</p>
-            </p>
-            <p className="text-gray-500 flex flex-col items-center">
+              <div className="text-gray-500 text-sm"> Fashion Designer</div>
+            </div>
+            <div className="text-gray-500 flex flex-col items-center">
               {" "}
               <h2 className="text-white font-bold text-3xl">60K</h2>
-              <p className="text-gray-500 text-sm"> Fashion Shows</p>
-            </p>
+              <div className="text-gray-500 text-sm"> Fashion Shows</div>
+            </div>
           </div>
         </div>
         <div>
