@@ -1,16 +1,34 @@
-import React from "react";
+"use client"
+import { RxAvatar } from "react-icons/rx";
+import { IoLogOutSharp } from "react-icons/io5";
+
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { RiLogoutBoxRLine } from "react-icons/ri";
+import Logo  from '../../../assets/Logo.png'
+import { jwtDecode } from "jwt-decode";
+import { link } from "fs";
 // import "../globals.css"
 const Header = () => {
-//   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const [current,setCurrent] = useState<any>() 
+  useEffect(()=>{
+
+    if ((JSON.parse(window.localStorage.getItem('current') as string)))
+     { setCurrent(jwtDecode(JSON.parse(window.localStorage.getItem('current') as string)))
+    
+      
+    }
+  },[])
+  
+   console.log(current);
+   
   return (
     <header className="bg-transparent">
     <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
       <h1 className="font-bold text-violet-700 text-sm sm:text-xl flex flex-wrap cursor-pointer">
-        .SHOP
+         <img className="w-14 h-14" src="https://i.imgur.com/M0WPVKZ.png"/>
       </h1>
       <form className="bg-transparent border  rounded-full p-2 flex items-center">
         <input
@@ -23,7 +41,7 @@ const Header = () => {
         </button>
       </form>
       <ul className="flex gap-7 items-center">
-        <Link href="/" className="hidden sm:inline text-white hover:underline">
+        <Link href="/home" className="hidden sm:inline text-white hover:underline">
           Home
         </Link>
         <Link
@@ -39,12 +57,12 @@ const Header = () => {
           About
         </Link>
         <Link
-          href="/admin"
+          href="/Dashboard"
           className="hidden sm:inline text-white hover:underline"
         >
           Dashboard
         </Link>
-        <Link href="/" className="hidden sm:inline text-white hover:underline">
+        <Link href="/faq" className="hidden sm:inline text-white hover:underline">
           FAQ
         </Link>
         <Link href="/basket">
@@ -53,24 +71,43 @@ const Header = () => {
         <li>
         
             <div className="flex gap-4 items-center">
-              {/* <RiLogoutBoxRLine */}
-              
-            {/* className="text-white h-9 cursor-pointer" />  */}
-              <img
-                // onClick={() => {
-                //   navigate("/profile");
-                // }}
+              <Link href="/home" className="hidden sm:inline">
+
+             { current && current.status === 'user' && 
+             <div className="flex flex-wrap gap-4">
+
+               <img
+                
                 className="rounded-full h-7 w-7 object-cover"
-                src="https://cdn-icons-png.flaticon.com/512/147/147142.png"
+                src={current.pdp}
                 alt="profile"
-              />
+                /> 
+               <div className="flex flex-col"
+               onClick={()=>window.localStorage.clear()}
+               >
+
+               < IoLogOutSharp  className="text-[30px]" />
+               <button className="text-[10px]">logout</button>
+               </div>
+                </div>
+               }
+               </Link>
+               { !current && 
+               <Link href="/auth/signin">
+               <div className="flex flex-col">
+                 
+                <RxAvatar className="text-[30px]" />
+               <button className="text-[10px]">Login in</button>
+               </div>
+               </Link>
+}
             </div>
-                <p
+                <div
              
               className="ml-4 text-violet-400 font-semibold cursor-pointer hover:underline"
             >
               {/* Sign In */}
-            </p>
+            </div>
          
         </li>
       </ul>

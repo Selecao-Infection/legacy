@@ -3,6 +3,12 @@ import { Request, Response } from 'express';
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
+interface User{
+    userName  :string,
+    email     :string,
+    birthday  :string,
+    password  :string
+  }
 
 
 interface Users{
@@ -38,32 +44,26 @@ export const getOne=async(req: Request,res: Response )=>{
     }
 }
 
-interface User{
-    userName  :string,
-    email     :string,
-    birthday  :string,
-    password  :string
-  }
 
 export const createUser = async (req: Request, res: Response) => {
     console.log(req.body);
     
-         const {userName,email,birthday,password,} = req.body
+         const {userName,email,birthday,password,} : User = req.body
        
           const hashPassword = await bcrypt.hash(password, 10)
           
           
     
     try {
-        const userBody: User = {
-            userName  : userName,
-            email     : email,
-            birthday  : birthday,
-            password  : hashPassword,
+        // const userBody: User = {
+        //     userName  : userName,
+        //     email     : email,
+        //     birthday  : birthday,
+        //     password  : hashPassword,
         
-        }
+        // }
         const user = await prisma.user.create({
-            data:userBody
+            data:req.body
         });
         const Token = jwt.sign({userName:user.userName,pdp:user.pdp,id:user.id , status:'user'},"secret")
         res.json(Token);
@@ -145,11 +145,12 @@ export const updateUser = async(req : Request,res :Response)=>{
             
             }
             const user = await prisma.user.create({
-                data:userBody
+                data:req.body
             });
             console.log('here');
             
-            res.json("User created !");
+            const Token = jwt.sign({userName:user.userName,pdp:user.pdp,id:user.id , status:'user'},"secret")
+            res.json(Token);
         } catch (err) {
             
             res.status(500).send(err);

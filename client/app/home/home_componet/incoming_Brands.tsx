@@ -51,10 +51,10 @@ const BrandsCard = () => {
               <span className="text-md whitespace-nowrap text-white font-bold flex items-center gap-2">
                 Adidas <MdVerified className="text-blue-500" />
               </span>
-              <p className="text-sm text-gray-400">
+              <div className="text-sm text-gray-400">
                 Sport meets style with Adidas-where performance inspires
                 fashion
-              </p>
+              </div>
               <div className=" w-full py-2 flex space-x-2 flex items-center justify-center px-10">
                 <button className="bg-violet-500 text-white font-semibold w-full p-2 rounded-xl ">
                   <span className="mr-2"></span>+ FOLLOW<span className="ml-2"></span>
@@ -86,9 +86,9 @@ const BrandsCard = () => {
               <span className="text-md whitespace-nowrap text-white font-bold flex items-center gap-2">
                 Nike <MdVerified className="text-blue-500" />
               </span>
-              <p className="text-sm text-gray-400">
+              <div className="text-sm text-gray-400">
                 Just Do It. Be bold, be inspired, and be your own athlete.
-              </p>
+              </div>
               <div className=" w-full py-2  space-x-2 flex items-center justify-center px-10">
                 <button className="bg-violet-500 text-white font-semibold w-full p-2 rounded-xl ">
                   <span className="mr-2"></span>{" "}
@@ -124,9 +124,9 @@ const BrandsCard = () => {
               <span className="text-md whitespace-nowrap text-white font-bold flex items-center gap-2">
                 Lacoste <MdVerified className="text-blue-500" />
               </span>
-              <p className="text-sm text-gray-400">
+              <div className="text-sm text-gray-400">
                 Timeless elegance, sporty sophistication
-              </p>
+              </div>
               <div className=" w-full py-2 flex space-x-2 flex items-center justify-center px-10">
                 <button className="bg-violet-500 text-white font-semibold w-full p-2 rounded-xl ">
                   <span className="mr-2"></span>{" "}

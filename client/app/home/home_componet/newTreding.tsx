@@ -49,9 +49,9 @@ const NewTrending = () => {
                   {product.productName}
                 </h2>
                 <div className="w-full flex flex-row justify-between">
-                  <p className="text-white flex items-stretch">
+                  <div className="text-white flex items-stretch">
                     ${product.price}
-                  </p>
+                  </div>
                   <h3 className="flex items-stretch">{product.category}</h3>
                 </div>
                 <div className="flex items-center mt-2">
