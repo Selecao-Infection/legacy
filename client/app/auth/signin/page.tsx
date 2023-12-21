@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import Google from './google'
 import Facebook from './facebook'
+import Link from 'next/link'
 const SignIn = ()=> {
 const [email,setEmail]= useState<string>()
 const [password,setPassword]= useState<string>()
@@ -19,7 +20,7 @@ const submit = async ()=>{
     try {
        var res = await  axios.post('http://localhost:4000/api/user/signin',body);
        window.localStorage.setItem('current',JSON.stringify(res.data))
-       router.push('/')
+       router.push('/home')
     } catch (error) {
         console.log(error);
         
@@ -37,22 +38,23 @@ const submit = async ()=>{
             alt=""
             className=" w-[400px] h-[460px]"
           />       
-          <p className="font-sans font-semibold text-xl text-center">
+          <div className="font-sans font-semibold text-xl text-center">
             Explore the world of meta fashion
-          </p>
+          </div>
            </div>
 
            <div className="w-[527px] h-[699px] bg-white bg-opacity-20 rounded-[10px] flex-col flex items-center gap-6">
             <div className="flex flex-col items-start m-4 gap-10 ">
                 <div className="text-center text-white text-3xl font-extrabold font-['SF Pro Display'] tracking-tight">Sign In</div>
-                <div><span className="text-white text-lg font-normal font-['SF Pro Display'] tracking-tight">New user?</span><span className="text-indigo-500 text-lg font-medium font-['SF Pro Display'] tracking-tight"> Create an account</span></div>
+                <div><span className="text-white text-lg font-normal font-['SF Pro Display'] tracking-tight">New user?</span> <Link href="/auth/signup"><span className="text-indigo-500 text-lg font-medium font-['SF Pro Display'] tracking-tight"> Create an account</span></Link></div>
                 <div className="flex flex-col gap-14">
                     <div>
 
                 <div className="text-white text-lg font-normal font-['SF Pro Display'] tracking-tight">Email Address</div>
                 <input  
+                 
                  onChange={(e)=>setEmail(e.target.value)}
-                className="h-8  bg-white bg-opacity-0"/>
+                className="h-8  bg-white bg-opacity-0 w-[459px]"/>
                 <div className="w-[459px] h-[0px] border border-white border-opacity-50"></div>
                     </div>
                     <div>
@@ -60,7 +62,7 @@ const submit = async ()=>{
                 <div className="text-white text-lg font-normal font-['SF Pro Display'] tracking-tight">Password</div>
                 <input 
                 onChange={(e)=>setPassword(e.target.value)}
-                 className="h-8 bg-white bg-opacity-0"/>
+                 className="h-8 bg-white bg-opacity-0 w-[459px]"/>
                 <div className="w-[459px] h-[0px] border border-white border-opacity-50"></div>
                     </div>
                 </div>
@@ -74,8 +76,8 @@ const submit = async ()=>{
 
           <div className='flex items-center relative right-10 flex-col'>
 
-<Google customRouter={router} />
-          <Facebook/>
+<Google  />
+          <Facebook customRouter={router} />
           </div>
            </div>
     

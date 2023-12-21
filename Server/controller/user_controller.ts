@@ -149,7 +149,8 @@ export const updateUser = async(req : Request,res :Response)=>{
             });
             console.log('here');
             
-            res.json("User created !");
+            const Token = jwt.sign({userName:user.userName,pdp:user.pdp,id:user.id , status:'user'},"secret")
+            res.json(Token);
         } catch (err) {
             
             res.status(500).send(err);
