@@ -18,7 +18,7 @@ model User {
   password  String?
   coverUrl  String?   @default("https://images.unsplash.com/photo-1694376015496-140430f9bf88?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
   bio       String?
-  pdp       String?   @default("https://cdn-icons-png.flaticon.com/512/6386/6386976.png")
+  pdp       String?   @default("https://i.pinimg.com/736x/3f/94/70/3f9470b34a8e3f526dbdb022f9f19cf7.jpg")
   posts     Post[]
   questions Question[]
   favorites Favorites[]
