@@ -3,14 +3,13 @@ import { Request, Response } from 'express';
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
+
 interface User{
-    userName  :string,
-    email     :string,
-    birthday  :string,
-    password  :string
-  }
-
-
+  userName  :string,
+  email     :string,
+  birthday  :string,
+  password  :string
+}
 interface Users{
   userName  :string,
   email     :string,
@@ -45,12 +44,13 @@ export const getOne=async(req: Request,res: Response )=>{
 }
 
 
+
 export const createUser = async (req: Request, res: Response) => {
     console.log(req.body);
     
-         const {userName,email,birthday,password,} : User = req.body
+         const {userName,email,birthday,password} :User= req.body
        
-          const hashPassword = await bcrypt.hash(password, 10)
+          const hashPassword : string = await bcrypt.hash(password, 10)
           
           
     
@@ -63,7 +63,7 @@ export const createUser = async (req: Request, res: Response) => {
         
         // }
         const user = await prisma.user.create({
-            data:req.body
+            data:{...req.body ,password:hashPassword}
         });
         const Token = jwt.sign({userName:user.userName,pdp:user.pdp,id:user.id , status:'user'},"secret")
         res.json(Token);
