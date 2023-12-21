@@ -13,14 +13,15 @@ const Header = () => {
         .SHOP
       </h1>
       <form className="bg-transparent border  rounded-full p-2 flex items-center">
+      <button>
+          <FaSearch className="text-white mr-3 " />
+        </button>
         <input
           type="text"
           placeholder="Search items, Fashion Collections and users"
-          className="bg-transparent text-white focus:outline-none w-30 sm:w-64 "
+          className="bg-transparent text-white focus:outline-none w-40 sm:w-64 "
         />
-        <button>
-          <FaSearch className="text-white" />
-        </button>
+        
       </form>
       <ul className="flex gap-7 items-center">
         <Link href="/" className="hidden sm:inline text-white hover:underline">
