@@ -1,37 +1,77 @@
-"use client"
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
+"use client";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
-import React,{useState}from "react";
+import React, { useState, ChangeEvent } from "react";
 import { FaCamera } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import ProfilepicturePopUp from "./profilepicturePopUp";
+import Modal from "react-modal";
+import axios from "axios";
 
+interface UploadedFile {
+  name: string;
+  size: string;
+  type: string;
+}
 const Page = () => {
-
   const [openPopup, setOpenPopup] = useState<boolean>(false);
-const  [content ,setContent] = useState<string>("")
-// const []
+  const [content, setContent] = useState<string>("");
+  const [image, setImage] = useState<UploadedFile | null>(null);
+  const [imageUrl, setImageUrl] = useState<string>("");
+  const [modalIsOpen, setModalIsOpen] = useState<any>(false);
+  const handlePostClick = () => {
+    const post = {
+      content: content,
+      imageUrl: imageUrl,
+      userId:1
+    };
+    axios
+      .post("http://localhost:3000/api/post/post/create", post)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    window.location.reload();
+  };
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
 
-// const handlePostClick = () => {
-//   const post = {
-//   content:content
-//   , imageUrl, userId
-//   };
-//   axios.post("http://localhost:5001/api/posts/createPost", post)
-//   .then((response) => {
-//     console.log(response);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   })
-//   window.location.reload();
-// };
-const handleClosePoP = ()=>setOpenPopup(!openPopup)
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    console.log(files[0], "testtttt");
+    setImage(files[0]);
+  };
+
+  console.log(content);
+
+  const uploadImage = (file: File) => {
+    const storageRef = ref(storage, file.name);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(`Upload is ${progress}% done`);
+      },
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setImageUrl(downloadURL);
+        });
+      }
+    );
+  };
+  const handleClosePoP = () => setOpenPopup(!openPopup);
   return (
     <>
       {/* Banner */}
@@ -42,12 +82,9 @@ const handleClosePoP = ()=>setOpenPopup(!openPopup)
             alt=""
             className=" "
           />
-           <button
-                
-                className="rounded-full md:h-9 md:w-9 bg-violet-700 p-3 flex absolute top-[79%] left-[73%] transform -translate-y-1/2 "
-              >
-                <MdEdit className="text-white" />
-              </button>
+          <button className="rounded-full md:h-9 md:w-9 bg-violet-700 p-3 flex absolute top-[79%] left-[73%] transform -translate-y-1/2 ">
+            <MdEdit className="text-white" />
+          </button>
         </div>
 
         {/* Avatar */}
@@ -58,12 +95,14 @@ const handleClosePoP = ()=>setOpenPopup(!openPopup)
               alt=""
               className="rounded-full w-full h-full cursor-pointer"
             />
-            <button  className=" bg-violet-700 w-6 h-6 rounded-full flex absolute left-[52%] top-[95%] justify-center items-center"><FaCamera/> </button>
+            <button className=" bg-violet-700 w-6 h-6 rounded-full flex absolute left-[52%] top-[95%] justify-center items-center">
+              <FaCamera />{" "}
+            </button>
           </div>
         </div>
       </div>
       <div className=" flex justify-evenly gap-5 flex-wrap">
-      <div className="shadow  mt-4 mr-4 rounded-lg h-max w-[400px] bg-[#ffffff1a] p-2.5 ">
+        <div className="shadow  mt-4 mr-4 rounded-lg h-max w-[400px] bg-[#ffffff1a] p-2.5 ">
           <div className="flex justify-between">
             <span
               className="text-white font-sans text-[16px]"
@@ -78,12 +117,13 @@ const handleClosePoP = ()=>setOpenPopup(!openPopup)
                 fontFamily: "'SF Pro Display Regular', Helvetica, sans-serif",
               }}
               className="font-sans text-[16px] text-[#6c5dd3] whitespace-nowrap font-normal cursor-pointer"
-              onClick={()=>setOpenPopup(true)}
+              onClick={() => setOpenPopup(true)}
             >
               See All Photos
             </span>
-            {openPopup && <ProfilepicturePopUp handleClosePoP ={handleClosePoP}/>}
-              
+            {openPopup && (
+              <ProfilepicturePopUp handleClosePoP={handleClosePoP} />
+            )}
           </div>
           <div className="flex flex-wrap w-full h-full m-5 p-3 ">
             <img
@@ -151,7 +191,9 @@ const handleClosePoP = ()=>setOpenPopup(!openPopup)
                 <textarea
                   id="content"
                   placeholder={`What's on your mind, ?`}
-                  onChange={(e)=>{setContent(e.target.value)}}
+                  onChange={(e) => {
+                    setContent(e.target.value);
+                  }}
                   className="w-full  bg-transparent resize-none text-2xl text-white outline-none placeholder-gray-400 focus:placeholder-gray-500"
                 ></textarea>
                 <img src="" className="w-[20rem] rounded-lg" alt="" />
@@ -182,12 +224,18 @@ const handleClosePoP = ()=>setOpenPopup(!openPopup)
                 <div className="font-semibold cursor-pointer"></div>
                 <div className="flex space-x-0.5">
                   <div className="bg-transparent hover:bg-gray-700 p-1 rounded-full transition-colors cursor-pointer">
-                    <input type="file" id="imageUrl" className="hidden" />
+                    <input
+                      type="file"
+                      id="imageUrl"
+                      className="hidden"
+                      onChange={handleImageChange}
+                    />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-7 w-7 text-green-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
+                      onClick={() => openModal()}
                     >
                       <path
                         fill-rule="evenodd"
@@ -199,13 +247,15 @@ const handleClosePoP = ()=>setOpenPopup(!openPopup)
                 </div>
               </div>
 
-              <button className="w-full bg-violet-500 mt-3 rounded-full py-4 text-white font-bold text-xl">
+              <button
+                className="w-full bg-violet-500 mt-3 rounded-full py-4 text-white font-bold text-xl"
+                onClick={() => handlePostClick()}
+              >
                 Post
               </button>
             </div>
           </div>
         </div>
-       
       </div>
       <div className=" flex justify-end lg:pr-[150px] mt-[90px]">
         <div className="shadow  mt-10 rounded-lg h-max ml-3 w-[800px] bg-[#ffffff1a] ">
@@ -239,6 +289,44 @@ const handleClosePoP = ()=>setOpenPopup(!openPopup)
               <i className="bx bx-dots-horizontal-rounded"></i>
             </div>
           </div>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            contentLabel="Modal 1"
+            className="bg-white"
+          >
+            <div className="p-4 flex flex-col space-y-4">
+              <button
+                onClick={closeModal}
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-[50px]"
+              >
+                x
+              </button>
+              <h2
+                className="text-2xl font-bold mb-5 text-center font-sans"
+                style={{
+                  fontFamily: "'SF Pro Display Regular', Helvetica, sans-serif",
+                }}
+              >
+                add the picture
+              </h2>
+              <input
+                type="file"
+                accept="image/png"
+                className="self-center mb-5"
+                onChange={(e) => handleImageChange(e)}
+              />
+              <button
+                onClick={() => uploadImage(image)}
+                className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
+              >
+                Upload
+              </button>
+              <p className="text-center mb-5 hover:animate-bounce">
+                percent % done
+              </p>
+            </div>
+          </Modal>
           {/* POST CONTENT */}
           <div className="text-justify px-4 py-2 ">
             <p

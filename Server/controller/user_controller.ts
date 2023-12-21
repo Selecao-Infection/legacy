@@ -4,12 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
 
-interface User{
-  userName  :string,
-  email     :string,
-  birthday  :string,
-  password  :string
-}
+
 interface Users{
   userName  :string,
   email     :string,
@@ -43,7 +38,12 @@ export const getOne=async(req: Request,res: Response )=>{
     }
 }
 
-
+interface User{
+    userName  :string,
+    email     :string,
+    birthday  :string,
+    password  :string
+  }
 
 export const createUser = async (req: Request, res: Response) => {
     console.log(req.body);
