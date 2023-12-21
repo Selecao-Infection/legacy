@@ -11,7 +11,20 @@ const prisma = new PrismaClient();
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const questions: Question[] = await prisma.question.findMany();
+    const questions: Question[] = await prisma.question.findMany({
+     
+      select:{
+userId: true,
+content: true,
+User :{
+  select :{
+    userName:true,
+    email :true,
+    pdp :true,
+  }
+}
+      }
+    });
     res.json(questions);
   } catch (error) {
     res.json(error);
@@ -29,6 +42,8 @@ export const createQ = async (req: Request, res: Response) => {
 
     const question = await prisma.question.create({
         data: questionBody,
+        include : {User:true}
+
       });
   
       res.json(question);

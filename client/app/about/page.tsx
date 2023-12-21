@@ -83,7 +83,7 @@ const About: React.FC = () => {
           <div className=" w-[30rem] relative">
             <img
               className="h-80 w-96 left-[50px] top-[50px] absolute rounded-lg shadow-lg"
-              src="https://www.soccerbible.com/media/120836/copa-sense-sb-6.jpg"
+              src="https://media.istockphoto.com/id/1607218915/photo/round-brilliant-diamond-in-spotlight-with-colorful-refraction-rays.jpg?s=1024x1024&w=is&k=20&c=TLNanE3qWFuKpaDG5-qioTGiuJduR-5C41iSJ4ZeFag="
               alt=""
             />
             <img
@@ -93,7 +93,7 @@ const About: React.FC = () => {
             />
             <img
               className="h-80 w-96 left-0 top-0 absolute rounded-lg shadow-lg"
-              src="https://i.pinimg.com/originals/e9/7f/04/e97f042615694ee5b0b109f57367235f.jpg"
+              src="https://i.etsystatic.com/27274797/r/il/6fbeed/3249027500/il_794xN.3249027500_htxh.jpg"
               alt=""
             />
           </div>
@@ -110,12 +110,12 @@ const About: React.FC = () => {
             />
             <img
               className="h-80 w-96 left-[25px] top-[25px] absolute rounded-lg shadow-lg"
-              src="http://images.solecollector.com/complex/image/upload/chub70dc74fqtfyf2a4j.jpg"
+              src="https://media.istockphoto.com/id/1225440611/photo/perfect-diamond-isolated-on-the-black.jpg?s=2048x2048&w=is&k=20&c=8KEEZTzKMtV5YWaxQ7ePuEAZb8DKTUByeg1uLcxd694="
               alt=""
             />
             <img
               className="h-80 w-96 left-0 top-0 absolute rounded-lg shadow-lg"
-              src="http://mindthehype.com/wp-content/uploads/2015/03/Crampons-Nike-Mercurial-Superfly-CR7-Silverware-1.jpg"
+              src="https://cdn.shopify.com/s/files/1/0285/8123/2776/products/bundle1.jpg?v=1598794156"
               alt=""
             />
           </div>

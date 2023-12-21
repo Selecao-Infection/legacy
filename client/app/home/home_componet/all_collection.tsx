@@ -28,32 +28,27 @@ const AllCollection: React.FC = () => {
       });
   }, []);
 
-  const handleBuyNow = async (id: number) => {
-    try {
-      await axios
-        .put(`http://localhost:4000/api/put/product/update/${id}`)
-        .then((response) => {
-          setProducts(response.data);
-        })
-        .catch((err) => {
-          console.error(err, "Error updating the like");
-        });
 
-      const updatedProducts = products.map((product) => {
-        if (product.id === id) {
-          return { ...product, like: !product.like };
-        }
-        return product;
-      });
+  
 
-      setSelectedProduct(null);
-      setProducts(updatedProducts);
-      setShowAlert(true);
+  const handleLike = (id: number) => {
+    const updatedProducts = products.map((product) => {
+      if (product.id === id) {
+        return { ...product, like: !product.like };
+      }
+      return product;
+    });
 
-      console.log(`Buy Now clicked for product ID: ${id}`);
-    } catch (error) {
-      console.error("Error updating like status:", error);
-    }
+    setSelectedProduct(updatedProducts.find((product) => product.id === id) || null);
+    setProducts(updatedProducts);
+    setShowAlert(true);
+
+
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 2000);
+console.log(products)
+    console.log(`Buy Now clicked for product ID: ${id}`);
   };
 
   return (
@@ -83,11 +78,12 @@ const AllCollection: React.FC = () => {
         </button>
       </div>
       <div className="flex flex-wrap justify-center gap-8 ">
-        {products.map((product) => (
+        {
+        products.map((product) => (
           <div className="w-80 h-80 ">
             <div
               key={product.id}
-              className="mt-12 p-4 hover:scale-105 transition-transform bg-opacity-10 bg-white rounded-lg shadow w-80 h-80"
+               className="mt-12 p-4 hover:scale-105 transition-transform bg-opacity-10 bg-white rounded-lg shadow w-80 h-80"
             >
               <img
                 src={product.imageUrl}
@@ -117,7 +113,7 @@ const AllCollection: React.FC = () => {
                       className={`w-6 h-6 transition-transform fill-current text-gray-600 hover:scale-110 ${
                         product.like ? "text-red-500" : ""
                       }`}
-                      onClick={() => handleBuyNow(product.id)}
+                      onClick={() => handleLike(product.id)}
                     >
                       <path d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z"></path>
                     </svg>
