@@ -3,9 +3,10 @@ import React from "react";
 import { SiNike, SiAdidas, SiPuma } from "react-icons/si";
 import { FaCopyright } from "react-icons/fa";
 import { FaHandHoldingDollar, FaArrowRightArrowLeft } from "react-icons/fa6";
-import NewTreding from "./home_componet/newTreding";
+// import NewTreding from "./home_componet/newTreding";
 import AllCollection from "./home_componet/all_collection";
 import BrandsCard from "./home_componet/incoming_Brands"
+import CreatorCard from "./home_componet/creator_card";
 
 
 const Home :React.FC = () => {
@@ -219,7 +220,7 @@ const Home :React.FC = () => {
         </p>
       </div>
 
-      <NewTreding/>
+      {/* <NewTreding/> */}
 
       <div className="flex flex-col gap-4 p-4 mx-auto mt-[10rem] ">
         <h1 className="text-white text-6xl font-bold ">Upcoming Creators</h1>
@@ -228,7 +229,7 @@ const Home :React.FC = () => {
           inventore labore voluptas elig
         </p>
       </div>
-      {/* <CreatorCard /> */}
+      <CreatorCard />
       <div className="flex flex-col gap-4 p-4 mx-auto mt-[10rem] ">
         <h1 className="text-white text-6xl font-bold ">Upcoming Brands</h1>
         <p className="text-gray-500">
@@ -279,6 +280,7 @@ const Home :React.FC = () => {
           />
         </div>
       </div>
+          <button className="text-white bg-violet-500 font-bold pl-6 pr-6 p-2 mt-4 rounded-full">FAQ</button>
       <div className="bg-purple-500 p-[5%] mx-9 rounded-md mt-[10%]">
         <h1 className="text-3xl text-white font-bold mb-10">
           Highest Quality Collection

@@ -37,15 +37,16 @@ model Brand {
 }
 
 model Product {
-  id          String  @id @default(uuid())
+  id          String   @id @default(uuid())
   productName String
   price       Int
   likes       Int
   category    String
-  imageUrl    String
-  new         Boolean @default(true)
+  imageUrl    String[]
+  description String
+  rating      Int
+  new         Boolean  @default(true)
   brandId     String
-
   Brand     Brand       @relation(fields: [brandId], references: [id])
   favorites Favorites[]
   basket    Basket[]
@@ -68,11 +69,11 @@ model Question {
 }
 
 model Favorites {
-  id          String  @id @default(uuid())
-  userId      String
-  User        User    @relation(fields: [userId], references: [id])
-  productId   String
-  Product     Product @relation(fields: [productId], references: [id])
+  id        String  @id @default(uuid())
+  userId    String
+  User      User    @relation(fields: [userId], references: [id])
+  productId String
+  Product   Product @relation(fields: [productId], references: [id])
 }
 
 model Followers {
