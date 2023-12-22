@@ -20,14 +20,14 @@ const Google = () => {
       const res = await axios.post('http://localhost:4000/api/user/google', user);
       await window.localStorage.setItem('current', JSON.stringify(res.data));
         
-      await router.push('/home');
+      await router.push('/about');
     } catch (error:any) {
       const errorCode = error.response?.data?.code;
 
       if (errorCode === "P2002") {
         axios.post("http://localhost:4000/api/user/one", { email: error.email }).then(async (res) => {
           await window.localStorage.setItem('current', JSON.stringify(res.data));
-          await router.push('/home');
+          await router.push('/about');
         });
       }
     }
