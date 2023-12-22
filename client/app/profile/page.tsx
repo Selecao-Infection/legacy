@@ -37,19 +37,22 @@ const Page = () => {
   const [modalIsOpen, setModalIsOpen] = useState<any>(false);
   const [ProfilePic, setProfilePic] = useState<UploadedFile | null>(null);
   const [imageSetter, setImageSetter] = useState<string>("");
-  const [pdp,setPdp] = useState<string>("")
+  const [pdp, setPdp] = useState<string>("");
 
-  console.log(pdp,'gggggggggggg');
+  console.log(pdp, "gggggggggggg");
 
-useEffect(()=>{
-  axios.get('http://localhost:4000/api/user/profile/464d7094-c1a9-4ced-8a75-eee58a562afd').then((res)=>{
-  setPdp(res.data[0].pdp)
-  }).catch((err)=>{
-    console.log(err)
-  })
-
-},[ ])
-
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:4000/api/user/profile/464d7094-c1a9-4ced-8a75-eee58a562afd"
+      )
+      .then((res) => {
+        setPdp(res.data[0].pdp);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const updatePFP = () => {
     const userId = currentUser?.id;
@@ -58,9 +61,8 @@ useEffect(()=>{
       return;
     }
     axios
-      .put(`http://localhost:4000/api/user/update`, {
-        id: userId,
-        pdp: imageUrl,
+      .put(`http://localhost:4000/api/user/update/${userId}`, {
+        pdp: ProfilePic,
       })
       .then(() => {
         console.log("Profile picture updated!");
@@ -82,13 +84,9 @@ useEffect(()=>{
   // Using the hook
   const { data, isError, isLoading } = useQuery("randomFacts", getPosts);
 
-
-
   if (isLoading) {
     return <div>lOADING....</div>;
   }
-
-
 
   const handlePostClick = () => {
     const post = {
@@ -123,10 +121,8 @@ useEffect(()=>{
     }
   };
 
-
-  
-  const uploadImage = (file: File) => {
-    const storageRef = ref(storage, "sddsds");
+  const uploadPostImage = (file: File) => {
+    const storageRef = ref(storage, `Posts/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
@@ -141,9 +137,32 @@ useEffect(()=>{
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log(downloadURL,'download');
+          console.log(downloadURL, "download");
 
           setImageUrl(downloadURL);
+        });
+      }
+    );
+  };
+  const uploadProfileImage = (file: File) => {
+    const storageRef = ref(storage, `Profile/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(progress);
+      },
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log(downloadURL, "download");
+
+          setProfilePic(downloadURL);
         });
       }
     );
@@ -160,7 +179,7 @@ useEffect(()=>{
             alt=""
             className=" "
           />
-          <button className="rounded-full md:h-9 md:w-9 bg-violet-700 p-3 flex absolute top-[79%] left-[73%] transform -translate-y-1/2 ">
+          <button className="rounded-full md:h-9 md:w-9 bg-violet-700 p-3 flex absolute top-[79%] left-[73%] transform -translate-y-1/2  " onClick={}>
             <MdEdit className="text-white" />
           </button>
         </div>
@@ -386,28 +405,30 @@ useEffect(()=>{
                 className="self-center mb-5"
                 onChange={(e) => handleImageChange(e)}
               />
-              <button
-                onClick={() => uploadImage(image)}
-                className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
-              >
-                Upload 
-              </button>
-              <button
-                onClick={() => uploadImage(ProfilePic)}
-                className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
-              >
-                Upload pdp
-              </button>
-              {imageSetter === "pdp" && (
-                <button 
-                onClick={()=>updatePFP()}
-                className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]">
-                  Update Profile Picture
+              {imageSetter === "post" && (
+                <button
+                  onClick={() => uploadPostImage(image)}
+                  className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
+                >
+                  Upload
                 </button>
               )}
-              <p className="text-center mb-5 hover:animate-bounce">
-                percent % done
-              </p>
+              {imageSetter === "pdp" && (
+                <button
+                  onClick={() => uploadProfileImage(ProfilePic)}
+                  className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
+                >
+                  Upload Profile Picture
+                </button>
+              )}
+              {imageSetter === "pdp" && (
+                <button
+                  onClick={() => updatePFP()}
+                  className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]"
+                >
+                  Up-date Profile Picture
+                </button>
+              )}
             </div>
           </Modal>
           {/* POST CONTENT */}
@@ -431,8 +452,9 @@ useEffect(()=>{
             }) => (
               <Posts
                 key={post.id}
-                content={post.content}
-                imageUrl={post.imageUrl}
+                // content={post.content}
+                // imageUrl={post.imageUrl}
+                post={post}
                 currentUser={currentUser}
               />
             )

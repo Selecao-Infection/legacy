@@ -3,7 +3,7 @@ import {getAll ,createUser,updateUser, signIn,createWithGoogle,getOne,getOneId} 
 export const userRoute=express.Router();
 userRoute.get('/', getAll)
 userRoute.post('/create',createUser)
-userRoute.put('/update',updateUser)
+userRoute.put('/update/:id',updateUser)
 userRoute.post('/signin', signIn)
 userRoute.post('/google',createWithGoogle)
 userRoute.post('/one',getOne)

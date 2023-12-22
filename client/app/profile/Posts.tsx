@@ -1,3 +1,4 @@
+
 import React from "react";
 import { MdEdit } from "react-icons/md"
 interface PostProps {
@@ -6,9 +7,10 @@ interface PostProps {
   currentUser:object;
 }
 
-const Posts: React.FC<PostProps> = (props) => {
+const Posts: React.FC<PostProps> = ({post,currentUser}) => {
   
-
+console.log(post,"propss")
+console.log(currentUser,"ee")
 
   return (
     <>
@@ -18,14 +20,14 @@ const Posts: React.FC<PostProps> = (props) => {
             <div className="flex items-center justify-between px-4 py-2">
                 <div className="flex space-x-2 items-center">
                     <div className="relative">
-                        <img src={props.currentUser.pdp} alt="Profile picture" className="w-10 h-10 rounded-full cursor-pointer" />
+                        <img src={currentUser.pdp} alt="Profile picture" className="w-10 h-10 rounded-full cursor-pointer" />
                     </div>
                     <div>
                         <div className="text-white font-sans font-[12px]" style={{ fontFamily: "'SF Pro Display Regular', Helvetica, sans-serif" }}>
-                            {props.currentUser.userName}
+                            {currentUser.userName}
                         <span className="text-sm text-gray-500 ml-1 font-bold">10h</span>
                         </div>
-                        <span className="text-sm text-gray-500 font-bold">@{props.currentUser.userName}</span>
+                        <span className="text-sm text-gray-500 font-bold">@{currentUser.userName}</span>
                     </div>
                 </div>
                 <div className="w-8 h-8 grid place-items-center text-xl text-gray-500 hover:bg-gray-200 rounded-full cursor-pointer">
@@ -36,9 +38,9 @@ const Posts: React.FC<PostProps> = (props) => {
               {/* POST CONTENT */}
               <div className="text-justify px-4 py-2 ">
                 <p className='text-white font-sans text-[16px]' style={{ fontFamily: "'SF Pro Display Regular', Helvetica, sans-serif" }}>
-                    {props.content}
+                    {post.content}
                 </p>
-                <img src={props.imageUrl} className='mt-4 mb-4 rounded-md cursor-pointer w-full' alt="" />
+                <img src={post.imageUrl} className='mt-4 mb-4 rounded-md cursor-pointer w-full' alt="" />
             </div>
 </div>
 </>
