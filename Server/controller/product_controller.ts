@@ -6,8 +6,8 @@ interface Product {
   price: number;
   likes: number;
   category: string;
+  gender:string;
   imageUrl: string;
-  new: boolean;
   brandId: string;
 }
 const prisma = new PrismaClient();
@@ -35,12 +35,23 @@ export const getAllProduct = async (req: Request, res: Response) => {
 };
 
 export const createProduct = async (req: Request, res: Response) => {
-  const { productName, price, category, imageUrl, likes, brandId }: Product =
-    req.body;
+  const { productName, price, category, gender, imageUrl, likes,brandId } = req.body;
+
   try {
-    const prod: Product = await prisma.product.create({
-      data: req.body,
+    const prodBody : Product = { 
+      productName, 
+      price, 
+      category,
+      gender, 
+      imageUrl, 
+      likes,
+      brandId 
+    }
+
+    const prod =   await prisma.product.create({
+      data: prodBody
     });
+
     res.json(prod);
   } catch (err) {
     console.error(err);
@@ -48,7 +59,7 @@ export const createProduct = async (req: Request, res: Response) => {
   }
 };
 export const updateProduct = async (req: Request, res: Response) => {
-  const { productName, price, category, imageUrl, likes }: Product = req.body;
+  const { productName, price, category,gender, imageUrl, likes }: Product = req.body;
   const { id } = req.params;
   try {
     const prod: Product = await prisma.product.update({
