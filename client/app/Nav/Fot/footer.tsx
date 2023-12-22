@@ -4,6 +4,7 @@ import { FaYoutube } from "react-icons/fa";
 import { FaDiscord } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import Link from "next/link";
+// import '../globals.css'
 const Footer = () => {
 
 
@@ -17,6 +18,7 @@ const Footer = () => {
           </Link>
           <h2 className="text-gray-600">Contact</h2>
           <h3 className="text-gray-600">+21624797498</h3>
+
           <h2
             
             className="cursor-pointer text-gray-600"
@@ -89,9 +91,9 @@ const Footer = () => {
         
 
         <div className="w-full lg:w-1/4 text-gray-600">
-          <p className="hidden lg:block">&copy; 2023 All rights reserved.</p>
+          <div className="hidden lg:block">&copy; 2023 All rights reserved.</div>
           <div className="mt-2">
-            <p>
+            <div>
               Made by{" "}
               <span className="text-white-500">
                 ♥ Wael Bilel Amine & khalil
@@ -103,7 +105,7 @@ const Footer = () => {
               <FaInstagram className="w-10 h-8"/>
               <FaTwitter className="w-10 h-8"/>
               </div>
-            </p>
+            </div>
           </div>
         </div>
       </div>

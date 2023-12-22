@@ -5,8 +5,20 @@ import Image from "next/image";
 import Filteer from "../../public/Filteer.png";
 import dropDawn from "../../public/Vector (1).png"
 import Line from "../../public/line-402@2x.png"
-const FilterBar: FunctionComponent = (props) => {
-    // console.log(props);
+
+interface FilterBarProps {
+    filtred: (category: string) => Promise<any>;
+    filtredWithGender: (gender:string)=>Promise<any>
+    filtredWithStatus:(status:any)=>Promise<any>
+    sortedProducts:(sort:string)=>void
+    // Other props, if any
+  }
+
+
+
+
+const FilterBar: React.FC<FilterBarProps> = ({ filtred , filtredWithGender , filtredWithStatus , sortedProducts }) => {
+     console.log(filtredWithGender,"filter from fulterbar");
 
     // const { products, setProducts } = useContext(MyContext)
     const [status, setStatus] = useState(false)
@@ -17,7 +29,7 @@ const FilterBar: FunctionComponent = (props) => {
 
     return (
         <>
-            <div className="self-stretch flex-1 rounded-[10px] bg-gray-500 shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-start justify-start pt-[42px]  px-0 pb-48 box-border gap-[50px] min-w-[40px] max-w-[360px]">
+            <div className="self-stretch flex-1 rounded-[10px] bg-gray-500 shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-start justify-start pt-[42px]  px-0 pb-48 box-border gap-[50px] min-w-[40px] max-w-[360px]  " >
                 <div className="self-stretch flex flex-row items-center justify-start py-0 pr-5 pl-[30px] gap-[16px]">
                     <Image
                         className="relative w-[29.1px] h-[17px] object-cover"
@@ -47,7 +59,7 @@ const FilterBar: FunctionComponent = (props) => {
                         {status && (<> <div className=" hide self-stretch flex flex-row items-center justify-start py-0 px-[25px]">
                             <button
                                 className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-base font-medium font-poppins text-white text-left inline-block hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700"
-                            // onClick={()=>{allStatus(1)}}
+                             onClick={()=>{filtredWithStatus(true)}}
                             >
                                 Available
                             </button>
@@ -55,7 +67,7 @@ const FilterBar: FunctionComponent = (props) => {
                             <div className="self-stretch flex flex-row items-center justify-start py-0 px-[25px]">
                                 <button
                                     className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-base font-medium font-poppins text-white text-left inline-block hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700"
-                                // onClick={()=>{allStatus(0)}}
+                                 onClick={()=>{filtredWithStatus(false)}}
                                 >
                                     Not Available
                                 </button>
@@ -84,12 +96,16 @@ const FilterBar: FunctionComponent = (props) => {
                             />
                         </button>
                         {price && (<> <div className="self-stretch flex flex-row items-center justify-start py-0 px-[25px]">
-                            <button className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-base font-medium font-poppins text-white text-left inline-block hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700">
-                                Hight Price
+                            <button 
+                             onClick={() => sortedProducts("High")}
+                            className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-base font-medium font-poppins text-white text-left inline-block hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700">
+                                High Price
                             </button>
                         </div>
                             <div className="self-stretch flex flex-row items-center justify-start py-0 px-[25px]">
-                                <button className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-base font-medium font-poppins text-white text-left inline-block hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700">
+                                <button 
+                                 onClick={() => sortedProducts("Low")}
+                                className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-base font-medium font-poppins text-white text-left inline-block hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700">
                                     Low Price
                                 </button>
                             </div> </>)}
@@ -119,31 +135,31 @@ const FilterBar: FunctionComponent = (props) => {
                         {collections && (<>  <div className="self-stretch flex flex-row items-center justify-start py-0 px-[25px]">
                             <button
                                 className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-base font-medium font-poppins text-white text-left inline-block hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700"
-                            // onClick={()=>{allCollection("Summer")}}
+                            onClick={()=>{filtred("Watch")}}
                             >
-                                Summer Collection
+                                Watch Collection
                             </button>
                         </div>
                             <div className="self-stretch flex flex-row items-center justify-start py-0 px-[25px]">
                                 <button
                                     className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-base font-medium font-poppins text-white text-left inline-block hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700"
-                                // onClick={()=>{allCollection("Winter")}}
+                                 onClick={()=>{filtred("Ring")}}
                                 >
-                                    Winter Collection
+                                    Ring Collection
                                 </button>
                             </div>
                             <div className="self-stretch flex flex-row items-center justify-start py-0 px-[25px]">
                                 <button
-                                    // onClick={()=>{allCollection("Autumn")}}
+                                     onClick={()=>{filtred("Chain")}}
                                     className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-base font-medium font-poppins text-white text-left inline-block hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700">
-                                    Autumn Collection
+                                    Chain Collection
                                 </button>
                             </div>
                             <div className="self-stretch flex flex-row items-center justify-start py-0 px-[25px]">
                                 <button
-                                    // onClick={()=>{allCollection("Spring")}}
+                                     onClick={()=>{filtred("Bracelet")}}
                                     className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-base font-medium font-poppins text-white text-left inline-block hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700">
-                                    Spring Collection
+                                    Bracelet Collection
                                 </button>
                             </div> </>)}
                         <Image
@@ -170,7 +186,7 @@ const FilterBar: FunctionComponent = (props) => {
 
                         {categories && (<>   <div className="self-stretch flex flex-row items-center justify-start py-0 px-[25px]">
                             <button
-                                // onClick={()=>{allCategory("Women")}}
+                                 onClick={()=>{filtredWithGender("Women")}}
 
                                 className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-base font-medium font-poppins text-white text-left inline-block hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700">
                                 Women
@@ -178,18 +194,12 @@ const FilterBar: FunctionComponent = (props) => {
                         </div>
                             <div className="self-stretch flex flex-row items-center justify-start py-0 px-[25px]">
                                 <button
-                                    // onClick={()=>{allCategory("Men")}}
+                                     onClick={()=>{filtredWithGender("Men")}}
                                     className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-base font-medium font-poppins text-white text-left inline-block hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700">
                                     Men
                                 </button>
                             </div>
-                            <div className="self-stretch flex flex-row items-center justify-start py-0 px-[25px]">
-                                <button
-                                    // onClick={()=>{allCategory("Kidss")}}
-                                    className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-base font-medium font-poppins text-white text-left inline-block active:text-violet-700">
-                                    Kids
-                                </button>
-                            </div> </>)}
+                            </>)}
 
                         <Image
                             className="self-stretch relative max-w-full overflow-hidden max-h-full object-cover"

@@ -1,6 +1,6 @@
 "use client";
 
-import React  from "react";
+import React from "react";
 import { QueryClientProvider,QueryClient } from "react-query";
 
 function Providers({ children }: React.PropsWithChildren) {

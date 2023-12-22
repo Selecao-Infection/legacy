@@ -4,7 +4,7 @@ import {userRoute} from './router/user_routes'
 import { brandRoute } from "./router/Brand_router";
 import {questionRoute} from './router/question_routes'
 import { productRoute } from "./router/product_routes";
-
+import { postRoute } from "./router/post_routes";
 
 
 
@@ -15,10 +15,12 @@ app.use(express.json())
 
 
 
-app.use('/api',userRoute)
+app.use('/api/user',userRoute)
 app.use('/brand',brandRoute)
 app.use('/api',productRoute)
 
+
+app.use('/api',postRoute)
 
 
 

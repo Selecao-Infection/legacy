@@ -2,20 +2,26 @@
 
 import React from "react";
 
-// type ProductType={
-//   id:number;
-//   productName: string,
-// price       :number,
-// likes       :number,
-// category   : string,
-// imageUrl   : string,
-// new   :      boolean ,
-// brandId    : string,
+type ProductType={
+  id:number;
+  productName: string,
+price       :number,
+likes       :number,
+category   : string,
+imageUrl   : string,
+new   :      boolean ,
+brandId    : string,
 
-// }
+}
 
+interface AddProduct {
+  fetchProducts: () => Promise<any>;
+  products : any
+  // Other props, if any
+}
 
-const ButtonAddProduct = ()=>{
+const ButtonAddProduct: React.FC<AddProduct> = ({products,fetchProducts})=>{
+console.log(products,"produact data from button");
 
 
 
@@ -23,11 +29,11 @@ const ButtonAddProduct = ()=>{
     return (
         <>
         <div className="self-stretch flex flex-row items-center justify-between py-0 pr-[50px] pl-0">
-            <div className="flex-1 relative"> items</div>
+            <div className="flex-1 relative"> {products.length} items</div>
             <div className="flex-1 shrink-0 flex flex-row items-start justify-start gap-[14px]">
               <button 
               className="cursor-pointer p-2.5 bg-[transparent] flex-1 rounded-[8px] box-border h-[42px] flex flex-row items-center justify-center border-[0.5px] border-solid border-white hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:bg-gray-500"
-              // onClick={()=>{fetch()}}
+               onClick={()=>{fetchProducts()}}
               >
                 <div className="relative text-base font-poppins text-white text-left">
                   All Items
