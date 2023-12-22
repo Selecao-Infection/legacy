@@ -34,6 +34,7 @@ const Page = () => {
   const [coverPic, setCoverPic] = useState<string>("");
   const [cover, setCover] = useState<UploadedFile | null>(null);
   const [id, setId] = useState<string | null>(null);
+  const [bio,setBio]= useState<string>("")
   console.log(typeof currentUser?.id, "useridddddddddddddddd");
   useEffect(() => {
     if (JSON.parse(window.localStorage.getItem("current") as string)) {
@@ -58,6 +59,7 @@ const Page = () => {
       .get(`http://localhost:4000/api/user/profile/${id}`)
       .then((res) => {
         setCoverPic(res.data[0].coverUrl);
+        setBio(res.data[0].bio)
         console.log(res.data[0],'gggggggggggg')
       })
       .catch((err) => {
@@ -242,7 +244,7 @@ const Page = () => {
     <>
       {/* Banner */}
       <div className=" mb-[10px] relative">
-        <div className="flex justify-center   h-[450px]  ">
+        <div className="flex justify-center h-[450px]  ">
           <img
             src={coverPic}
             alt=""
@@ -278,6 +280,10 @@ const Page = () => {
             </button>
           </div>
         </div>
+      </div>
+      {/* bio */}
+      <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px]">
+       <p>{bio}</p>
       </div>
       <div className=" flex justify-evenly gap-5 flex-wrap">
         <div className="shadow  mt-4 mr-4 rounded-lg h-max w-[400px] bg-[#ffffff1a] p-2.5 ">
