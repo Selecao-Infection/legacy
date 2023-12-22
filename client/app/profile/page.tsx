@@ -9,6 +9,7 @@ import Modal from "react-modal";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useQuery } from "react-query";
+import Posts from "./Posts";
 interface UploadedFile {
   name: string;
   size: string;
@@ -34,6 +35,40 @@ const Page = () => {
   const [image, setImage] = useState<UploadedFile | null>(null);
   const [imageUrl, setImageUrl] = useState<string>("");
   const [modalIsOpen, setModalIsOpen] = useState<any>(false);
+  const [ProfilePic, setProfilePic] = useState<UploadedFile | null>(null);
+  const [imageSetter, setImageSetter] = useState<string>("");
+  const [pdp,setPdp] = useState<string>("")
+
+  console.log(pdp,'gggggggggggg');
+
+useEffect(()=>{
+  axios.get('http://localhost:4000/api/user/profile/464d7094-c1a9-4ced-8a75-eee58a562afd').then((res)=>{
+  setPdp(res.data[0].pdp)
+  }).catch((err)=>{
+    console.log(err)
+  })
+
+},[ ])
+
+
+  const updatePFP = () => {
+    const userId = currentUser?.id;
+    if (!userId || !ProfilePic) {
+      console.error("User ID or ProfilePic is missing.");
+      return;
+    }
+    axios
+      .put(`http://localhost:4000/api/user/update`, {
+        id: userId,
+        pdp: imageUrl,
+      })
+      .then(() => {
+        console.log("Profile picture updated!");
+      })
+      .catch((error) => {
+        console.error("Error updating profile picture:", error);
+      });
+  };
 
   // Fetcher function
   const getPosts = async () => {
@@ -47,13 +82,13 @@ const Page = () => {
   // Using the hook
   const { data, isError, isLoading } = useQuery("randomFacts", getPosts);
 
-  console.log(data, "data");
+
 
   if (isLoading) {
     return <div>lOADING....</div>;
   }
 
-  console.log(imageUrl);
+
 
   const handlePostClick = () => {
     const post = {
@@ -81,14 +116,17 @@ const Page = () => {
   };
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    console.log(files[0], "testtttt");
-    setImage(files[0]);
+    if (imageSetter === "post") {
+      setImage(files[0]);
+    } else if (imageSetter === "pdp") {
+      setProfilePic(files[0]);
+    }
   };
 
-  console.log(content);
 
+  
   const uploadImage = (file: File) => {
-    const storageRef = ref(storage, file.name);
+    const storageRef = ref(storage, "sddsds");
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
@@ -96,18 +134,21 @@ const Page = () => {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(`Upload is ${progress}% done`);
+        console.log(progress);
       },
       (error) => {
         console.error(error);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log(downloadURL,'download');
+
           setImageUrl(downloadURL);
         });
       }
     );
   };
+
   const handleClosePoP = () => setOpenPopup(!openPopup);
   return (
     <>
@@ -128,12 +169,18 @@ const Page = () => {
         <div className="flex items-center justify-center  mb-[20px]">
           <div className="bg-white w-[120px] h-[120px] rounded-full p-1">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtu5tpCVXnuH0YxC-ljV2i3GublGLkuZ9jdw&usqp=CAU"
+              src={pdp}
               alt=""
               className="rounded-full w-full h-full cursor-pointer"
             />
-            <button className=" bg-violet-700 w-6 h-6 rounded-full flex absolute left-[52%] top-[95%] justify-center items-center">
-              <FaCamera />{" "}
+            <button
+              onClick={() => {
+                setImageSetter("pdp");
+                openModal();
+              }}
+              className=" bg-violet-700 w-6 h-6 rounded-full flex absolute left-[52%] top-[95%] justify-center items-center"
+            >
+              <FaCamera />
             </button>
           </div>
         </div>
@@ -163,10 +210,21 @@ const Page = () => {
             )}
           </div>
           <div className="flex flex-wrap w-full h-full m-5 p-3 ">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtu5tpCVXnuH0YxC-ljV2i3GublGLkuZ9jdw&usqp=CAU"
-              className="flex w-[100px] h-[95px] m-1 rounded-md p-1 cursor-pointer"
-            />
+            {data?.map(
+              (post: {
+                id: React.Key | null | undefined;
+                imageUrl: string | undefined;
+              }) => {
+                return (
+                  <img
+                    key={post.id}
+                    src={post.imageUrl}
+                    className="flex w-[100px] h-[95px] m-1 rounded-md p-1 cursor-pointer"
+                    alt=""
+                  />
+                );
+              }
+            )}
           </div>
         </div>
         {/* Post Creation  */}
@@ -179,9 +237,11 @@ const Page = () => {
             <div className="px-3 py-3">
               <div className="flex space-x-3 justify-start items-center">
                 <div className="w-12 h-12 cursor-pointer rounded-full overflow-hidden">
-                  <a href="https://facebook.com/ShibbirAhmedRaihan">
-                    <img className="w-full" src="" alt="MD. Shibbir Ahmed" />
-                  </a>
+                  <img
+                    className="w-full"
+                    src={currentUser.pdp}
+                    alt="MD. Shibbir Ahmed"
+                  />
                 </div>
 
                 <div className="flex flex-col space-y-0.5 items-start">
@@ -227,7 +287,7 @@ const Page = () => {
               <div className="my-4">
                 <textarea
                   id="content"
-                  placeholder={`What's on your mind, ?`}
+                  placeholder={`What's on your mind,${currentUser.userName} ?`}
                   onChange={(e) => {
                     setContent(e.target.value);
                   }}
@@ -272,7 +332,10 @@ const Page = () => {
                       className="h-7 w-7 text-green-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
-                      onClick={() => openModal()}
+                      onClick={() => {
+                        setImageSetter("post");
+                        openModal();
+                      }}
                     >
                       <path
                         fillRule="evenodd"
@@ -296,36 +359,6 @@ const Page = () => {
       </div>
       <div className=" flex justify-end lg:pr-[150px] mt-[90px]">
         <div className="shadow  mt-10 rounded-lg h-max ml-3 w-[800px] bg-[#ffffff1a] ">
-          {/* POST AUTHOR */}
-          <div className="flex items-center justify-between px-4 py-2">
-            <div className="flex space-x-2 items-center">
-              <div className="relative">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtu5tpCVXnuH0YxC-ljV2i3GublGLkuZ9jdw&usqp=CAU"
-                  alt="Profile picture"
-                  className="w-10 h-10 rounded-full cursor-pointer"
-                />
-              </div>
-              <div>
-                <div
-                  className="text-white font-sans font-[12px]"
-                  style={{
-                    fontFamily:
-                      "'SF Pro Display Regular', Helvetica, sans-serif",
-                  }}
-                >
-                  Aziz
-                  <span className="text-sm text-gray-500 ml-1 font-bold">
-                    10h
-                  </span>
-                </div>
-                <span className="text-sm text-gray-500 font-bold">@Ena</span>
-              </div>
-            </div>
-            <div className="w-8 h-8 grid place-items-center text-xl text-gray-500 hover:bg-gray-200 rounded-full cursor-pointer">
-              <i className="bx bx-dots-horizontal-rounded"></i>
-            </div>
-          </div>
           <Modal
             isOpen={modalIsOpen}
             onRequestClose={closeModal}
@@ -357,8 +390,21 @@ const Page = () => {
                 onClick={() => uploadImage(image)}
                 className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
               >
-                Upload
+                Upload 
               </button>
+              <button
+                onClick={() => uploadImage(ProfilePic)}
+                className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
+              >
+                Upload pdp
+              </button>
+              {imageSetter === "pdp" && (
+                <button 
+                onClick={()=>updatePFP()}
+                className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]">
+                  Update Profile Picture
+                </button>
+              )}
               <p className="text-center mb-5 hover:animate-bounce">
                 percent % done
               </p>
@@ -383,22 +429,12 @@ const Page = () => {
                 | undefined;
               imageUrl: string | undefined;
             }) => (
-              <div key={post.id} className="text-justify px-4 py-2 ">
-                <p
-                  className="text-white font-sans text-[16px]"
-                  style={{
-                    fontFamily:
-                      "'SF Pro Display Regular', Helvetica, sans-serif",
-                  }}
-                >
-                  {post.content}
-                </p>
-                <img
-                  src={post.imageUrl}
-                  className="mt-4 mb-4 rounded-md cursor-pointer w-full"
-                  alt=""
-                />
-              </div>
+              <Posts
+                key={post.id}
+                content={post.content}
+                imageUrl={post.imageUrl}
+                currentUser={currentUser}
+              />
             )
           )}
         </div>

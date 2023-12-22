@@ -45,6 +45,9 @@ export const getOne=async(req: Request,res: Response )=>{
 
 
 
+
+
+
 export const createUser = async (req: Request, res: Response) => {
     console.log(req.body);
     
@@ -156,3 +159,17 @@ export const updateUser = async(req : Request,res :Response)=>{
             res.status(500).send(err);
         }
     };
+
+
+    export const getOneId=async(req: Request,res: Response )=>{
+        const {id} = req.params
+        try {
+            const users : Users[]=await prisma.user.findMany({where: {id:id}}) 
+              res.json(users)
+
+            } catch (error) {
+                     
+                res.json(error)
+                
+        }
+    }
