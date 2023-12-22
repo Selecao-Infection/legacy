@@ -34,7 +34,7 @@ export const getOne=async(req: Request,res: Response )=>{
     const {email} = req.body
     try {
         const users : Users[]=await prisma.user.findMany({where: {email:email}}) 
-        const Token = jwt.sign({email : users[0].email, userName: users[0].userName,status:'user',pdp:users[0].pdp},'secret')
+        const Token = jwt.sign({email : users[0].email, userName: users[0].userName,status:'user',pdp:users[0].pdp },'secret')
             res.json(Token)
         } catch (error) {
                  
@@ -68,7 +68,7 @@ export const createUser = async (req: Request, res: Response) => {
         const user = await prisma.user.create({
             data:{...req.body ,password:hashPassword}
         });
-        const Token = jwt.sign({userName:user.userName,pdp:user.pdp,id:user.id , status:'user'},"secret")
+        const Token = jwt.sign({userName:user.userName,pdp:user.pdp,id:user.id , status:'user',coverUrl:user.coverUrl},"secret")
         res.json(Token);
     } catch (err) {
         res.status(500).send('Internal Server Error');
@@ -117,7 +117,7 @@ export const updateUser = async(req : Request,res :Response)=>{
                 const isMatch = await bcrypt.compare(password,user.password)
                 if(isMatch){
                     
-                    const token = jwt.sign({id:user.id,userName:user.userName,pdp:user.pdp,status:'user'},"secret")
+                    const token = jwt.sign({id:user.id,userName:user.userName,pdp:user.pdp,status:'user',coverUrl:user.coverUrl},"secret")
                     
                     res.json(token)
                 }else{
@@ -153,7 +153,7 @@ export const updateUser = async(req : Request,res :Response)=>{
             });
             console.log('here');
             
-            const Token = jwt.sign({userName:user.userName,pdp:user.pdp,id:user.id , status:'user'},"secret")
+            const Token = jwt.sign({userName:user.userName,pdp:user.pdp,id:user.id , status:'user', coverUrl:user.coverUrl},"secret")
             res.json(Token);
         } catch (err) {
             

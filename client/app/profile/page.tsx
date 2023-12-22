@@ -22,13 +22,6 @@ type PostType = {
   userId: number;
 };
 const Page = () => {
-  useEffect(() => {
-    if (JSON.parse(window.localStorage.getItem("current") as string)) {
-      setCurrentUser(
-        jwtDecode(JSON.parse(window.localStorage.getItem("current") as string))
-      );
-    }
-  }, []);
   const [currentUser, setCurrentUser] = useState<any>();
   const [openPopup, setOpenPopup] = useState<boolean>(false);
   const [content, setContent] = useState<string>("");
@@ -38,13 +31,43 @@ const Page = () => {
   const [ProfilePic, setProfilePic] = useState<UploadedFile | null>(null);
   const [imageSetter, setImageSetter] = useState<string>("");
   const [pdp, setPdp] = useState<string>("");
-
-  console.log(pdp, "gggggggggggg");
+  const [coverPic, setCoverPic] = useState<string>("");
+  const [cover, setCover] = useState<UploadedFile | null>(null);
+  const [id, setId] = useState<string | null>(null);
+  console.log(typeof currentUser?.id, "useridddddddddddddddd");
+  useEffect(() => {
+    if (JSON.parse(window.localStorage.getItem("current") as string)) {
+      setCurrentUser(
+        jwtDecode(JSON.parse(window.localStorage.getItem("current") as string))
+      );
+    }
+  }, []);
 
   useEffect(() => {
+    handleId();
+  }, [currentUser]);
+  
+  const handleId = () => {
+    const decodedId = currentUser?.id;
+    setId(decodedId);
+  };
+
+
+  const Covergetter = () => {
+    axios
+      .get(`http://localhost:4000/api/user/profile/${id}`)
+      .then((res) => {
+        setCoverPic(res.data[0].coverUrl);
+        console.log(res.data[0],'gggggggggggg')
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const pdpGetter = () => {
     axios
       .get(
-        "http://localhost:4000/api/user/profile/464d7094-c1a9-4ced-8a75-eee58a562afd"
+        `http://localhost:4000/api/user/profile/${id}`
       )
       .then((res) => {
         setPdp(res.data[0].pdp);
@@ -52,7 +75,13 @@ const Page = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
+  useEffect(() => {
+    if (id) {
+      pdpGetter();
+      Covergetter();
+    }
+  }, [id])
 
   const updatePFP = () => {
     const userId = currentUser?.id;
@@ -71,7 +100,23 @@ const Page = () => {
         console.error("Error updating profile picture:", error);
       });
   };
-
+  const updateCover = () => {
+    const userId = currentUser?.id;
+    if (!userId || !cover) {
+      console.error("User ID or CoverPic is missing.");
+      return;
+    }
+    axios
+      .put(`http://localhost:4000/api/user/update/${userId}`, {
+        coverUrl: cover,
+      })
+      .then(() => {
+        console.log("Cover picture updated!");
+      })
+      .catch((error) => {
+        console.error("Error updating cover picture:", error);
+      });
+  };
   // Fetcher function
   const getPosts = async () => {
     const res = await fetch("http://localhost:4000/api/get/post", {
@@ -118,6 +163,8 @@ const Page = () => {
       setImage(files[0]);
     } else if (imageSetter === "pdp") {
       setProfilePic(files[0]);
+    } else if (imageSetter === "cover") {
+      setCover(files[0]);
     }
   };
 
@@ -167,6 +214,28 @@ const Page = () => {
       }
     );
   };
+  const uploadCoverImage = (file: File) => {
+    const storageRef = ref(storage, `Cover/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(progress);
+      },
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log(downloadURL, "download");
+          setCover(downloadURL);
+        });
+      }
+    );
+  };
 
   const handleClosePoP = () => setOpenPopup(!openPopup);
   return (
@@ -175,11 +244,17 @@ const Page = () => {
       <div className=" mb-[10px] relative">
         <div className="flex justify-center   h-[450px]  ">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPKKCRYdlQpWv277oSb7NgSUNCj03REe-yUQ&usqp=CAU"
+            src={coverPic}
             alt=""
             className=" "
           />
-          <button className="rounded-full md:h-9 md:w-9 bg-violet-700 p-3 flex absolute top-[79%] left-[73%] transform -translate-y-1/2  " onClick={}>
+          <button
+            className="rounded-full md:h-9 md:w-9 bg-violet-700 p-3 flex absolute top-[79%] left-[73%] transform -translate-y-1/2  "
+            onClick={() => {
+              setImageSetter("cover");
+              openModal();
+            }}
+          >
             <MdEdit className="text-white" />
           </button>
         </div>
@@ -413,6 +488,22 @@ const Page = () => {
                   Upload
                 </button>
               )}
+              {imageSetter === "cover" && (
+                <>
+                  <button
+                    onClick={() => uploadCoverImage(cover)}
+                    className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
+                  >
+                    Upload Cover Picture
+                  </button>
+                  <button
+                    onClick={() => updateCover()}
+                    className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]"
+                  >
+                    Up-date Cover Picture
+                  </button>
+                </>
+              )}
               {imageSetter === "pdp" && (
                 <button
                   onClick={() => uploadProfileImage(ProfilePic)}
@@ -456,6 +547,7 @@ const Page = () => {
                 // imageUrl={post.imageUrl}
                 post={post}
                 currentUser={currentUser}
+                pdp={pdp}
               />
             )
           )}

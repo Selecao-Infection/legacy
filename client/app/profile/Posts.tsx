@@ -7,10 +7,9 @@ interface PostProps {
   currentUser:object;
 }
 
-const Posts: React.FC<PostProps> = ({post,currentUser}) => {
+const Posts: React.FC<PostProps> = ({post,currentUser,pdp}) => {
   
-console.log(post,"propss")
-console.log(currentUser,"ee")
+
 
   return (
     <>
@@ -20,7 +19,7 @@ console.log(currentUser,"ee")
             <div className="flex items-center justify-between px-4 py-2">
                 <div className="flex space-x-2 items-center">
                     <div className="relative">
-                        <img src={currentUser.pdp} alt="Profile picture" className="w-10 h-10 rounded-full cursor-pointer" />
+                        <img src={pdp} alt="Profile picture" className="w-10 h-10 rounded-full cursor-pointer" />
                     </div>
                     <div>
                         <div className="text-white font-sans font-[12px]" style={{ fontFamily: "'SF Pro Display Regular', Helvetica, sans-serif" }}>
