@@ -37,7 +37,9 @@ const Page = () => {
   const [id, setId] = useState<string | null>(null);
   const [bio,setBio]= useState<string>("")
   const [userName,setUserName]=useState<string>("")
+  const [email,setEmail]= useState<string>("")
   const [openEditPopup, setOpenEditPopup] = useState<boolean>(false);
+  
   console.log(typeof currentUser?.id, "useridddddddddddddddd");
   useEffect(() => {
     if (JSON.parse(window.localStorage.getItem("current") as string)) {
@@ -65,6 +67,7 @@ console.log(openEditPopup,"show me the reason ");
         setCoverPic(res.data[0].coverUrl);
         setBio(res.data[0].bio)
         setUserName(res.data[0].userName)
+        setEmail(res.data[0].email)
         console.log(res.data[0],'gggggggggggg')
       })
       .catch((err) => {
@@ -299,7 +302,7 @@ const handleCloseEditPopUp = ()=>{
       <button onClick={()=> setOpenEditPopup(true)} className='relative w-fit [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal text-white text-[16px] tracking-[0] leading-[normal] whitespace-nowrap'>
           Edit Profile
         </button>
-        <EditPopUp isOpen={openEditPopup} closeEditPopUp={handleCloseEditPopUp} currentUser={currentUser} />
+        <EditPopUp isOpen={openEditPopup} closeEditPopUp={handleCloseEditPopUp} currentUser={currentUser} email={email}/>
       <div className=" flex justify-evenly gap-5 flex-wrap">
         <div className="shadow  mt-4 mr-4 rounded-lg h-max w-[400px] bg-[#ffffff1a] p-2.5 ">
           <div className="flex justify-between">
@@ -432,7 +435,7 @@ const handleCloseEditPopUp = ()=>{
                   </svg>
                 </div>
               </div>
-              <div className="border border-gray-700 rounded-full mt-5 px-3 py-2.5 flex justify-between items-center">
+              <div className="mt-[15px] mr-[10px]" >
                 <div className="font-semibold cursor-pointer"></div>
                 <div className="flex space-x-0.5">
                   <div className="bg-transparent hover:bg-gray-700 p-1 rounded-full transition-colors cursor-pointer">
@@ -444,7 +447,7 @@ const handleCloseEditPopUp = ()=>{
                     />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-7 w-7 text-green-500"
+                      className="h-7 w-[55px] text-green-500 mr-[30px]"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                       onClick={() => {

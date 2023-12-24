@@ -6,11 +6,31 @@ interface Product {
   price: number;
   likes: number;
   category: string;
-  imageUrl: string;
+  imageUrl: string[];
+  description: string;
+  rating: number;
   new: boolean;
   brandId: string;
 }
 const prisma = new PrismaClient();
+
+export const getProductById = async (req: Request, res: Response) => {
+  const productId = req.params.id;
+
+  try {
+    const product = await prisma.product.findUnique({
+      where: {
+        id: productId,
+      },
+    });
+
+    res.json(product);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+};
+
 export const getNewProduct = async (req: Request, res: Response) => {
   try {
     const newProduct: Product[] = await prisma.product.findMany({
@@ -35,7 +55,7 @@ export const getAllProduct = async (req: Request, res: Response) => {
 };
 
 export const createProduct = async (req: Request, res: Response) => {
-  const { productName, price, category, imageUrl, likes, brandId }: Product =
+  const { productName, price, category, imageUrl,description,rating, likes, brandId }: Product =
     req.body;
   try {
     const prod: Product = await prisma.product.create({

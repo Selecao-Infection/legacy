@@ -5,7 +5,7 @@ import axios from 'axios';
 interface BioEditProps{
     editPopUp: boolean;
     closePopUp: () => void;
-    currentUser: { id: string; userName: string }
+    currentUser: { id: string; bio: string }
 }
 
 
@@ -14,7 +14,7 @@ const BioEdit : React.FC<BioEditProps> = ({ editPopUp, closePopUp ,currentUser})
     const [Bio, setBio] = useState<string>('');
 
     const handleLosePopUp = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (e.target.id === 'NameContainer') {
+        if (e.target.id === 'BioContainer') {
           closePopUp();
         }
       };
@@ -61,7 +61,7 @@ const BioEdit : React.FC<BioEditProps> = ({ editPopUp, closePopUp ,currentUser})
                   <div className="w-1/3 flex space-x-2 justify-center items-center hover:bg-[#ffffff1a] dark:hover:bg-dark-third text-xl sm:text-3xl py-2 rounded-lg cursor-point">
                       <span className="text-xs sm:text-sm font-semibold text-gray-100 dark:text-dark-txt" onClick={() => editBio()}>Confirm</span>
                   </div>
-                 
+
               </div>
           </div>
       </React.Fragment>
