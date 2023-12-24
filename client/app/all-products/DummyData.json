@@ -1,57 +1,47 @@
 [
     {
-      "id": "6d320a02-3117-4414-a9ce-957f0d9707c4",
       "productName": "Ring Diamond",
       "price": 2211,
-      "likes": 15,
       "category": "Ring",
       "imageUrl": "https://images.unsplash.com/photo-1607703829739-c05b7beddf60?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "gender" : "Women",
       "new": true,
-      "brandId": "f40a4935-bab6-4e01-91ef-8112e4f0c06e"
+      "brandId": "a54ac01b-1a9e-467d-8338-0c29a3eaf893"
     },
     {
-      "id": "996eaa4a-267b-461c-b4f5-74b6f894e821",
       "productName": "Chain Diamond",
       "price": 2211,
-      "likes": 15,
       "category": "Chain",
       "imageUrl": "https://images.unsplash.com/photo-1589128777073-263566ae5e4d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "gender" : "Women",
       "new": true,
-      "brandId": "f40a4935-bab6-4e01-91ef-8112e4f0c06e"
+      "brandId": "a54ac01b-1a9e-467d-8338-0c29a3eaf893"
     },
     {
-      "id": "ca403377-1400-4d82-b851-eb2df1f3706e",
       "productName": "Diamond Necklace",
       "price": 2211,
-      "likes": 15,
       "category": "Chain",
       "imageUrl": "https://images.unsplash.com/photo-1583937443351-f2f669fbe2cf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "gender" : "Women",
       "new": true,
-      "brandId": "f40a4935-bab6-4e01-91ef-8112e4f0c06e"
+      "brandId": "a54ac01b-1a9e-467d-8338-0c29a3eaf893"
     },
     {
-      "id": "f51cb578-e80a-48e7-b27b-f1ffb5a188dd",
       "productName": "Diamond Love",
       "price": 2211,
-      "likes": 15,
       "category": "Ring",
       "imageUrl": "https://images.unsplash.com/photo-1518370265276-f22b706aeac8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "gender" : "Women",
       "new": true,
-      "brandId": "f40a4935-bab6-4e01-91ef-8112e4f0c06e"
+      "brandId": "a54ac01b-1a9e-467d-8338-0c29a3eaf893"
     },
     {
-      "id": "fcc4d090-e666-4c33-8ce8-963e5b1d96ab",
       "productName": "Bracelet Diamond",
       "price": 1111,
-      "likes": 5,
       "category": "Bracelet",
       "imageUrl": "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "new": true,
       "gender" : "Women",
-      "brandId": "f40a4935-bab6-4e01-91ef-8112e4f0c06e"
+      "brandId": "a54ac01b-1a9e-467d-8338-0c29a3eaf893"
     }
   ]

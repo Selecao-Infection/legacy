@@ -96,17 +96,15 @@ const config: Config = {
         },
         
       },
+      fontFamily: {
+        poppins: "Poppins",
+        "sf-pro-display": "'SF Pro Display'",
+        roboto: "Roboto",
+      },
     },
   },
   plugins: [],
 }
 
-// module.exports = withMT({
-//   content: ["./pages/**/*.{js,ts,jsx,tsx}"],
-//   theme: {
-//     extend: {},
-//   },
-//   plugins: [],
-// });
 
 export default config

@@ -4,7 +4,15 @@ import { Request, Response } from "express";
 interface Product {
   productName: string;
   price: number;
-  likes: number;
+  likes  : number;
+  category: string;
+  gender:string;
+  imageUrl: string;
+  brandId: string;
+}
+interface CreateProduct {
+  productName: string;
+  price: number;
   category: string;
   gender:string;
   imageUrl: string;
@@ -35,16 +43,15 @@ export const getAllProduct = async (req: Request, res: Response) => {
 };
 
 export const createProduct = async (req: Request, res: Response) => {
-  const { productName, price, category, gender, imageUrl, likes,brandId } = req.body;
+  const { productName, price, category, gender, imageUrl,brandId } = req.body;
 
   try {
-    const prodBody : Product = { 
+    const prodBody : CreateProduct = { 
       productName, 
       price, 
       category,
       gender, 
       imageUrl, 
-      likes,
       brandId 
     }
 
