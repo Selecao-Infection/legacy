@@ -36,6 +36,7 @@ const Page = () => {
   const [cover, setCover] = useState<UploadedFile | null>(null);
   const [id, setId] = useState<string | null>(null);
   const [bio,setBio]= useState<string>("")
+  const [userName,setUserName]=useState<string>("")
   const [openEditPopup, setOpenEditPopup] = useState<boolean>(false);
   console.log(typeof currentUser?.id, "useridddddddddddddddd");
   useEffect(() => {
@@ -63,6 +64,7 @@ console.log(openEditPopup,"show me the reason ");
       .then((res) => {
         setCoverPic(res.data[0].coverUrl);
         setBio(res.data[0].bio)
+        setUserName(res.data[0].userName)
         console.log(res.data[0],'gggggggggggg')
       })
       .catch((err) => {
@@ -213,7 +215,6 @@ console.log(openEditPopup,"show me the reason ");
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log(downloadURL, "download");
-
           setProfilePic(downloadURL);
         });
       }
@@ -286,6 +287,10 @@ const handleCloseEditPopUp = ()=>{
           </div>
         </div>
       </div>
+      {/* userName */}
+      <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px]" > 
+              <p>{userName}</p>
+      </div>
       {/* bio */}
       <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px]">
        <p>{bio}</p>
@@ -294,7 +299,7 @@ const handleCloseEditPopUp = ()=>{
       <button onClick={()=> setOpenEditPopup(true)} className='relative w-fit [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal text-white text-[16px] tracking-[0] leading-[normal] whitespace-nowrap'>
           Edit Profile
         </button>
-        <EditPopUp isOpen={openEditPopup} closeEditPopUp={handleCloseEditPopUp}/>
+        <EditPopUp isOpen={openEditPopup} closeEditPopUp={handleCloseEditPopUp} currentUser={currentUser} />
       <div className=" flex justify-evenly gap-5 flex-wrap">
         <div className="shadow  mt-4 mr-4 rounded-lg h-max w-[400px] bg-[#ffffff1a] p-2.5 ">
           <div className="flex justify-between">
@@ -397,7 +402,7 @@ const handleCloseEditPopUp = ()=>{
               <div className="my-4">
                 <textarea
                   id="content"
-                  placeholder={`What's on your mind,${currentUser.userName} ?`}
+                  placeholder={`What's on your mind,${userName} ?`}
                   onChange={(e) => {
                     setContent(e.target.value);
                   }}

@@ -1,14 +1,17 @@
 "use client"
 import React,{useState} from 'react';
-
+import NameEdit from './NameEdit';
+import EmailEdit from './EmailEdit';
+import BioEdit from './BioEdit';
 interface EditPopUpProps {
   isOpen: boolean;
   closeEditPopUp: () => void;
+  currentUser : any
 }
 
 
 
-const EditPopUp: React.FC<EditPopUpProps> = ({ isOpen, closeEditPopUp }) => {
+const EditPopUp: React.FC<EditPopUpProps> = ({ isOpen, closeEditPopUp ,currentUser}) => {
   const [editPopUp , setEditPopUp] = useState<boolean>(false)
 const [popUp, setPopUp] = useState<string>("")
 
@@ -37,16 +40,16 @@ if (isOpen !== true) return null
             >
               Name
           </h2>
-          {/* {popUp === "Name" && <NameEdit editPopUp={editPopUp} closePopUp={HandleRemovePopUp} />} */}
+          {popUp === "Name" && <NameEdit editPopUp={editPopUp} closePopUp={HandleRemovePopUp} currentUser={currentUser} />}
           <hr />
           <h2
-             onClick={() => {setPopUp("Username")
+             onClick={() => {setPopUp("email")
               setEditPopUp(true)}}
             className='font-semibold py-3 text-center text-[#ebebeb] text-xl cursor-pointer hover:bg-[#ffffff1a]' style={{ fontFamily: "'SF Pro Display Regular', Helvetica, sans-serif" }}
             >
               Email
           </h2>
-          {/* {popUp === "Username" && <EmailEdit editPopUp={editPopUp} closePopUp={HandleRemovePopUp}/>} */}
+          {popUp === "email" && <EmailEdit editPopUp={editPopUp} closePopUp={HandleRemovePopUp} currentUser={currentUser}/>}
           <hr />
           <h2
             onClick={() => { setPopUp("Bio")
@@ -55,7 +58,7 @@ if (isOpen !== true) return null
             >
               Bio
           </h2>
-          {/* {popUp === "Bio" && <BioEdit editPopUp={editPopUp} closePopUp={HandleRemovePopUp}/>} */}
+        {popUp === "bio" && <BioEdit editPopUp={editPopUp} closePopUp={HandleRemovePopUp} currentUser={currentUser} /> }
         </div>
       </div>
     </div>
