@@ -30,7 +30,7 @@ body {
     ),
     rgb(var(--background-start-rgb));
 }
-
+/* 
 .custum-file-upload {
   height: 280px;
   width: 300px;
@@ -140,4 +140,4 @@ body {
   100% {
     transform: rotate(360deg);
   }
-}
+} */
