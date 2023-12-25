@@ -96,7 +96,7 @@ const Footer = () => {
             <div>
               Made by{" "}
               <span className="text-white-500">
-                ♥ Wael Bilel Amine & khalil
+                ♥ Wael Adem Aziz & Hyba
               </span>
               <div className="flex gap-6 mt-6">
 
