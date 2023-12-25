@@ -47,6 +47,8 @@ CREATE TABLE "Post" (
     "content" TEXT NOT NULL,
     "imageUrl" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
+    "Created_At" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "Updated_At" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
 );

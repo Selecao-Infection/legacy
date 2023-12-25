@@ -60,6 +60,8 @@ model Post {
   content  String
   imageUrl String
   userId   String
+  Created_At DateTime  @default(now())
+  Updated_At DateTime  @default(now())
   User     User   @relation(fields: [userId], references: [id])
 }
 
