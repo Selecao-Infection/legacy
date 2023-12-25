@@ -197,17 +197,3 @@ export const getThree=async(req: Request,res: Response )=>{
 
 
 
-// export const getOne =async(req: Request,res: Response )=>{
-
-//        const id = req.params.id
-//   try {
-//       const bands : Brand[] | Brandd[]   =await prisma.brand.findUnique({
-//         where: {
-//           id: id
-//         },
-//       }) 
-//       res.json(bands)
-//   } catch (error) {
-//       res.json(error)
-//   }
-// }
