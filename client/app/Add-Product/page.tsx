@@ -61,8 +61,8 @@ const AddProduct = () => {
                 body: JSON.stringify({
                     product_name: productName,
                     price: parseFloat(priceValue),
-                    collectionsId: viewCollections ? window.localStorage.getItem("collectionID")! : null,
-                    categoriesId: viewCategories ? window.localStorage.getItem("categoryID")! : null
+                    brandId: window.localStorage.getItem("collectionID")! ,
+                    
                 })
             }).then((res) => {
                 console.log(res)
@@ -252,7 +252,7 @@ const AddProduct = () => {
                                     type="file"
                                     onChange={(event : React.ChangeEvent<HTMLInputElement> ) => {
                                         //  setImgUpload(event.target.files[0])
-                                        //  console.log(typeof event.target.files[0],"yhuihu");
+                                         console.log( event.target.files[0],"yhuihu");
                                         
                                         
 
