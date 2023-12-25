@@ -30,6 +30,8 @@
     "react-router-dom": "^6.21.0",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
+    "uuid": "^9.0.1",
+    "uuidv4": "^6.2.13",
     "three": "^0.160.0"
   },
   "devDependencies": {
