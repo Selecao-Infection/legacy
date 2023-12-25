@@ -54,7 +54,8 @@ console.log(products)
   };
 
   return (
-    <>
+    <div>
+
     {showAlert && (
         <div className="bg-green-500 text-white p-2 fixed bottom-0 rigth-2  m-4 rounded-md">
           {
@@ -64,7 +65,7 @@ console.log(products)
         </div>
       )}{" "}
       <div className="flex flex-wrap justify-center gap-8 ">
-        {products.map((product) => (
+        { products.length > 0 && products.map((product) => (
           <div className="w-80 h-80 ">
             <div
               key={product.id}
@@ -112,7 +113,8 @@ console.log(products)
           </div>
         ))}
       </div>
-    </>
+      </div>
+
   );
 };
 

@@ -2,9 +2,9 @@
 
 import React, { useState, FunctionComponent } from "react";
 import Image from "next/image";
-import Filteer from "../../public/Filteer.png";
-import dropDawn from "../../public/Vector (1).png"
-import Line from "../../public/line-402@2x.png"
+import Filteer from "../../../public/Filteer.png";
+import dropDawn from "../../../public/Vector (1).png"
+import Line from "../../../public/line-402@2x.png"
 
 interface FilterBarProps {
     filtred: (category: string) => Promise<any>;
