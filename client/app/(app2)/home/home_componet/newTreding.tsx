@@ -20,6 +20,24 @@ const NewTrending = () => {
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
   useEffect(() => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     const apiUrl = "http://localhost:4000/api/get/product/new";
     axios
       .get(apiUrl)
