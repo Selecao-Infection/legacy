@@ -8,7 +8,7 @@ interface Brand {
   email: string;
   password: string;
   imageUrl: string;
-  isFollowed: boolean; // Add this line
+  isFollowed: boolean;
 }
 
 const BrandsCard = () => {
