@@ -95,8 +95,8 @@ const AllCollection: React.FC = () => {
       {showAlert && (
         <div className="bg-green-500 text-white p-2 fixed bottom-0 right-2 m-4 rounded-md">
           {selectedProduct?.like
-            ? `Added ${selectedProduct.productName} to favorites!`
-            : `Removed ${selectedProduct?.productName} from favorites!`}
+            ? `Removed ${selectedProduct.productName} to favorites!`
+            : `Added ${selectedProduct?.productName} from favorites!`}
         </div>
       )}
       <div className="flex flex-wrap justify-center gap-8 ">

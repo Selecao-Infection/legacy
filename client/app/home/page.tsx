@@ -3,7 +3,7 @@ import React from "react";
 import { SiNike, SiAdidas, SiPuma } from "react-icons/si";
 import { FaCopyright } from "react-icons/fa";
 import { FaHandHoldingDollar, FaArrowRightArrowLeft } from "react-icons/fa6";
-// import NewTreding from "./home_componet/newTreding";
+import NewTreding from "./home_componet/newTreding";
 import AllCollection from "./home_componet/all_collection";
 import BrandsCard from "./home_componet/incoming_Brands"
 import CreatorCard from "./home_componet/creator_card";
@@ -162,9 +162,9 @@ const Home :React.FC = () => {
       <div className=" my-8 gap-10  flex items-center justify-center text-white px-[8rem]">
         <div className=" w-1/2 flex items-center justify-end ">
           <img
-            src="https://th.bing.com/th/id/R.83b14810ff18e25a6b2fd8d46d35b553?rik=ywb4ozkYOS6Gfw&pid=ImgRaw&r=0"
+            src="https://5.imimg.com/data5/SELLER/Default/2022/11/QI/NX/SO/125968822/lenus-8mm-cuban-chain-in-gold-500x500.jpg"
             alt="What We Do"
-            className="w-70 h-60 object-fit flex-shrink-0 mr-4 rounded-lg"
+            className="w-80 h-80 object-fit flex-shrink-0 mr-4 rounded-lg"
           />
         </div>
         <div className=" flex text-left justify-center w-[50rem]">
@@ -220,7 +220,7 @@ const Home :React.FC = () => {
         </p>
       </div>
 
-      {/* <NewTreding/> */}
+      <NewTreding/>
 
       <div className="flex flex-col gap-4 p-4 mx-auto mt-[10rem] ">
         <h1 className="text-white text-6xl font-bold ">Upcoming Creators</h1>
