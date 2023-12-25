@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import CurrencyInput from 'react-currency-input-field';
-import { storage } from '../../firebase'
+import { storage } from '../../../firebase'
 import { ref } from 'firebase/storage'
 
 interface ImageUpload {
