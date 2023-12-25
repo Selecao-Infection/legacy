@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import "../globals.css";
+// import "../globals.css";
 
 const About: React.FC = () => {
   const [showMoreWhoWeAre, setShowMoreWhoWeAre] = useState<boolean>(false);

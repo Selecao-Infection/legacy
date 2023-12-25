@@ -8,6 +8,7 @@ interface Brand {
   email: string;
   password: string;
   imageUrl: string;
+  isFollowed: boolean;
 }
 
 const BrandsCard = () => {
@@ -19,12 +20,20 @@ const BrandsCard = () => {
     axios
       .get<Brand[]>(apiUrl)
       .then((response) => {
-        setBrands(response.data);
+        setBrands(response.data.map((brand) => ({ ...brand, isFollowed: false })));
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
+
+  const handleFollowToggle = (brandId: string) => {
+    setBrands((prevBrands) =>
+      prevBrands.map((brand) =>
+        brand.id === brandId ? { ...brand, isFollowed: !brand.isFollowed } : brand
+      )
+    );
+  };
 
   return (
     <div className="mt-10">
@@ -57,12 +66,21 @@ const BrandsCard = () => {
                     {brand.brandName}{" "}
                     <MdVerified className="text-blue-500" />
                   </span>
-                  <div className="text-sm text-gray-400">
-                  </div>
+                  <div className="text-sm text-gray-400"></div>
                   <div className="w-full py-2 flex space-x-2 items-center justify-center px-10">
-                    <button className="bg-violet-500 text-white font-semibold w-full p-2 rounded-xl">
-                      <span className="mr-2"></span>+ FOLLOW
-                      <span className="ml-2"></span>
+                    <button
+                      className={`bg-violet-500 text-white font-semibold w-full p-2 rounded-xl ${
+                        brand.isFollowed ? "bg-red-500" : ""
+                      }`}
+                      onClick={() => handleFollowToggle(brand.id)}
+                    >
+                      <span className="mr-2"></span>{" "}
+                      {brand.isFollowed ? (
+                        <span>- UNFOLLOW</span>
+                      ) : (
+                        <span>+ FOLLOW</span>
+                      )}
+                      <span className="ml-2"></span>{" "}
                     </button>
                   </div>
                 </div>

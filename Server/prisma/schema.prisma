@@ -31,11 +31,11 @@ model Brand {
   id        String      @id @default(uuid())
   brandName String
   email     String      @unique
-  password  String
-  imageUrl  String
-  coverUrl  String
+  password  String?
+  imageUrl  String?
   products  Product[]
   followers Followers[]
+  cover String?
 }
 
 model Product {
@@ -93,4 +93,5 @@ model Basket {
   Product   Product @relation(fields: [productId], references: [id])
   productId String
   User      User    @relation(fields: [userId], references: [id])
+  qty Int @default(0)
 }

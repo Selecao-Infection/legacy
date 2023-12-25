@@ -3,15 +3,25 @@ import { Request, Response } from "express";
 
 
 interface Product {
-    productName: string;
-    price: number;
-    likes: number;
-    category: string;
-    imageUrl: string;
-    new:  boolean;
-    brandId: string;
-    
-  }
+  productName: string;
+  price: number;
+  likes  : number;
+  category: string;
+  gender:string;
+  imageUrl: string[];
+  brandId: string;
+  description :string;
+  rating : number;   
+}
+interface CreateProduct {
+  productName: string;
+  price: number;
+  category: string;
+  gender:string;
+  imageUrl: string[];
+  brandId: string;
+  description :string;
+}
 
   const prisma = new PrismaClient();
 
