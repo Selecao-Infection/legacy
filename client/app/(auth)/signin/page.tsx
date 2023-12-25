@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Layout from '../../layout'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import Google from './google'
+import Google from '../google'
 import Facebook from './facebook'
 import Link from 'next/link'
 const SignIn = ()=> {
@@ -29,7 +29,9 @@ const submit = async ()=>{
 
 
     return (
-<Layout authPage={true}>    
+        <div>
+
+
         <div className=" flex flex-col-2 gap-64 items-center lg:m-32">
         <div className="flex flex-col lg:block hidden   ">
         
@@ -82,7 +84,8 @@ const submit = async ()=>{
            </div>
     
   </div>
-  </Layout>
+
+                    </div>
     )
 }
 export default SignIn

@@ -2,8 +2,8 @@
 
 import React ,{useState} from "react";
 import Image from "next/image";
-import likeWhite from "../../public/Vector (5).png"
-import LikeRed from "../../public/heard.png"
+import likeWhite from "../../../public/Vector (5).png"
+import LikeRed from "../../../public/heard.png"
 // import FakeProduct from "../../public/collection7.png"
 
 

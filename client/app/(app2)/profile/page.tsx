@@ -1,6 +1,6 @@
 "use client";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { storage } from "../../firebase";
+import { storage } from "../../../firebase";
 import React, { useState, ChangeEvent, useEffect } from "react";
 import { FaCamera } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
