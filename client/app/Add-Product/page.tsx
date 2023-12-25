@@ -28,7 +28,7 @@ const AddProduct = () => {
     const [categories, setCategories] = useState<string>("")
     const [viewCollections, setViewCollections] = useState<boolean>(false)
     const [viewCategories, setViewCategories] = useState<boolean>(false)
-    const [imgUpload, setImgUpload] = useState< ImageUpload | null >(null)
+    const [imgUpload, setImgUpload] = useState< any | ImageUpload |null >(null)
 
 
     const handleCurrencyInputChange = (value: string | undefined) => {
@@ -250,9 +250,9 @@ const AddProduct = () => {
                                 <input
                                     id="file"
                                     type="file"
-                                    onChange={(event) => {
-                                        // setImgUpload(event.target.files)
-                                         console.log(event.target.files,"yhuihu");
+                                    onChange={(event : React.ChangeEvent<HTMLInputElement> ) => {
+                                         setImgUpload(event.target.files[0])
+                                         console.log(typeof event.target.files[0],"yhuihu");
                                         
                                         
 
