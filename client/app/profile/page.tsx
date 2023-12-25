@@ -13,7 +13,7 @@ import Posts from "./Posts";
 import EditPopUp from "./EditPopUp";
 interface UploadedFile {
   name: string;
-  size: string;
+  size: number;
   type: string;
 }
 
@@ -39,6 +39,7 @@ const Page = () => {
   const [userName,setUserName]=useState<string>("")
   const [email,setEmail]= useState<string>("")
   const [openEditPopup, setOpenEditPopup] = useState<boolean>(false);
+  
   
 
   useEffect(() => {
@@ -168,13 +169,14 @@ console.log(openEditPopup,"show me the reason ");
     setModalIsOpen(false);
   };
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
+    const files = e.target.files[0]
+    ;
     if (imageSetter === "post") {
-      setImage(files[0]);
+      setImage(files);
     } else if (imageSetter === "pdp") {
-      setProfilePic(files[0]);
+      setProfilePic(files);
     } else if (imageSetter === "cover") {
-      setCover(files[0]);
+      setCover(files);
     }
   };
 
