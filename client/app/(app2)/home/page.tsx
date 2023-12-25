@@ -3,7 +3,7 @@ import React from "react";
 import { SiNike, SiAdidas, SiPuma } from "react-icons/si";
 import { FaCopyright } from "react-icons/fa";
 import { FaHandHoldingDollar, FaArrowRightArrowLeft } from "react-icons/fa6";
-// import NewTreding from "./home_componet/newTreding";
+import NewTreding from "./home_componet/newTreding";
 import AllCollection from "./home_componet/all_collection";
 import BrandsCard from "./home_componet/incoming_Brands"
 import CreatorCard from "./home_componet/creator_card";
