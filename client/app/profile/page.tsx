@@ -40,7 +40,7 @@ const Page = () => {
   const [email,setEmail]= useState<string>("")
   const [openEditPopup, setOpenEditPopup] = useState<boolean>(false);
   
-  console.log(typeof currentUser?.id, "useridddddddddddddddd");
+
   useEffect(() => {
     if (JSON.parse(window.localStorage.getItem("current") as string)) {
       setCurrentUser(
@@ -490,14 +490,7 @@ const handleCloseEditPopUp = ()=>{
               >
                 x
               </button>
-              <h2
-                className="text-2xl font-bold mb-5 text-center font-sans"
-                style={{
-                  fontFamily: "'SF Pro Display Regular', Helvetica, sans-serif",
-                }}
-              >
-                add the picture
-              </h2>
+       
               <input
                 type="file"
                 accept="image/png"
