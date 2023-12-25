@@ -34,7 +34,7 @@ export const getOne=async(req: Request,res: Response )=>{
     const {email} = req.body
     try {
         const users : Users[]=await prisma.user.findMany({where: {email:email}}) 
-        const Token = jwt.sign({email : users[0].email, userName: users[0].userName,status:'user',pdp:users[0].pdp},'secret')
+        const Token = jwt.sign({email : users[0].email, userName: users[0].userName,status:'user',pdp:users[0].pdp },'secret')
             res.json(Token)
         } catch (error) {
                  
@@ -45,27 +45,30 @@ export const getOne=async(req: Request,res: Response )=>{
 
 
 
+
+
+
 export const createUser = async (req: Request, res: Response) => {
     console.log(req.body);
     
-         const {userName,email,birthday,password,} = req.body
+         const {userName,email,birthday,password} :User= req.body
        
-          const hashPassword = await bcrypt.hash(password, 10)
+          const hashPassword : string = await bcrypt.hash(password, 10)
           
           
     
     try {
-        const userBody: User = {
-            userName  : userName,
-            email     : email,
-            birthday  : birthday,
-            password  : hashPassword,
+        // const userBody: User = {
+        //     userName  : userName,
+        //     email     : email,
+        //     birthday  : birthday,
+        //     password  : hashPassword,
         
-        }
+        // }
         const user = await prisma.user.create({
-            data:userBody
+            data:{...req.body ,password:hashPassword}
         });
-        const Token = jwt.sign({userName:user.userName,pdp:user.pdp,id:user.id , status:'user'},"secret")
+        const Token = jwt.sign({userName:user.userName,pdp:user.pdp,id:user.id , status:'user',coverUrl:user.coverUrl ,email:user.email,bio:user.email},"secret")
         res.json(Token);
     } catch (err) {
         res.status(500).send('Internal Server Error');
@@ -73,11 +76,12 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const updateUser = async(req : Request,res :Response)=>{
-    const {userName,bio,pdp,coverUrl,id} = req.body
+    const id = req.params.id
+    const {userName,bio,pdp,coverUrl} = req.body
   try {
     const user :Users = await prisma.user.update({
         where:{
-            id
+            id : id
         },
         data : {
             userName,
@@ -113,7 +117,7 @@ export const updateUser = async(req : Request,res :Response)=>{
                 const isMatch = await bcrypt.compare(password,user.password)
                 if(isMatch){
                     
-                    const token = jwt.sign({id:user.id,userName:user.userName,pdp:user.pdp,status:'user'},"secret")
+                    const token = jwt.sign({id:user.id,userName:user.userName,pdp:user.pdp,status:'user',coverUrl:user.coverUrl , email:user.email, bio:user.id},"secret")
                     
                     res.json(token)
                 }else{
@@ -145,14 +149,28 @@ export const updateUser = async(req : Request,res :Response)=>{
             
             }
             const user = await prisma.user.create({
-                data:userBody
+                data:req.body
             });
             console.log('here');
             
-            const Token = jwt.sign({userName:user.userName,pdp:user.pdp,id:user.id , status:'user'},"secret")
+            const Token = jwt.sign({ bio:user.bio , email:user.email, userName:user.userName,pdp:user.pdp,id:user.id , status:'user', coverUrl:user.coverUrl},"secret")
             res.json(Token);
         } catch (err) {
             
             res.status(500).send(err);
         }
     };
+
+
+    export const getOneId=async(req: Request,res: Response )=>{
+        const {id} = req.params
+        try {
+            const users : Users[]=await prisma.user.findMany({where: {id:id}}) 
+              res.json(users)
+
+            } catch (error) {
+                     
+                res.json(error)
+                
+        }
+    }
