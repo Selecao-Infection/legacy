@@ -18,7 +18,7 @@ interface FilterBarProps {
 
 
 const FilterBar: React.FC<FilterBarProps> = ({ filtred , filtredWithGender , filtredWithStatus , sortedProducts }) => {
-     console.log(filtredWithGender,"filter from fulterbar");
+    //  console.log(filtredWithGender,"filter from fulterbar");
 
     // const { products, setProducts } = useContext(MyContext)
     const [status, setStatus] = useState(false)

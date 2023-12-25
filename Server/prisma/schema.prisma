@@ -33,6 +33,7 @@ model Brand {
   email     String      @unique
   password  String
   imageUrl  String
+  coverUrl  String
   products  Product[]
   followers Followers[]
 }
