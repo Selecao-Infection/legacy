@@ -115,8 +115,6 @@ const FilterBar: React.FC<FilterBarProps> = ({ filtred , filtredWithGender , fil
                             src={Line}
                         />
                     </div>
-
-                    
                     <div className="self-stretch flex flex-col items-start justify-start gap-[10px]">
                         <button
                             className=" hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700 cursor-pointer [border:none] py-2.5 px-[25px] bg-[transparent] self-stretch flex flex-row items-center justify-between"
@@ -170,8 +168,6 @@ const FilterBar: React.FC<FilterBarProps> = ({ filtred , filtredWithGender , fil
                             src={Line}
                         />
                     </div>
-
-
                     <div className="self-stretch flex flex-col items-start justify-start gap-[10px]">
                         <button className=" hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:text-violet-700 cursor-pointer [border:none] py-2.5 px-[25px] bg-[transparent] self-stretch flex flex-row items-center justify-between"
                             onClick={() => setCategories(!categories)}

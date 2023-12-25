@@ -1,7 +1,6 @@
 'use client'
 
 import React from "react";
-import Link from "next/link";
 
 type ProductType={
   id:number;
@@ -40,8 +39,6 @@ console.log(products,"produact data from button");
                   All Items
                 </div>
               </button>
-              <Link 
-               href="/Add-Product">
               <button className="cursor-pointer p-2.5 bg-[transparent] flex-1 rounded-[8px] box-border h-[42px] flex flex-row items-center justify-center gap-[10px] border-[0.5px] border-solid border-white hover:[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] active:bg-gray-500">
                 <img
                   className="relative w-[11px] h-[11px] object-cover"
@@ -52,8 +49,6 @@ console.log(products,"produact data from button");
                   Add Product
                 </div>
               </button>
-              </Link>
-              
             </div>
           </div>
         </>
