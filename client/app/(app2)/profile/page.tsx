@@ -5,7 +5,6 @@ import React, { useState, ChangeEvent, useEffect } from "react";
 import { FaCamera } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import ProfilepicturePopUp from "./profilepicturePopUp";
-import Modal from "react-modal";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useQuery } from "react-query";
@@ -28,7 +27,6 @@ const Page = () => {
   const [content, setContent] = useState<string>("");
   const [image, setImage] = useState<UploadedFile | null>(null);
   const [imageUrl, setImageUrl] = useState<string>("");
-  const [modalIsOpen, setModalIsOpen] = useState<any>(false);
   const [ProfilePic, setProfilePic] = useState<UploadedFile | null>(null);
   const [imageSetter, setImageSetter] = useState<string>("");
   const [pdp, setPdp] = useState<string>("");
@@ -40,6 +38,7 @@ const Page = () => {
   const [email, setEmail] = useState<string>("");
   const [openEditPopup, setOpenEditPopup] = useState<boolean>(false);
   const [openChanger, setOpenChanger] = useState<Boolean>(false);
+  const [res,setRes]=useState<any>()
   useEffect(() => {
     if (JSON.parse(window.localStorage.getItem("current") as string)) {
       setCurrentUser(
@@ -66,12 +65,13 @@ const Page = () => {
         setBio(res.data[0].bio);
         setUserName(res.data[0].userName);
         setEmail(res.data[0].email);
-        console.log(res.data[0], "gggggggggggg");
+    
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  console.log(id,'dfghjk')
   const pdpGetter = () => {
     axios
       .get(`http://localhost:4000/api/user/profile/${id}`)
@@ -288,7 +288,7 @@ const Page = () => {
         <p>{userName}</p>
       </div>
       {/* bio */}
-      <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px]">
+      <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px] ">
         <p>{bio}</p>
       </div>
       {/* image Changer */}
@@ -353,7 +353,7 @@ const Page = () => {
               )}
                {imageSetter === "pdp" && (
                 <button
-                  onClick={() => updatePFP()}
+                  onClick={() => {updatePFP(), window.location.reload();}}
                   className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
                 >
                   Up-date Profile Picture
@@ -368,7 +368,7 @@ const Page = () => {
                     Upload Cover Picture
                   </button>
                   <button
-                    onClick={() => updateCover()}
+                    onClick={() =>{ updateCover() , window.location.reload()}}
                     className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
                   >
                     Up-date Cover Picture
@@ -380,12 +380,14 @@ const Page = () => {
       )}
 
       {/* update PopUp */}
+      <div className="grid justify-items-end mr-[75px] mb-[20px]">
       <button
         onClick={() => setOpenEditPopup(true)}
-        className='relative w-fit [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal text-white text-[16px] tracking-[0] leading-[normal] whitespace-nowrap'
+        className='  flex flex-wrap [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal rounded-[70px] py-4 bg-indigo-500  text-white text-[15px] tracking-[0] leading-[normal] whitespace-nowrap'
       >
         Edit Profile
       </button>
+      </div>
       <EditPopUp
         isOpen={openEditPopup}
         closeEditPopUp={handleCloseEditPopUp}
@@ -566,71 +568,11 @@ const Page = () => {
       </div>
       <div className=" flex justify-end lg:pr-[150px] mt-[90px]">
         <div className="shadow  mt-10 rounded-lg h-max ml-3 w-[800px] bg-[#ffffff1a] ">
-          {/* <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Modal 1"
-            className="bg-white"
-          >
-            <div className="p-4 flex flex-col space-y-4">
-              <button
-                onClick={closeModal}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-[50px]"
-              >
-                x
-              </button>
-       
-              <input
-                type="file"
-                accept="image/png"
-                className="self-center mb-5"
-                onChange={(e) => handleImageChange(e)}
-              />
-              {imageSetter === "post" && (
-                <button
-                  onClick={() => uploadPostImage(image)}
-                  className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
-                >
-                  Upload
-                </button>
-              )}
-              {imageSetter === "cover" && (
-                <>
-                  <button
-                    onClick={() => uploadCoverImage(cover)}
-                    className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
-                  >
-                    Upload Cover Picture
-                  </button>
-                  <button
-                    onClick={() => updateCover()}
-                    className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]"
-                  >
-                    Up-date Cover Picture
-                  </button>
-                </>
-              )}
-              {imageSetter === "pdp" && (
-                <button
-                  onClick={() => uploadProfileImage(ProfilePic)}
-                  className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
-                >
-                  Upload Profile Picture
-                </button>
-              )}
-              {imageSetter === "pdp" && (
-                <button
-                  onClick={() => updatePFP()}
-                  className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]"
-                >
-                  Up-date Profile Picture
-                </button>
-              )}
-            </div>
-          </Modal> */}
+          
 
           {/* POST CONTENT */}
-          {data.map(
+          {data.length>0 && 
+          data?.reverse().map(
             (post: {
               id: React.Key | null | undefined;
               content:
