@@ -13,6 +13,7 @@ type ProductType={
   price       :number,
   likes       :number,
   category   : string,
+  gender: string,
   imageUrl   : string,
   new   :      boolean ,
   brandId    : string,
@@ -35,14 +36,14 @@ const CartProduct = ({product}:{product:ProductType}) => {
                         className="absolute top-[0px] left-[5.9px] rounded-5xs-33  w-[247px] h-[277.5px] object-cover"
                         alt=""
                         // src={FakeProduct}
-                        src={product.imageUrl}
+                        src={product.imageUrl[0]}
                     />
                     <div className="absolute top-[291.5px] left-[0px] w-[258px] flex flex-col items-start justify-start gap-[13px]">
                         <div className="self-stretch flex flex-row items-start justify-between py-0 pr-1 pl-0">
                             <div className="relative font-medium inline-block w-[197px] shrink-0">
                             {product.category}  
                             </div>
-                            <div className="relative text-2xs font-medium"> Quatite {/*  */} </div>
+                            <div className="relative text-2xs font-medium"> {product.gender} </div>
                         </div>
                         <div className="self-stretch flex flex-row items-start justify-between py-0 pr-[3px] pl-0 text-white">
                             <b className="relative inline-block w-[174px] shrink-0">

@@ -200,6 +200,8 @@ console.log(openEditPopup,"show me the reason ");
         });
       }
     );
+    const uu = console.log(uploadTask.snapshot);
+    
   };
   const uploadProfileImage = (file: File) => {
     const storageRef = ref(storage, `Profile/${file.name}`);
