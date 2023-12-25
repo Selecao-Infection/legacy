@@ -2,8 +2,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Header from './Nav/Fot/navbar'
-import Footer from './Nav/Fot/footer'
+
 const inter = Inter({ subsets: ['latin'] })
 // export const metadata: Metadata = {
 //   title: 'Create Next App',
@@ -13,19 +12,17 @@ import Providers from './provider'
 
 
 export default function RootLayout({
-  children, authPage = false,
+  children,
 }: {
   children: React.ReactNode
-  authPage?: boolean
+
 }) {
   return (
     <html lang="en">
 <Providers>
 
       <body className={inter.className}>
-       { !authPage  && <Header/>}
         {children}
-        {!authPage  && <Footer/>}
         
         </body>
 </Providers>
