@@ -91,7 +91,8 @@ const AllCollection: React.FC = () => {
   };
 
   return (
-    <>
+    <div>
+      
       {showAlert && (
         <div className="bg-green-500 text-white p-2 fixed bottom-0 right-2 m-4 rounded-md">
           {selectedProduct?.like
@@ -100,7 +101,7 @@ const AllCollection: React.FC = () => {
         </div>
       )}
       <div className="flex flex-wrap justify-center gap-8 ">
-        {products.map((product) => (
+        { products.length > 0 && products.map((product) => (
           <div key={product.id} className="w-80 h-80 relative">
             <div>
               <div
@@ -210,7 +211,8 @@ const AllCollection: React.FC = () => {
           </div>
         ))}
       </div>
-    </>
+      </div>
+
   );
 };
 

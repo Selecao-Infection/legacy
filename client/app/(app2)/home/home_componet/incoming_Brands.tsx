@@ -29,7 +29,7 @@ const BrandsCard = () => {
   return (
     <div className="mt-10">
       <div className="flex space-x-2 w-full rounded-lg overflow-hidden mx-auto justify-between px-40 gap-[150px]">
-        {brands.map((brand) => (
+        {brands.length > 0 && brands.map((brand) => (
           <div
             key={brand.id}
             className="flex-1 card min-w-sm rounded-xl bg-white bg-opacity-10 transition-shadow shadow-xl hover:shadow-xl min-w-max"

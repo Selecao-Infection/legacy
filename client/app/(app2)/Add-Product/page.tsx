@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import CurrencyInput from 'react-currency-input-field';
-import { storage } from '../../firebase'
+import { storage } from '../../../firebase'
 import { ref } from 'firebase/storage'
 
 interface ImageUpload {
@@ -252,7 +252,7 @@ const AddProduct = () => {
                                     type="file"
                                     onChange={(event : React.ChangeEvent<HTMLInputElement> ) => {
                                         //  setImgUpload(event.target.files[0])
-                                         console.log( event.target.files[0],"yhuihu");
+                                        //  console.log( event.target.files[0],"yhuihu");
                                         
                                         
 

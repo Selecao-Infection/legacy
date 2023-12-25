@@ -1,13 +1,15 @@
 import { FcGoogle } from "react-icons/fc";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from '../../../firebase';
+import { auth } from '../../firebase';
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useQuery } from 'react-query';
-
+import { useContext } from "react";
 const Google = () => {
+
   const router = useRouter();
   const signInWithGoogle = async () => {
+    
     try {
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, provider);
@@ -19,15 +21,15 @@ const Google = () => {
       };
       const res = await axios.post('http://localhost:4000/api/user/google', user);
       await window.localStorage.setItem('current', JSON.stringify(res.data));
-        
-      await router.push('/about');
+
+      await router.push('/home');
     } catch (error:any) {
       const errorCode = error.response?.data?.code;
 
       if (errorCode === "P2002") {
         axios.post("http://localhost:4000/api/user/one", { email: error.email }).then(async (res) => {
           await window.localStorage.setItem('current', JSON.stringify(res.data));
-          await router.push('/about');
+          await router.push('/home');
         });
       }
     }
