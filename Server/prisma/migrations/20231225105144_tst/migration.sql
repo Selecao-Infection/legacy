@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Brand" ALTER COLUMN "imageUrl" DROP NOT NULL,
+ALTER COLUMN "password" DROP NOT NULL,
+ALTER COLUMN "cover" DROP NOT NULL;

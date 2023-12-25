@@ -1,7 +1,7 @@
 "use client";
 import { RxAvatar } from "react-icons/rx";
 import { IoLogOutSharp } from "react-icons/io5";
-
+import Basket from "../../basket/basket";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
@@ -9,10 +9,10 @@ import { FaCartShopping } from "react-icons/fa6";
 // import { RiLogoutBoxRLine } from "react-icons/ri";
 // import Logo  from '../../../assets/Logo.png'
 import { jwtDecode } from "jwt-decode";
-// import { link } from "fs";
-// import "../globals.css"
+
 const Header = () => {
   const [current, setCurrent] = useState<any>();
+  const [basket,setBasket] = useState<boolean>(false)
   useEffect(() => {
     if (JSON.parse(window.localStorage.getItem("current") as string)) {
       setCurrent(
@@ -21,7 +21,7 @@ const Header = () => {
     }
   }, []);
 
-  console.log(current);
+  
 
   return (
     <header className="bg-transparent">
@@ -70,32 +70,37 @@ const Header = () => {
           >
             FAQ
           </Link>
-          <Link href="/basket">
-            <FaCartShopping className="text-white" />
-          </Link>
+           { current && current.status !== 'brand' &&  <FaCartShopping
+            onClick={()=>setBasket(!basket)}
+            className="text-white hover:cursor-pointer" />}
+       
           <li>
             <div className="flex gap-4 items-center">
              {current ? <Link href="/home" className="hidden sm:inline">
                 <div className="flex flex-wrap gap-4">
+                  <Link  href={'/profile'}>
                   <img
                     className="rounded-full h-7 w-7 object-cover"
                     src={current.pdp}
                     alt="profile"
-                  />
+                    />
+                    </Link>
                   <div
                     className="flex flex-col"
-                    onClick={() => window.localStorage.clear()}
+                    onClick={() => {window.localStorage.clear() 
+                    setCurrent(null)
+                    }}
                   >
                     <IoLogOutSharp className="text-[30px]" />
-                    <button className="text-[10px]">logout</button>
+                    <button className="text-[14px] text-white relative right-[46px] ">logout</button>
                   </div>
                 </div>
               </Link>
               :
-              <Link href="/auth/signin">
+              <Link href="/signin">
                 <div className="flex flex-col">
-                  <RxAvatar className="text-[30px]" />
-                  <button className="text-[10px]">Login in</button>
+                  <RxAvatar className="text-[30px] text-white" />
+                  <button className="text-[10px] text-white">Login in</button>
                 </div>
               </Link>}
             </div>
@@ -105,6 +110,7 @@ const Header = () => {
           </li>
         </ul>
       </div>
+     { basket && <Basket/>}
     </header>
   );
 };
