@@ -251,8 +251,8 @@ const AddProduct = () => {
                                     id="file"
                                     type="file"
                                     onChange={(event : React.ChangeEvent<HTMLInputElement> ) => {
-                                         setImgUpload(event.target.files[0])
-                                         console.log(typeof event.target.files[0],"yhuihu");
+                                        //  setImgUpload(event.target.files[0])
+                                        //  console.log(typeof event.target.files[0],"yhuihu");
                                         
                                         
 

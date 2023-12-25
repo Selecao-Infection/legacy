@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700;800&display=swap");
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Uncomment the next three lines if you want to import Google Fonts */
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700;800&display=swap"); */
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -27,27 +27,24 @@ body {
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
-    )
+    ),
     rgb(var(--background-start-rgb));
 }
-
-
 
 .custum-file-upload {
   height: 280px;
   width: 300px;
   display: flex;
   flex-direction: column;
-  align-items: space-between;
-  gap: 20px;
-  cursor: pointer;
   align-items: center;
   justify-content: center;
+  gap: 20px;
+  cursor: pointer;
   border: 2px dashed #e8e8e8;
   background-color: #212121;
   padding: 1.5rem;
   border-radius: 10px;
-  box-shadow: 0px 48px 35px -48px rgba(124 58 237);
+  box-shadow: 0px 48px 35px -48px rgba(124, 58, 237);
 }
 
 .custum-file-upload .icon {
@@ -76,26 +73,30 @@ body {
   display: none;
 }
 
-
-
-
 .botao {
   width: 125px;
   height: 45px;
   border-radius: 20px;
   border: none;
-  box-shadow: 1px 1px rgba(124 58 237);
+  box-shadow: 1px 1px rgba(124, 58, 237);
   padding: 5px 10px;
-  background: rgb(124 58 237);
-  background: linear-gradient(160deg, rgba(46 16 101) 1%, rgba(76 29 149) 5%, rgba(124 58 237) 11%, rgba(139 92 246) 57%, rgba(167 139 250) 71%);
+  background: rgb(124, 58, 237);
+  background: linear-gradient(
+    160deg,
+    rgba(46, 16, 101) 1%,
+    rgba(76, 29, 149) 5%,
+    rgba(124, 58, 237) 11%,
+    rgba(139, 92, 246) 57%,
+    rgba(167, 139, 250) 71%
+  );
   color: #fff;
   font-family: Roboto, sans-serif;
   font-weight: 505;
   font-size: 16px;
   line-height: 1;
   cursor: pointer;
-  filter: drop-shadow(0 0 10px rgba(124 58 237));
-  transition: .5s linear;
+  filter: drop-shadow(0 0 10px rgba(124, 58, 237));
+  transition: 0.5s linear;
 }
 
 .botao .mysvg {
@@ -106,7 +107,7 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  transition: .5s linear;
+  transition: 0.5s linear;
 }
 
 .botao:hover .texto {
@@ -140,30 +141,3 @@ body {
     transform: rotate(360deg);
   }
 }
-
-
-
-/* .light {
-  --bg-color: #fff;
-  --text-color: #333;
-  --btn-bg-color: #000;
-}
-
-.dark {
-  --bg-color: #000000;
-  --text-color: #d2d6dc;
-  --btn-bg-color: #fff;
-}
-
-.bg-dynamic {
-  background-color: var(--bg-color);
-}
-
-.text-dynamic {
-  color: var(--text-color);
-}
-
-.btn-dynamic {
-  background-color: var(--btn-bg-color);
-  color: var(--text-color);
-} */

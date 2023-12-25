@@ -13,7 +13,6 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
-<<<<<<< HEAD
       colors: {
         gray: {
           "100": "rgba(255, 255, 255, 0.77)",
@@ -100,15 +99,10 @@ const config: Config = {
         "sf-pro-display": "'SF Pro Display'",
         roboto: "Roboto",
       },
-=======
->>>>>>> 58c087f71e6149c3ac13553249d229ce8d970590
     },
   },
   plugins: [],
 }
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 58c087f71e6149c3ac13553249d229ce8d970590
 export default config

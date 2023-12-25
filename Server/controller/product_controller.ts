@@ -7,18 +7,19 @@ interface Product {
   likes  : number;
   category: string;
   gender:string;
-  imageUrl: string;
+  imageUrl: string[];
   brandId: string;
+  description :string;
+  rating : number;   
 }
 interface CreateProduct {
   productName: string;
   price: number;
   category: string;
+  gender:string;
   imageUrl: string[];
-  description: string;
-  rating: number;
-  new: boolean;
   brandId: string;
+  description :string;
 }
 const prisma = new PrismaClient();
 
@@ -63,8 +64,7 @@ export const getAllProduct = async (req: Request, res: Response) => {
 };
 
 export const createProduct = async (req: Request, res: Response) => {
-<<<<<<< HEAD
-  const { productName, price, category, gender, imageUrl,brandId } = req.body;
+  const { productName, price, category, gender, imageUrl,brandId,description } = req.body;
 
   try {
     const prodBody : CreateProduct = { 
@@ -73,18 +73,13 @@ export const createProduct = async (req: Request, res: Response) => {
       category,
       gender, 
       imageUrl, 
-      brandId 
+      brandId ,
+      
+      description,
     }
 
     const prod =   await prisma.product.create({
       data: prodBody
-=======
-  const { productName, price, category, imageUrl,description,rating, likes, brandId }: Product =
-    req.body;
-  try {
-    const prod: Product = await prisma.product.create({
-      data: req.body,
->>>>>>> 58c087f71e6149c3ac13553249d229ce8d970590
     });
     res.json(prod);
   } catch (err) {
