@@ -62,7 +62,7 @@ console.log(products)
             ? `Added ${selectedProduct.productName} to favorites!`
             : `Removed ${selectedProduct?.productName} from favorites!`}
         </div>
-      )}{" "}
+      )}
       <div className="flex flex-wrap justify-center gap-8 ">
         {products.map((product) => (
           <div className="w-80 h-80 ">
