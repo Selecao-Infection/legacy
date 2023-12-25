@@ -17,8 +17,9 @@ CREATE TABLE "Brand" (
     "id" TEXT NOT NULL,
     "brandName" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
-    "imageUrl" TEXT NOT NULL,
+    "password" TEXT,
+    "imageUrl" TEXT,
+    "cover" TEXT,
 
     CONSTRAINT "Brand_pkey" PRIMARY KEY ("id")
 );
@@ -82,6 +83,7 @@ CREATE TABLE "Basket" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "productId" TEXT NOT NULL,
+    "qty" INTEGER NOT NULL DEFAULT 0,
 
     CONSTRAINT "Basket_pkey" PRIMARY KEY ("id")
 );
