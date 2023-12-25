@@ -57,7 +57,7 @@ const AllCollection: React.FC = () => {
 
     setTimeout(() => {
       setShowAlert(false);
-    }, 2000);
+    }, 3000);
 
     console.log(`Buy Now clicked for product ID: ${id}`);
   };
