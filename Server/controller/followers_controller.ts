@@ -16,7 +16,6 @@ export const getFollowers = async (req: Request, res: Response) => {
     const follower: Followers[] = await prisma.followers.findMany({
       include : {
         Brand :true,
-       
       }
     });
     res.json(follower);

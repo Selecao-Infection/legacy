@@ -57,7 +57,8 @@ console.log(products)
     <>
     {showAlert && (
         <div className="bg-green-500 text-white p-2 fixed bottom-0 rigth-2  m-4 rounded-md">
-          {selectedProduct?.like
+          {
+          selectedProduct?.like
             ? `Added ${selectedProduct.productName} to favorites!`
             : `Removed ${selectedProduct?.productName} from favorites!`}
         </div>
