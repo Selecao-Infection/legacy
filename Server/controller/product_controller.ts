@@ -4,13 +4,22 @@ import { Request, Response } from "express";
 interface Product {
   productName: string;
   price: number;
-  likes: number;
+  likes  : number;
   category: string;
+  gender:string;
   imageUrl: string[];
-  description: string;
-  rating: number;
-  new: boolean;
   brandId: string;
+  description :string;
+  rating : number;   
+}
+interface CreateProduct {
+  productName: string;
+  price: number;
+  category: string;
+  gender:string;
+  imageUrl: string[];
+  brandId: string;
+  description :string;
 }
 const prisma = new PrismaClient();
 
@@ -55,11 +64,22 @@ export const getAllProduct = async (req: Request, res: Response) => {
 };
 
 export const createProduct = async (req: Request, res: Response) => {
-  const { productName, price, category, imageUrl,description,rating, likes, brandId }: Product =
-    req.body;
+  const { productName, price, category, gender, imageUrl,brandId,description } = req.body;
+
   try {
-    const prod: Product = await prisma.product.create({
-      data: req.body,
+    const prodBody : CreateProduct = { 
+      productName, 
+      price, 
+      category,
+      gender, 
+      imageUrl, 
+      brandId ,
+      
+      description,
+    }
+
+    const prod =   await prisma.product.create({
+      data: prodBody
     });
     res.json(prod);
   } catch (err) {
