@@ -65,6 +65,11 @@ const List = (props: any) => {
         }
     }
 
+    const deleteOne = (id:any)=>{
+        axios.delete(`http://localhost:4000/api/delete/basket/${id}`).then(res=>{
+            setUpdate(!update)
+        })
+    }
     
     return (
         <div className="flex flex-col gap-10">
@@ -77,7 +82,13 @@ const List = (props: any) => {
                         <img src="https://images.squarespace-cdn.com/content/v1/5cedc00da64f4a000176dfe6/1559593047658-T5CWFEDS1H3PS0BPSFNN/IMG_1892.JPG?format=1000w"
                             className="w-[150px] h-[150px] rounded" />
                         <div className="flex flex-col gap-6 items-center">
+                            <div className="flex flex-wrap gap-10">
                             <h1>{e.Product.productName}</h1>
+                                  <button className=""
+                                  onClick={()=>deleteOne(e.id)}
+                                  >delete</button>
+                                </div>
+                            
                             <h4 className="text-gray-700 text-sm">{e.Product.price}</h4>
                             <div className="flex flex-wrap gap-20">
                                 <div className="flex flex-wrap gap-3">
@@ -95,6 +106,7 @@ const List = (props: any) => {
                                 </div>
 
                             </div>
+                            
                         </div>
                     </div>
                 )
