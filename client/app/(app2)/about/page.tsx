@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-// import "../globals.css";
 
 const About: React.FC = () => {
   const [showMoreWhoWeAre, setShowMoreWhoWeAre] = useState<boolean>(false);
@@ -53,11 +52,11 @@ const About: React.FC = () => {
         </button>
       </section>
 
-      <section className="my-8 flex text-white">
+      <section className="p-4 my-8 flex text-white">
         <div className="flex justify-center items-center">
-          <div className="w-1/2 mr-4">
+          <div className="w-full lg:w-1/2 mr-4">
             <p className="text-violet-500 underline">since 2023</p>
-            <h1 className="text-3xl font-bold  text-white mb-4">What We Do</h1>
+            <h1 className="text-3xl font-bold text-white mb-4">What We Do</h1>
             <p className="mb-4 text-gray-400">
               Discover the perfect pair for every occasion at SELECAO. We curate
               a diverse range of footwear, from timeless classics to the latest
@@ -79,8 +78,8 @@ const About: React.FC = () => {
             </button>
           </div>
         </div>
-        <div className="w-1/2">
-          <div className=" w-[30rem] relative">
+        <div className="w-full lg:w-1/2 hidden lg:block">
+          <div className="w-[30rem] relative">
             <img
               className="h-80 w-96 left-[50px] top-[50px] absolute rounded-lg shadow-lg"
               src="https://media.istockphoto.com/id/1607218915/photo/round-brilliant-diamond-in-spotlight-with-colorful-refraction-rays.jpg?s=1024x1024&w=is&k=20&c=TLNanE3qWFuKpaDG5-qioTGiuJduR-5C41iSJ4ZeFag="
@@ -100,9 +99,10 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      <section className=" mx-auto mt-20 flex max-w-[90rem] items-center text-white">
-        <div className="w-1/2">
-          <div className="h-80 w-[30rem] relative">
+      <section className="p-4 mx-auto mt-20 flex flex-col lg:flex-row items-center text-white max-w-[90rem]">
+        <div className="lg:w-1/2">
+          <div className="h-80 w-[30rem] relative lg:hidden"></div>
+          <div className="h-80 w-[30rem] relative hidden lg:block">
             <img
               className="h-80 w-96 left-[50px] top-[50px] absolute rounded-lg shadow-lg"
               src="https://www.soccerbible.com/media/120836/copa-sense-sb-6.jpg"
