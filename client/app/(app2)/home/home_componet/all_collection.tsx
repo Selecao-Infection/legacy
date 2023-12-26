@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Product {
   id: number;
@@ -41,13 +40,9 @@ const AllCollection: React.FC = () => {
   }, []);
 
   const handleLike = (id: number) => {
-    const updatedProducts = products.map((product) => {
-      if (product.id === id) {
-        const updatedProduct = { ...product, like: !product.like };
-        return updatedProduct;
-      }
-      return product;
-    });
+    const updatedProducts = products.map((product) =>
+      product.id === id ? { ...product, like: !product.like } : product
+    );
 
     const updatedSelectedProduct = updatedProducts.find(
       (product) => product.id === id
@@ -59,8 +54,6 @@ const AllCollection: React.FC = () => {
     setTimeout(() => {
       setShowAlert(false);
     }, 3000);
-
-    console.log(`Like clicked for product ID: ${id}`);
   };
 
   const handleNextSlide = () => {
@@ -97,63 +90,65 @@ const AllCollection: React.FC = () => {
       {showAlert && (
         <div className="bg-green-500 text-white p-2 fixed bottom-0 right-2 m-4 rounded-md">
           {selectedProduct?.like
-            ? `Added ${selectedProduct.productName} to favorites!`
-            : `Removed ${selectedProduct?.productName} from favorites!`}
+            ? `Removed ${selectedProduct.productName} from favorites!`
+            : `Added ${selectedProduct?.productName} to favorites!`}
         </div>
       )}
-      <div className="flex flex-wrap justify-center gap-8 ">
+      <div className="flex flex-wrap justify-center gap-20">
         {products.length > 0 &&
           products.map((product) => (
             <div key={product.id} className="w-80 h-80 relative">
-              <div>
-                <div
-                  className="mt-12 p-4 hover:scale-105 transition-transform bg-opacity-10 bg-white rounded-lg shadow w-80 h-[350px]"
-                  onClick={() => handleProductClick(product)}
-                >
-                  <img
-                    src={product.imageUrl[getActiveSlide(product.id)]}
-                    className="w-full h-40 object-cover mb-4"
-                    alt={`${product.productName}-${getActiveSlide(product.id)}`}
-                  />
-                  <div className="text-white">
-                    <h2 className="text-xl font-bold mb-2">
-                      {product.productName}
-                      <h3 className="flex items-stretch">{product.category}</h3>
-                    </h2>
-                    <div className="w-full flex flex-row justify-between">
-                      <div className="text-white flex items-stretch">
-                        price: ${product.price}
-                      </div>
-                      <div className="flex">
-                        <button
-                          className="text-white underline rounded-full w-[90px] p-2"
-                          onClick={() => router.push(`/product/${product.id}`)}
-                        >
-                          Details
-                        </button>
-                      </div>
+              <div
+                className="mt-12 p-4 hover:scale-105 transition-transform bg-opacity-10 bg-white rounded-lg shadow w-80 h-[350px]"
+                onClick={() => handleProductClick(product)}
+              >
+                <img
+                  src={product.imageUrl[getActiveSlide(product.id)]}
+                  className="w-full h-40 object-cover mb-4"
+                  alt={`${product.productName}-${getActiveSlide(product.id)}`}
+                />
+                <div className="text-white">
+                  <h2 className="text-xl font-bold mb-2">
+                    {product.productName}
+                    <h3 className="flex items-stretch">{product.category}</h3>
+                  </h2>
+                  <div className="w-full flex flex-row justify-between">
+                    <div className="text-white flex items-stretch">
+                      price: ${product.price}
                     </div>
-                    <div className="flex items-center mt-2">
-                      <div className="container mr-2 flex justify-between items-center">
-                        <input type="checkbox" className="hidden" />
-                        <svg
-                          id="Layer_1"
-                          version="1.0"
-                          viewBox="0 0 24 24"
-                          xmlSpace="preserve"
-                          xmlns="http://www.w3.org/2000/svg"
-                          xmlnsXlink="http://www.w3.org/1999/xlink"
-                          className={`w-6 h-6 transition-transform fill-current text-gray-600 hover:scale-110 ${
-                            product.like ? "text-red-500" : ""
-                          }`}
-                          onClick={() => handleLike(product.id)}
-                        >
-                          <path d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z"></path>
-                        </svg>
-                        <button className="text-white bg-violet-600 rounded-full w-[190px] p-2">
-                          Buy Now
-                        </button>
-                      </div>
+                    <div className="flex">
+                      <button
+                        className="text-white underline rounded-full w-[90px] p-2"
+                        onClick={() => router.push(`/product/${product.id}`)}
+                      >
+                        Details
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <div className="container mr-2 flex justify-between items-center">
+                      <svg
+                        id="Layer_1"
+                        version="1.0"
+                        viewBox="0 0 24 24"
+                        xmlSpace="preserve"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlnsXlink="http://www.w3.org/1999/xlink"
+                        className={`w-6 h-6 transition-transform text-gray animate-pulse  hover:scale-110 ${
+                          product.like ? "text-red" : ""
+                        }`}
+                        onClick={() => handleLike(product.id)}
+                      >
+                        <path
+                          fill={product.like ? "currentColor" : "none"}
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z"
+                        />
+                      </svg>
+                      <button className="text-white bg-violet-600 rounded-full w-[190px] p-2">
+                        Buy Now
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -161,7 +156,6 @@ const AllCollection: React.FC = () => {
               {selectedProduct && (
                 <div
                   className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                  data-carousel-prev
                   onClick={handlePrevSlide}
                 >
                   <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
@@ -174,9 +168,9 @@ const AllCollection: React.FC = () => {
                     >
                       <path
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="M5 1 1 5l4 4"
                       />
                     </svg>
@@ -187,7 +181,6 @@ const AllCollection: React.FC = () => {
               {selectedProduct && (
                 <div
                   className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                  data-carousel-next
                   onClick={handleNextSlide}
                 >
                   <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
@@ -200,9 +193,9 @@ const AllCollection: React.FC = () => {
                     >
                       <path
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="m1 9 4-4-4-4"
                       />
                     </svg>

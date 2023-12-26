@@ -5,7 +5,6 @@ import React, { useState, ChangeEvent, useEffect } from "react";
 import { FaCamera } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import ProfilepicturePopUp from "./profilepicturePopUp";
-import Modal from "react-modal";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useQuery } from "react-query";
@@ -13,7 +12,7 @@ import Posts from "./Posts";
 import EditPopUp from "./EditPopUp";
 interface UploadedFile {
   name: string;
-  size: string;
+  size: number;
   type: string;
 }
 
@@ -28,19 +27,18 @@ const Page = () => {
   const [content, setContent] = useState<string>("");
   const [image, setImage] = useState<UploadedFile | null>(null);
   const [imageUrl, setImageUrl] = useState<string>("");
-  const [modalIsOpen, setModalIsOpen] = useState<any>(false);
   const [ProfilePic, setProfilePic] = useState<UploadedFile | null>(null);
   const [imageSetter, setImageSetter] = useState<string>("");
   const [pdp, setPdp] = useState<string>("");
   const [coverPic, setCoverPic] = useState<string>("");
   const [cover, setCover] = useState<UploadedFile | null>(null);
   const [id, setId] = useState<string | null>(null);
-  const [bio,setBio]= useState<string>("")
-  const [userName,setUserName]=useState<string>("")
-  const [email,setEmail]= useState<string>("")
+  const [bio, setBio] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [openEditPopup, setOpenEditPopup] = useState<boolean>(false);
-  
-
+  const [openChanger, setOpenChanger] = useState<Boolean>(false);
+  const [res,setRes]=useState<any>()
   useEffect(() => {
     if (JSON.parse(window.localStorage.getItem("current") as string)) {
       setCurrentUser(
@@ -52,13 +50,12 @@ const Page = () => {
   useEffect(() => {
     handleId();
   }, [currentUser]);
-  
+
   const handleId = () => {
     const decodedId = currentUser?.id;
     setId(decodedId);
   };
-console.log(openEditPopup,"show me the reason ");
-
+  console.log(openEditPopup, "show me the reason ");
 
   const Covergetter = () => {
     axios
@@ -67,20 +64,19 @@ console.log(openEditPopup,"show me the reason ");
 
         
         setCoverPic(res.data[0].coverUrl);
-        setBio(res.data[0].bio)
-        setUserName(res.data[0].userName)
-        setEmail(res.data[0].email)
-        console.log(res.data[0],'gggggggggggg')
+        setBio(res.data[0].bio);
+        setUserName(res.data[0].userName);
+        setEmail(res.data[0].email);
+    
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  console.log(id,'dfghjk')
   const pdpGetter = () => {
     axios
-      .get(
-        `http://localhost:4000/api/user/profile/${id}`
-      )
+      .get(`http://localhost:4000/api/user/profile/${id}`)
       .then((res) => {
         setPdp(res.data[0].pdp);
       })
@@ -93,7 +89,7 @@ console.log(openEditPopup,"show me the reason ");
       pdpGetter();
       Covergetter();
     }
-  }, [id])
+  }, [id]);
 
   const updatePFP = () => {
     const userId = currentUser?.id;
@@ -170,13 +166,13 @@ console.log(openEditPopup,"show me the reason ");
     setModalIsOpen(false);
   };
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
+    const files = e.target.files[0];
     if (imageSetter === "post") {
-      setImage(files[0]);
+      setImage(files);
     } else if (imageSetter === "pdp") {
-      setProfilePic(files[0]);
+      setProfilePic(files);
     } else if (imageSetter === "cover") {
-      setCover(files[0]);
+      setCover(files);
     }
   };
 
@@ -247,25 +243,21 @@ console.log(openEditPopup,"show me the reason ");
       }
     );
   };
-const handleCloseEditPopUp = ()=>{
-  setOpenEditPopup(!openEditPopup)
-}
+  const handleCloseEditPopUp = () => {
+    setOpenEditPopup(!openEditPopup);
+  };
   const handleClosePoP = () => setOpenPopup(!openPopup);
   return (
     <>
       {/* Banner */}
       <div className=" mb-[10px] relative">
         <div className="flex justify-center h-[450px]  ">
-          <img
-            src={coverPic}
-            alt=""
-            className=" "
-          />
+          <img src={coverPic} alt="" className=" " />
           <button
             className="rounded-full md:h-9 md:w-9 bg-violet-700 p-3 flex absolute top-[79%] left-[73%] transform -translate-y-1/2  "
             onClick={() => {
               setImageSetter("cover");
-              openModal();
+              setOpenChanger(!openChanger)
             }}
           >
             <MdEdit className="text-white" />
@@ -282,8 +274,9 @@ const handleCloseEditPopUp = ()=>{
             />
             <button
               onClick={() => {
+                setOpenChanger(!openChanger);
                 setImageSetter("pdp");
-                openModal();
+                
               }}
               className=" bg-violet-700 w-6 h-6 rounded-full flex absolute left-[52%] top-[95%] justify-center items-center"
             >
@@ -293,18 +286,116 @@ const handleCloseEditPopUp = ()=>{
         </div>
       </div>
       {/* userName */}
-      <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px]" > 
-              <p>{userName}</p>
+      <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px]">
+        <p>{userName}</p>
       </div>
       {/* bio */}
-      <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px]">
-       <p>{bio}</p>
+      <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px] ">
+        <p>{bio}</p>
       </div>
+      {/* image Changer */}
+      {openChanger && (
+        <div className="flex flex-col items-end  justify-center mr-[50px] ">
+          <div className="  w-[500px] ">
+            <div className="flex items-center   w-full">
+              <label
+                forhtml="dropzone-file"
+                className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+              >
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  <svg
+                    className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 16"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                    />
+                  </svg>
+                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                    <span className="font-semibold">Click to upload</span> or
+                    drag and drop
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    SVG, PNG, JPG or GIF (MAX. 800x400px)
+                  </p>
+                </div>
+                <input
+                  id="dropzone-file"
+                  type="file"
+                  accept="image/png"
+                  className="hidden"
+                  onChange={(e) => handleImageChange(e)}
+                />
+              </label>
+            </div>
+          </div>
+          <div className="mt-[10px] ">
+            {imageSetter === "post" && (
+              <button
+                onClick={() => uploadPostImage(image)}
+                className="mb-5 bg-indigo-500 rounded-[150px] p-3"
+              >
+                Upload
+              </button>
+            )}
+              {imageSetter === "pdp" && (
+                <button
+                  onClick={() => uploadProfileImage(ProfilePic)}
+                  className="mb-5 bg-indigo-500 rounded-[150px] p-3"
+                >
+                  Upload Profile Picture
+                </button>
+              )}
+               {imageSetter === "pdp" && (
+                <button
+                  onClick={() => {updatePFP(), window.location.reload();}}
+                  className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
+                >
+                  Up-date Profile Picture
+                </button>
+              )}
+              {imageSetter === "cover" && (
+                <>
+                  <button
+                    onClick={() => uploadCoverImage(cover)}
+                    className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
+                  >
+                    Upload Cover Picture
+                  </button>
+                  <button
+                    onClick={() =>{ updateCover() , window.location.reload()}}
+                    className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
+                  >
+                    Up-date Cover Picture
+                  </button>
+                </>
+              )}
+          </div>
+        </div>
+      )}
+
       {/* update PopUp */}
-      <button onClick={()=> setOpenEditPopup(true)} className='relative w-fit [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal text-white text-[16px] tracking-[0] leading-[normal] whitespace-nowrap'>
-          Edit Profile
-        </button>
-        <EditPopUp isOpen={openEditPopup} closeEditPopUp={handleCloseEditPopUp} currentUser={currentUser} email={email}/>
+      <div className="grid justify-items-end mr-[75px] mb-[20px]">
+      <button
+        onClick={() => setOpenEditPopup(true)}
+        className='  flex flex-wrap [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal rounded-[70px] py-4 bg-indigo-500  text-white text-[15px] tracking-[0] leading-[normal] whitespace-nowrap'
+      >
+        Edit Profile
+      </button>
+      </div>
+      <EditPopUp
+        isOpen={openEditPopup}
+        closeEditPopUp={handleCloseEditPopUp}
+        currentUser={currentUser}
+        email={email}
+      />
       <div className=" flex justify-evenly gap-5 flex-wrap">
         <div className="shadow  mt-4 mr-4 rounded-lg h-max w-[400px] bg-[#ffffff1a] p-2.5 ">
           <div className="flex justify-between">
@@ -437,7 +528,7 @@ const handleCloseEditPopUp = ()=>{
                   </svg>
                 </div>
               </div>
-              <div className="mt-[15px] mr-[10px]" >
+              <div className="mt-[15px] mr-[10px]">
                 <div className="font-semibold cursor-pointer"></div>
                 <div className="flex space-x-0.5">
                   <div className="bg-transparent hover:bg-gray-700 p-1 rounded-full transition-colors cursor-pointer">
@@ -454,7 +545,7 @@ const handleCloseEditPopUp = ()=>{
                       fill="currentColor"
                       onClick={() => {
                         setImageSetter("post");
-                        openModal();
+                        setOpenChanger(!openChanger);
                       }}
                     >
                       <path
@@ -479,70 +570,11 @@ const handleCloseEditPopUp = ()=>{
       </div>
       <div className=" flex justify-end lg:pr-[150px] mt-[90px]">
         <div className="shadow  mt-10 rounded-lg h-max ml-3 w-[800px] bg-[#ffffff1a] ">
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Modal 1"
-            className="bg-white"
-          >
-            <div className="p-4 flex flex-col space-y-4">
-              <button
-                onClick={closeModal}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-[50px]"
-              >
-                x
-              </button>
-       
-              <input
-                type="file"
-                accept="image/png"
-                className="self-center mb-5"
-                onChange={(e) => handleImageChange(e)}
-              />
-              {imageSetter === "post" && (
-                <button
-                  onClick={() => uploadPostImage(image)}
-                  className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
-                >
-                  Upload
-                </button>
-              )}
-              {imageSetter === "cover" && (
-                <>
-                  <button
-                    onClick={() => uploadCoverImage(cover)}
-                    className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
-                  >
-                    Upload Cover Picture
-                  </button>
-                  <button
-                    onClick={() => updateCover()}
-                    className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]"
-                  >
-                    Up-date Cover Picture
-                  </button>
-                </>
-              )}
-              {imageSetter === "pdp" && (
-                <button
-                  onClick={() => uploadProfileImage(ProfilePic)}
-                  className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
-                >
-                  Upload Profile Picture
-                </button>
-              )}
-              {imageSetter === "pdp" && (
-                <button
-                  onClick={() => updatePFP()}
-                  className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]"
-                >
-                  Up-date Profile Picture
-                </button>
-              )}
-            </div>
-          </Modal>
+          
+
           {/* POST CONTENT */}
-          {data.map(
+          {data.length>0 && 
+          data?.reverse().map(
             (post: {
               id: React.Key | null | undefined;
               content:

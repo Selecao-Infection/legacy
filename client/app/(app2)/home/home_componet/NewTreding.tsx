@@ -3,6 +3,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import  Link  from "next/link";
 import axios from "axios";
 interface Product {
   id: number;
@@ -19,7 +20,6 @@ const NewTrending = () => {
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
   useEffect(() => {
-
     const apiUrl = "http://localhost:4000/api/get/product/new";
     axios
       .get(apiUrl)
@@ -97,7 +97,7 @@ console.log(products)
                       xmlns="http://www.w3.org/2000/svg"
                       xmlnsXlink="http://www.w3.org/1999/xlink"
                       className={`w-6 h-6 transition-transform fill-current text-gray-600 hover:scale-110 ${
-                        product.like ? "text-red" : "text-white"
+                        product.like ? "text-red-500" : ""
                       }`}
                       onClick={() => handleLike(product.id)}
                     >
