@@ -8,13 +8,13 @@ import { postRoute } from "./router/post_routes";
 import { basketRoute } from "./router/basket_routes";
 import { followRoute } from "./router/followers_routes";
 import { favoriteRoute } from "./router/favorite_routes";
-
+import {Route} from './router/replies_routes'
 
 const app = express()
 const PORT = 4000
 app.use(cors())
 app.use(express.json())
-app.use('/api',questionRoute)
+app.use('/api/question',questionRoute)
 
 app.use('/api',followRoute)
 app.use('/api',favoriteRoute)
@@ -22,7 +22,7 @@ app.use('/api',favoriteRoute)
 app.use('/api/user',userRoute)
 app.use('/brand',brandRoute)
 app.use('/api',productRoute)
-
+app.use('/replies',Route)
 app.use('/api/',basketRoute)
 app.use('/api',postRoute)
 
