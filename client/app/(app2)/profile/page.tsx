@@ -4,12 +4,12 @@ import { storage } from "../../../firebase";
 import React, { useState, ChangeEvent, useEffect } from "react";
 import { FaCamera } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
-import ProfilepicturePopUp from "./profilepicturePopUp";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useQuery } from "react-query";
 import Posts from "./Posts";
 import EditPopUp from "./EditPopUp";
+
 interface UploadedFile {
   name: string;
   size: number;
@@ -38,6 +38,9 @@ const Page = () => {
   const [email, setEmail] = useState<string>("");
   const [openEditPopup, setOpenEditPopup] = useState<boolean>(false);
   const [openChanger, setOpenChanger] = useState<Boolean>(false);
+  const [openEdit, setOpenEdit] = useState<boolean>(false);
+  const [postId, setPostId] = useState("");
+  const [updatedContent, setUpdatedContent] = useState<string>("");
   useEffect(() => {
     if (JSON.parse(window.localStorage.getItem("current") as string)) {
       setCurrentUser(
@@ -54,14 +57,10 @@ const Page = () => {
     const decodedId = currentUser?.id;
     setId(decodedId);
   };
-  console.log(openEditPopup, "show me the reason ");
-
   const Covergetter = () => {
     axios
       .get(`http://localhost:4000/api/user/profile/${id}`)
       .then((res) => {
-
-        
         setCoverPic(res.data[0].coverUrl);
         setBio(res.data[0].bio);
         setUserName(res.data[0].userName);
@@ -71,7 +70,6 @@ const Page = () => {
         console.log(err);
       });
   };
-  console.log(id, "dfghjk");
   const pdpGetter = () => {
     axios
       .get(`http://localhost:4000/api/user/profile/${id}`)
@@ -126,6 +124,7 @@ const Page = () => {
   // Fetcher function
   const getPosts = async () => {
     const res = await fetch("http://localhost:4000/api/get/post", {
+      method: "POST",
       next: {
         revalidate: 120,
       },
@@ -160,14 +159,12 @@ const Page = () => {
       </div>
     );
   }
-
   const handlePostClick = () => {
     const post = {
       content: content,
       imageUrl: imageUrl,
       userId: currentUser?.id,
     };
-
     axios
       .post("http://localhost:4000/api/post/post/create", post)
       .then((response) => {
@@ -188,11 +185,9 @@ const Page = () => {
       setCover(files);
     }
   };
-
   const uploadPostImage = (file: File) => {
     const storageRef = ref(storage, `Posts/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
-
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -215,7 +210,6 @@ const Page = () => {
   const uploadProfileImage = (file: File) => {
     const storageRef = ref(storage, `Profile/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
-
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -259,7 +253,27 @@ const Page = () => {
   const handleCloseEditPopUp = () => {
     setOpenEditPopup(!openEditPopup);
   };
+  console.log(postId)
   const handleClosePoP = () => setOpenPopup(!openPopup);
+  const postUpdatehandler = (postId :string) => {
+    if (!postId) {
+      console.error("postId is missing.");
+      return;
+    }
+    axios
+      .put(`http://localhost:4000/api/put/post/update/${postId}`, {
+        content: updatedContent,
+      })
+      .then((response) => {
+        console.log("Response:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating post:", error);
+      });
+  };
+  const idSetter = () => {
+    setPostId(data.id);
+  };
   return (
     <>
       {/* Banner */}
@@ -423,18 +437,6 @@ const Page = () => {
             >
               Photos ❤️
             </span>
-            <span
-              style={{
-                fontFamily: "'SF Pro Display Regular', Helvetica, sans-serif",
-              }}
-              className="font-sans text-[16px] text-[#6c5dd3] whitespace-nowrap font-normal cursor-pointer"
-              onClick={() => setOpenPopup(true)}
-            >
-              See All Photos
-            </span>
-            {openPopup && (
-              <ProfilepicturePopUp handleClosePoP={handleClosePoP} />
-            )}
           </div>
           <div className="flex flex-wrap w-full h-full m-5 p-3 ">
             {data?.map(
@@ -584,42 +586,77 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className=" flex justify-end lg:pr-[150px] mt-[90px]">
-        <div className="shadow  mt-10 rounded-lg h-max ml-3 w-[800px] bg-[#ffffff1a] ">
+      <div className=" flex justify-end  lg:pr-[150px] mt-[90px] " >
+        <div
+          className="shadow  mt-10 rounded-lg h-max ml-3 w-[750px]   "
+          // onClick={() => idSetter()}
+        >
           {/* POST CONTENT */}
-          {data.length > 0 &&
-            data
-              ?.reverse()
-              .map(
-                (post: {
-                  id: React.Key | null | undefined;
-                  content:
-                    | string
-                    | number
-                    | boolean
-                    | React.ReactElement<
-                        any,
-                        string | React.JSXElementConstructor<any>
-                      >
-                    | Iterable<React.ReactNode>
-                    | React.ReactPortal
-                    | React.PromiseLikeOfReactNode
-                    | null
-                    | undefined;
-                  imageUrl: string | undefined;
-                }) => (
-                  <Posts
-                    key={post.id}
-                    // content={post.content}
-                    // imageUrl={post.imageUrl}
-                    post={post}
-                    currentUser={currentUser}
-                    pdp={pdp}
-                  />
-                )
-              )}
+          {data &&
+  data.length > 0 &&
+  data
+    ?.reverse()
+    .map((post) => (
+      <div className="flex items-center"> {/* Flex container */}
+        <Posts
+          key={post.id}
+          post={post}
+          currentUser={currentUser}
+          pdp={pdp}
+        />
+        <button
+          className="rounded-[30px] h-6 w-6 sm:h-8 sm:w-8 bg-zinc-500 p-2 md:p-3"
+          onClick={() => {
+            console.log(post.id);
+            setPostId(post.id);
+            setOpenEdit(true);
+          }}
+        >
+          <MdEdit className="text-white" />
+        </button>
+      </div>
+    ))
+}
         </div>
       </div>
+      <>
+        {openEdit && (
+          <div
+            id="PostContainer"
+            className="fixed inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm "
+          >
+            <div className="p-2 bg-[#494649] w-10/12 md:w-1/2 lg:1/3 shadow-inner border-e-emerald-600 rounded-lg py-5">
+              <div className="w-full p-3 justify-center items-center">
+                <h2 className="font-semibold py-3 text-center text-xl text-[#ebebeb]">
+                  your Post Update goes here
+                </h2>
+                <div className="px-4 mt-5 shadow w-auto self-center rounded-lg dark:bg-dark-second">
+                  <div className="p-2 border-b border-[#ffffff1a] dark:border-dark-third flex space-x-4">
+                    <textarea
+                      className="flex-1 bg-[#ffffff1a] rounded-full flex items-center justify-start pl-4 dark:bg-dark-third text-gray-100 text-lg dark:text-dark-txt"
+                      placeholder="Uppdate your Post here..."
+                      onChange={(e) => setUpdatedContent(e.target.value)}
+                    />
+                  </div>
+                  <div className="p-2 flex justify-center">
+                    <div className="w-1/3 flex space-x-2 justify-center items-center hover:bg-[#ffffff1a] dark:hover:bg-dark-third text-xl sm:text-3xl py-2 rounded-lg cursor-point">
+                      <span
+                        className="text-xs sm:text-sm font-semibold text-gray-100 dark:text-dark-txt"
+                        onClick={() => {
+                          postUpdatehandler(postId);
+                          window.location.reload();
+                        }}
+                      >
+                        Confirm
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
     </>
   );
 };

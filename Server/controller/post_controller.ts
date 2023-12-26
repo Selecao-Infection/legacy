@@ -12,8 +12,11 @@ interface Post {
 const prisma = new PrismaClient();
 
 export const getAllPosts = async (req: Request, res: Response) => {
+  const {userId}=req.body
+  console.log(userId);
+  
   try {
-    const getPost: Post[] = await prisma.post.findMany({orderBy:[{Created_At:'desc'}]});
+    const getPost: Post[] = await prisma.post.findMany({orderBy:[{Created_At:'desc'}],where:{userId:userId}});
     res.json(getPost);
   } catch (err) {
     console.error(err);

@@ -90,6 +90,16 @@ CREATE TABLE "Basket" (
     CONSTRAINT "Basket_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Replies" (
+    "id" TEXT NOT NULL,
+    "questionId" TEXT,
+    "userId" TEXT,
+    "content" TEXT NOT NULL,
+
+    CONSTRAINT "Replies_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
@@ -122,3 +132,9 @@ ALTER TABLE "Basket" ADD CONSTRAINT "Basket_productId_fkey" FOREIGN KEY ("produc
 
 -- AddForeignKey
 ALTER TABLE "Basket" ADD CONSTRAINT "Basket_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Replies" ADD CONSTRAINT "Replies_questionId_fkey" FOREIGN KEY ("questionId") REFERENCES "Question"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Replies" ADD CONSTRAINT "Replies_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
