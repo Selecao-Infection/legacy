@@ -102,11 +102,11 @@ const AllCollection: React.FC = () => {
                 className="mt-12 p-4 hover:scale-105 transition-transform bg-opacity-10 bg-white rounded-lg shadow w-80 h-[350px]"
                 onClick={() => handleProductClick(product)}
               >
-                <img
-                  src={product.imageUrl[getActiveSlide(product.id)]}
-                  className="w-full h-40 object-cover mb-4"
-                  alt={`${product.productName}-${getActiveSlide(product.id)}`}
-                />
+                  <img
+                    src={product.imageUrl[getActiveSlide(product.id)]}
+                    className="w-full h-40 object-cover mb-4"
+                    alt={`${product.productName}-${getActiveSlide(product.id)}`}
+                  />
                 <div className="text-white">
                   <h2 className="text-xl font-bold mb-2">
                     {product.productName}
@@ -152,6 +152,9 @@ const AllCollection: React.FC = () => {
                     </div>
                   </div>
                 </div>
+
+
+                
               </div>
               {selectedProduct && (
                 <div
