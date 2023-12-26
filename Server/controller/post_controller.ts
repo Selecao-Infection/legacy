@@ -5,13 +5,15 @@ interface Post {
   content: string;
   imageUrl: string;
   userId: string;
+  Created_At:Date;
+  Updated_At :Date
 }
 
 const prisma = new PrismaClient();
 
 export const getAllPosts = async (req: Request, res: Response) => {
   try {
-    const getPost: Post[] = await prisma.post.findMany();
+    const getPost: Post[] = await prisma.post.findMany({orderBy:[{Created_At:'desc'}]});
     res.json(getPost);
   } catch (err) {
     console.error(err);
@@ -20,7 +22,7 @@ export const getAllPosts = async (req: Request, res: Response) => {
 };
 
 export const createPost = async (req: Request, res: Response) => {
-  const { content, imageUrl, userId }: Post = req.body;
+  const { content, imageUrl, userId,Created_At }: Post = req.body;
   try {
     const createPost: Post = await prisma.post.create({
       data: req.body,

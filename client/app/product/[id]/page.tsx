@@ -23,7 +23,7 @@ interface ActiveSlides {
 
 const fetchProduct = async (id: string) => {
   const response = await axios.get<Product>(
-    `http://localhost:4000/api/get/product/${id}`
+    `http://localhost:4000/api/get/${id}`
   );
   return response.data;
 };
