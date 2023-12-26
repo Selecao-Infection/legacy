@@ -3,6 +3,7 @@ import React from "react";
 import { SiNike, SiAdidas, SiPuma } from "react-icons/si";
 import { FaCopyright } from "react-icons/fa";
 import { FaHandHoldingDollar, FaArrowRightArrowLeft } from "react-icons/fa6";
+import NewTreding from "./home_componet/newTreding";
 import AllCollection from "./home_componet/all_collection";
 import BrandsCard from "./home_componet/incoming_Brands"
 import CreatorCard from "./home_componet/creator_card";
@@ -10,13 +11,15 @@ import NewTrending from "./home_componet/newTreding";
 
 const Home :React.FC = () => {
   return (
-    <div className="text-center p-8 md:p-12 lg:p-16 xl:p-20">
-      <div className=" gap-[10rem] flex mb-8 px-[10%] ">
-        <div className=" flex flex-col max-w-[40%] gap-8 ">
+    <div className=" text-white w-full m-2 justify-center">
+      <div className="flex flex-col w-full gap-10">
+          <div className="flex flex-wrap gap-10  justify-center">
+
+          <div className=" flex flex-col items-center lg:max-w-[30%] gap-8 ">
           <h1 className="text-2xl  md:text-3xl lg:text-4xl xl:text-5xl text-white text-left font-bold mb-6">
             Shoes are the Spirit of Fashion
           </h1>
-          <div className="text-gray-500 text-left mb-6">
+          <div className="text-gray-500 text-left m-4 mb-6">
             Shoes define style, telling a unique story through personal choices.
             They are the essence of self-expression and individuality in
             fashion.
@@ -27,7 +30,7 @@ const Home :React.FC = () => {
           >
             Explore now
           </button>
-          <div className=" items-center w-[40rem] flex gap-[20%]">
+          <div className=" items-center w-[18rem] flex gap-[20%]">
             <div className="text-gray-500 flex flex-col items-center">
               {" "}
               <h2 className="text-white font-bold text-3xl">100K</h2>
@@ -45,8 +48,9 @@ const Home :React.FC = () => {
             </div>
           </div>
         </div>
-        <div>
-          <div className="w-[40rem] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+          
+          <div>
+          <div className="lg:w-[40rem] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 ">
             <div className="grid gap-4">
               <div>
                 <img
@@ -141,37 +145,29 @@ const Home :React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
-    <div className="flex justify-center space-x-8 md:space-x-12 gap-[10rem] h-20 lg:space-x-20 mb-10">
-      <SiNike className="w-12 md:w-16 lg:w-20 h-12 md:h-16 lg:h-20 text-gray-500" />
-      <SiAdidas className="w-12 md:w-16 lg:w-20 h-12 md:h-16 lg:h-20 text-gray-500" />
-      <SiPuma className="w-12 md:w-16 lg:w-20 h-12 md:h-16 lg:h-20 text-gray-500" />
+        </div>
+        <div className="flex justify-center space-x-8 md:space-x-12 lg:gap-[10rem] h-20 lg:space-x-20 mb-10">
+      <SiNike className="w-20 h-20 text-gray-500" />
+      <SiAdidas className="w-20 h-20 text-gray-500" />
+      <SiPuma className="w-20 h-20 text-gray-500" />
     </div>
-    <div className=" p-4 mx-auto flex flex-col gap-8">
+    <div className=" p-4 mx-auto flex flex-col gap-8 justify-center items-center">
         <h1 className="text-white text-5xl font-bold ">About Us</h1>
-        <p className="text-gray-500">
-        At B.A.T-SQUAD, we're not just a shoe retailer,
-         we're a team of style enthusiasts dedicated
-          to delivering quality and comfort.
-           Our vision is to curate a collection 
-          that blends the latest trends with 
-          a commitment to customer satisfaction.
+        <p className="text-gray-00 ">
+       ICE Makers where Luxury finds you
         </p>
       </div>
-      <div className=" my-8 gap-10  flex items-center justify-center text-white px-[8rem]">
-        <div className=" w-1/2 flex items-center justify-end ">
-          <img
+      <div className="flex justify-center flex-wrap gap-20">
+      <img
             src="https://5.imimg.com/data5/SELLER/Default/2022/11/QI/NX/SO/125968822/lenus-8mm-cuban-chain-in-gold-500x500.jpg"
             alt="What We Do"
             className="w-80 h-80 object-fit flex-shrink-0 mr-4 rounded-lg"
           />
-        </div>
-        <div className=" flex text-left justify-center w-[50rem]">
-          <div className="w-1/2 mr-4">
+             <div className=" ">
             <h1 className="text-3xl text-left font-bold  text-white mb-4">
               Fashion That Speaks
             </h1>
-            <p className="text-left mb-4 text-gray-400 w-[30rem]">
+            <p className="text-left mb-4 text-gray-400  w-[14rem] lg:w-[28rem]">
               Discover the perfect pair for every occasion at B.A.T-SQUAD. We
               curate a diverse range of footwear, from timeless classics to the
               latest fashion-forward designs. Our commitment to comfort is
@@ -182,33 +178,164 @@ const Home :React.FC = () => {
               Show More
             </button>
           </div>
-        </div>
       </div>
-      <div className=" p-4 mx-auto flex flex-col gap-8 ">
+      <div className="flex justify-center">
+      <div className="  flex flex-col gap-8 justify-center ">
         <h1 className="text-white text-4xl font-bold ">All Collection</h1>
-        <p className="text-gray-500">
-        Step into elegance with our latest collection shoes.<br />{" "}
-          Each pair is a blend of sophistication and comfort, designed for the modern trendsetter.<br />{" "} From sleek formal options to casual chic, our shoes are your perfect companion for any occasion.
+
+        <p className="text-gray-500 ">
+        Step into elegance with our latest
         </p>
       </div>
-      <div className="gap-[15rem] flex items-center justify-center space-x-12 gap-20 h-20 mt-4 md:mt-8 lg:mt-20">
+      </div>
+     
+      <div className="lg:gap-[15rem] gap-8 flex items-center justify-center space-x-12  h-20 mt-4 md:mt-8 lg:mt-20">
         <div className="flex flex-col items-center justify-center">
           {" "}
-          <FaHandHoldingDollar className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 text-violet-500" />
-          <p className="text-white font-semibold">Exeptionnal Prices</p>
+          <FaHandHoldingDollar className="w-10 h-10 text-violet-500" />
+          <p className="text-white lg:text-xl font-semibold text-[14px] text-center">Exeptionnal Prices</p>
         </div>
         <div className="flex flex-col items-center justify-center">
           {" "}
-          <FaCopyright className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 text-violet-500" />
-          <p className="text-white font-semibold">Fast Payment</p>
+          <FaCopyright className="w-10 h-10 text-violet-500" />
+          <p className="text-white font-semibold lg:text-xl text-center text-[14px]">Fast Payment</p>
         </div>
         <div className="flex flex-col items-center justify-center">
           {" "}
-          <FaArrowRightArrowLeft className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 text-violet-500" />
-          <p className="text-white font-semibold">Fast And Easy Transactions</p>
+          <FaArrowRightArrowLeft className="w-10 h-10 text-violet-500" />
+          <p className="text-white font-semibold lg:text-xl text-[14px] text-center" >Fast And Easy Transactions</p>
         </div>
       </div>
-      <AllCollection />
+      <div>
+      
+          <AllCollection/>
+
+      </div>
+      <div className="flex justify-center">
+      <div className="  flex flex-col gap-8 justify-center ">
+        <h1 className="text-white text-4xl font-bold ">New & Trending</h1>
+
+        <p className="text-gray-500 ">
+        Step into elegance with our latest
+        </p>
+      </div>
+      
+      </div>
+   
+        <NewTreding/>
+         <div className="flex justify-center">
+      <div className="  flex flex-col gap-8 justify-center ">
+        <h1 className="text-white text-4xl font-bold ">Our Creators</h1>
+
+        <p className="text-gray-500 ">
+        Step into elegance with our latest
+        </p>
+      </div>
+      
+      </div>
+      <div className="flex justify-center">
+
+        <CreatorCard />
+
+      </div>
+      <div className="flex justify-center">
+      <div className="  flex flex-col gap-8 justify-center ">
+        <h1 className="text-white text-4xl font-bold ">Our Brands</h1>
+
+        <p className="text-gray-500 ">
+        Step into elegance with our latest
+        </p>
+      </div>
+      
+      </div>
+      <div  className="flex justify-center">
+        <BrandsCard />
+      </div>
+      <div className="flex justify-center">
+
+   
+     < div className="text-white text-2xl md:text-3xl lg:text-4xl  md:mt-[10rem]">
+        Frequently Asked Questions
+        <h1 className="text-gray-500 text-md md:text-xl lg:text-2xl justify-center flex">
+          Wanna Ask Something?
+        </h1>
+      </div>
+      </div>
+      <div className="flex mt-10 justify-center items-center">
+        <div className=" flex flex-col flex-1 justify-center items-center">
+          <input
+            type="text"
+            className="w-[80%] bg-transparent mb-5 pb-4 border-b-[1px] border-input placeholder:text-gray-500 text-white w-[26%] "
+            placeholder="what is in your mind"
+          />
+          <input
+            type="text"
+            className="w-[80%] bg-transparent mb-5 pb-4 border-b-[1px] border-input placeholder:text-gray-500 text-white w-[26%] "
+            placeholder="what is in your mind"
+          />
+          <input
+            type="text"
+            className="w-[80%] bg-transparent mb-5 pb-4 border-b-[1px] border-input placeholder:text-gray-500 text-white w-[26%] "
+            placeholder="what is in your mind "
+          />
+        </div>
+        <div className="  flex flex-col flex-1 justify-center items-center">
+          <input
+            type="text"
+            className="w-[80%] bg-transparent mb-5 pb-4 border-b-[1px] border-input placeholder:text-gray-500 text-white w-[26%] "
+            placeholder="what is in your mind"
+          />
+          <input
+            type="text"
+            className="w-[80%] bg-transparent mb-5 pb-4 border-b-[1px] border-input placeholder:text-gray-500 text-white w-[26%] "
+            placeholder="what is in your mind"
+          />
+          <input
+            type="text"
+            className="w-[80%] bg-transparent mb-5 pb-4 border-b-[1px] border-input placeholder:text-gray-500 text-white w-[26%] "
+            placeholder="what is in your mind"
+          />
+        </div>
+
+      </div>
+      <div className="flex justify-center">
+
+        <button className="text-white bg-violet-500 font-bold pl-6 pr-6 p-2 mt-4 w-[120px] rounded-full">FAQ</button>
+      </div>
+      <div className="bg-purple-500 p-[5%] mx-9 rounded-md mt-[10%] flex justify-center ">
+        <div className="flex justify-center text-white flex-col">
+        <h1 className="text-3xl text-white font-bold mb-10 justify-center">
+          Highest Quality Collection
+        </h1>
+        
+        <button
+          className=" relative  left-14 lg:left-20 w-[200px] text-white bg-gray-300 font-bold pl-6  pr-6 p-2 mt-4 rounded-full "
+          // onClick={handleGetStartedClick}
+        >
+          Get Started
+        </button>
+        </div>
+        
+        {/* <h1 className="text-3xl text-white font-bold mb-10 justify-center">
+          Highest Quality Collection
+        </h1>
+        <button
+          className= "text-white bg-gray-300 font-bold pl-6  pr-6 p-2 mt-4 rounded-full "
+          // onClick={handleGetStartedClick}
+        >
+          Get Started
+        </button> */}
+      </div>
+      </div>
+        
+ </div>
+    
+
+  );
+};
+
+
+{/*
       <div className="flex flex-col gap-4 p-4 mx-auto mt-[10rem] ">
         <h1 className="text-white text-6xl font-bold ">New & Trending</h1>
         <p className="text-gray-500">
@@ -219,7 +346,7 @@ const Home :React.FC = () => {
         </p>
       </div>
 
-      <NewTrending/>
+      <NewTreding/>
 
       <div className="flex flex-col gap-4 p-4 mx-auto mt-[10rem] ">
         <h1 className="text-white text-6xl font-bold ">Upcoming Creators</h1>
@@ -291,9 +418,6 @@ const Home :React.FC = () => {
           Get Started
         </button>
       </div>
-    </div>
-
-  );
-};
+    </div> */}
 
 export default Home;
