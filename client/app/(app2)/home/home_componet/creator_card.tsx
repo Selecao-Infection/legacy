@@ -20,7 +20,7 @@ const CreatorCard = () => {
 
   return (
     <div className="mt-10">
-      <div className="flex space-x-2 w-full rounded-lg overflow-hidden mx-auto justify-between px-20">
+      <div className="flex flex-wrap gap-10 relative left-6">
         {/* Kanye West */}
         <div className="card  min-w-sm rounded-xl bg-white bg-opacity-10   transition-shadow shadow-xl hover:shadow-xl min-w-max">
           <div className="w-full card__media">
