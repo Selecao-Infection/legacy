@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
+import {  toast } from 'sonner'
 
 interface BioEditProps {
   editPopUp: boolean;
@@ -65,7 +66,7 @@ const BioEdit: React.FC<BioEditProps> = ({
                 <div className="w-1/3 flex space-x-2 justify-center items-center hover:bg-[#ffffff1a] dark:hover:bg-dark-third text-xl sm:text-3xl py-2 rounded-lg cursor-point">
                   <span
                     className="text-xs sm:text-sm font-semibold text-gray-100 dark:text-dark-txt"
-                    onClick={(() => {editBio(), window.location.reload()})}
+                    onClick={(() => {editBio(), window.location.reload(),toast.success("Post Updated succefully!")})}
                   >
                     Confirm
                   </span>

@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 import { useQuery } from "react-query";
 import Posts from "./Posts";
 import EditPopUp from "./EditPopUp";
+import { toast } from 'sonner'
 
 interface UploadedFile {
   name: string;
@@ -41,6 +42,8 @@ const Page = () => {
   const [openEdit, setOpenEdit] = useState<boolean>(false);
   const [postId, setPostId] = useState("");
   const [updatedContent, setUpdatedContent] = useState<string>("");
+
+
   useEffect(() => {
     if (JSON.parse(window.localStorage.getItem("current") as string)) {
       setCurrentUser(
@@ -57,6 +60,7 @@ const Page = () => {
     const decodedId = currentUser?.id;
     setId(decodedId);
   };
+
   const Covergetter = () => {
     axios
       .get(`http://localhost:4000/api/user/profile/${id}`)
@@ -70,6 +74,7 @@ const Page = () => {
         console.log(err);
       });
   };
+
   const pdpGetter = () => {
     axios
       .get(`http://localhost:4000/api/user/profile/${id}`)
@@ -104,6 +109,7 @@ const Page = () => {
         console.error("Error updating profile picture:", error);
       });
   };
+
   const updateCover = () => {
     const userId = currentUser?.id;
     if (!userId || !cover) {
@@ -131,9 +137,7 @@ const Page = () => {
     });
     return res.json();
   };
-  // Using the hook
   const { data, isError, isLoading } = useQuery("randomFacts", getPosts);
-
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -159,6 +163,8 @@ const Page = () => {
       </div>
     );
   }
+
+
   const handlePostClick = () => {
     const post = {
       content: content,
@@ -169,12 +175,14 @@ const Page = () => {
       .post("http://localhost:4000/api/post/post/create", post)
       .then((response) => {
         console.log(response);
+        toast.success('Post added Successfully!')
       })
       .catch((error) => {
         console.log(error);
       });
     window.location.reload();
   };
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files[0];
     if (imageSetter === "post") {
@@ -185,6 +193,7 @@ const Page = () => {
       setCover(files);
     }
   };
+
   const uploadPostImage = (file: File) => {
     const storageRef = ref(storage, `Posts/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -196,17 +205,19 @@ const Page = () => {
         console.log(progress);
       },
       (error) => {
+        toast.warning("Please choose a Picture.")
         console.error(error);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log(downloadURL, "download");
-
+          toast.success('Image Uploaded Successfully!')
           setImageUrl(downloadURL);
         });
       }
     );
   };
+
   const uploadProfileImage = (file: File) => {
     const storageRef = ref(storage, `Profile/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -218,16 +229,19 @@ const Page = () => {
         console.log(progress);
       },
       (error) => {
+        toast.warning("Please choose a Picture.")
         console.error(error);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log(downloadURL, "download");
+          toast.success('Image Uploaded Successfully!')
           setProfilePic(downloadURL);
         });
       }
     );
   };
+
   const uploadCoverImage = (file: File) => {
     const storageRef = ref(storage, `Cover/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -241,10 +255,12 @@ const Page = () => {
       },
       (error) => {
         console.error(error);
+        toast.warning("Please choose a Picture.")
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log(downloadURL, "download");
+          toast.success('Image Uploaded Successfully!')
           setCover(downloadURL);
         });
       }
@@ -313,11 +329,11 @@ const Page = () => {
       </div>
       {/* userName */}
       <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px]">
-        <p>{userName}</p>
+        <p className="text-3xl">{userName}</p>
       </div>
       {/* bio */}
       <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px] ">
-        <p>{bio}</p>
+        <p className="text-xl">{bio}</p>
       </div>
       {/* image Changer */}
       {openChanger && (
@@ -415,7 +431,7 @@ const Page = () => {
       <div className="grid justify-items-end mr-[75px] mb-[20px]">
         <button
           onClick={() => setOpenEditPopup(true)}
-          className='  flex flex-wrap [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal rounded-[70px] py-4 bg-indigo-500  text-white text-[15px] tracking-[0] leading-[normal] whitespace-nowrap'
+          className=' [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal rounded-[30px] w-[120px] py-4 bg-indigo-500  text-white text-[15px] tracking-[0] leading-[normal] whitespace-nowrap'
         >
           Edit Profile
         </button>
@@ -589,7 +605,6 @@ const Page = () => {
       <div className=" flex justify-end  lg:pr-[150px] mt-[90px] " >
         <div
           className="shadow  mt-10 rounded-lg h-max ml-3 w-[750px]   "
-          // onClick={() => idSetter()}
         >
           {/* POST CONTENT */}
           {data &&
@@ -605,7 +620,7 @@ const Page = () => {
           pdp={pdp}
         />
         <button
-          className="rounded-[30px] h-6 w-6 sm:h-8 sm:w-8 bg-zinc-500 p-2 md:p-3"
+          className="rounded-[30px] h-6 w-6 sm:h-8 sm:w-8 bg-zinc-500 p-2 m-4 md:p-3"
           onClick={() => {
             console.log(post.id);
             setPostId(post.id);
@@ -644,6 +659,7 @@ const Page = () => {
                         className="text-xs sm:text-sm font-semibold text-gray-100 dark:text-dark-txt"
                         onClick={() => {
                           postUpdatehandler(postId);
+                          toast.success("Post Updated succefully!")
                           window.location.reload();
                         }}
                       >

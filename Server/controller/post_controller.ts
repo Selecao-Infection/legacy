@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
+import { METHODS } from "http";
 
 interface Post {
   content: string;
@@ -11,7 +12,7 @@ interface Post {
 
 const prisma = new PrismaClient();
 
-export const getAllPosts = async (req: Request, res: Response) => {
+export const getAllPosts = async (req: Request, res: Response) => { 
   const {userId}=req.body
   console.log(userId);
   
@@ -44,7 +45,7 @@ export const updatePost = async (req: Request, res: Response) => {
   try {
     const postup: Post = await prisma.post.update({
       where: { id },
-      data: req.body,
+      data:{content : req.body},
     });
     res.json(postup);
   } catch (err) {
