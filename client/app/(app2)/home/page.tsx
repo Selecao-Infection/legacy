@@ -6,8 +6,7 @@ import { FaHandHoldingDollar, FaArrowRightArrowLeft } from "react-icons/fa6";
 import AllCollection from "./home_componet/all_collection";
 import BrandsCard from "./home_componet/incoming_Brands"
 import CreatorCard from "./home_componet/creator_card";
-import NewTrending from "./home_componet/NewTreding";
-
+import NewTrending from "./home_componet/newTreding";
 
 const Home :React.FC = () => {
   return (
