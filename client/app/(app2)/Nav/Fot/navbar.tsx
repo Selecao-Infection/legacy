@@ -81,7 +81,7 @@ const Header = () => {
            { current && current.status !== 'brand' &&  <FaCartShopping
             onClick={()=>setBasket(!basket)}
             className="text-white hover:cursor-pointer" />}
-         <div 
+         <div  className="block lg:hidden"
          onClick={()=>setMenu(!menu)}
          >
 

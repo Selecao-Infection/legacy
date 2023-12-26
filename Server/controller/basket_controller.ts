@@ -33,6 +33,8 @@ export const getAllbasket = async (req: Request, res: Response) => {
 };
 
 export const postBasket = async (req: Request, res: Response) => {
+  console.log(req.body);
+  
   const { userId, productId }: Basket = req.body;
   try {
     const post: Basket = await prisma.basket.create({ data: req.body , include:{Product:true} });
@@ -48,6 +50,18 @@ export const deleteBasket = async (req: Request, res: Response) => {
   try {
     const deleteFromBasket = await prisma.basket.delete({
       where: { id },
+    });
+    res.json(deleteFromBasket);
+  } catch (err) {
+    console.error(err);
+    res.json(err);
+  }
+};
+export const deleteAll = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const deleteFromBasket = await prisma.basket.deleteMany({
+      where: { userId:id },
     });
     res.json(deleteFromBasket);
   } catch (err) {

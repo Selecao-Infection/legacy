@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
+import { jwtDecode } from "jwt-decode";
 interface Product {
   id: number;
   productName: string;
@@ -25,8 +25,9 @@ const AllCollection: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [activeSlides, setActiveSlides] = useState<ActiveSlides>({});
+  const [current,setCurrent]=useState<any>(jwtDecode(JSON.parse(window.localStorage.getItem("current") as string)))
   const router = useRouter();
-
+ 
   useEffect(() => {
     const apiUrl = "http://localhost:4000/api/get/product";
     axios
@@ -56,6 +57,7 @@ const AllCollection: React.FC = () => {
     }, 3000);
   };
 
+  
   const handleNextSlide = () => {
     if (selectedProduct) {
       setActiveSlides((prev) => ({
@@ -84,6 +86,12 @@ const AllCollection: React.FC = () => {
   const getActiveSlide = (id: number) => {
     return activeSlides[id] || 0;
   };
+  const putBasket = (id:any)=>{
+    console.log(current);
+    
+    const body ={userId:current.id , productId:id}
+    axios.post('http://localhost:4000/api/post/basket',body)
+  }
 
   return (
     <div>
@@ -146,7 +154,9 @@ const AllCollection: React.FC = () => {
                           d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z"
                         />
                       </svg>
-                      <button className="text-white bg-violet-600 rounded-full w-[190px] p-2">
+                      <button 
+                       onClick={()=>putBasket(product.id)}
+                      className="text-white bg-violet-600 rounded-full w-[190px] p-2">
                         Buy Now
                       </button>
                     </div>
