@@ -8,12 +8,15 @@ interface User{
   userName  :string,
   email     :string,
   birthday  :string,
-  password  :string
+  password  :string,
+  id : string
 }
 interface Users{
   userName  :string,
   email     :string,
-  pdp :string | null
+  pdp :string | null,
+  id : string
+
 
 }
 interface UserGoogle{
@@ -34,7 +37,7 @@ export const getOne=async(req: Request,res: Response )=>{
     const {email} = req.body
     try {
         const users : Users[]=await prisma.user.findMany({where: {email:email}}) 
-        const Token = jwt.sign({email : users[0].email, userName: users[0].userName,status:'user',pdp:users[0].pdp },'secret')
+        const Token = jwt.sign({email : users[0].email, userName: users[0].userName,status:'user',pdp:users[0].pdp,id:users[0].id },'secret')
             res.json(Token)
         } catch (error) {
                  

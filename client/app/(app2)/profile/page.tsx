@@ -64,6 +64,8 @@ console.log(openEditPopup,"show me the reason ");
     axios
       .get(`http://localhost:4000/api/user/profile/${id}`)
       .then((res) => {
+
+        
         setCoverPic(res.data[0].coverUrl);
         setBio(res.data[0].bio)
         setUserName(res.data[0].userName)

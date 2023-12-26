@@ -21,23 +21,6 @@ const NewTrending = () => {
 
   useEffect(() => {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     const apiUrl = "http://localhost:4000/api/get/product/new";
     axios
       .get(apiUrl)
@@ -115,7 +98,7 @@ console.log(products)
                       xmlns="http://www.w3.org/2000/svg"
                       xmlnsXlink="http://www.w3.org/1999/xlink"
                       className={`w-6 h-6 transition-transform fill-current text-gray-600 hover:scale-110 ${
-                        product.like ? "text-red-500" : ""
+                        product.like ? "text-red" : "text-white"
                       }`}
                       onClick={() => handleLike(product.id)}
                     >

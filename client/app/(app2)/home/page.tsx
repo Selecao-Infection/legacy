@@ -3,7 +3,7 @@ import React from "react";
 import { SiNike, SiAdidas, SiPuma } from "react-icons/si";
 import { FaCopyright } from "react-icons/fa";
 import { FaHandHoldingDollar, FaArrowRightArrowLeft } from "react-icons/fa6";
-import NewTreding from "./home_componet/newTreding";
+import NewTrending from "./home_componet/newTreding";
 import AllCollection from "./home_componet/all_collection";
 import BrandsCard from "./home_componet/incoming_Brands"
 import CreatorCard from "./home_componet/creator_card";
@@ -220,7 +220,7 @@ const Home :React.FC = () => {
         </p>
       </div>
 
-      <NewTreding/>
+      <NewTrending/>  
 
       <div className="flex flex-col gap-4 p-4 mx-auto mt-[10rem] ">
         <h1 className="text-white text-6xl font-bold ">Upcoming Creators</h1>
