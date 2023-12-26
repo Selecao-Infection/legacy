@@ -38,7 +38,6 @@ const Page = () => {
   const [email, setEmail] = useState<string>("");
   const [openEditPopup, setOpenEditPopup] = useState<boolean>(false);
   const [openChanger, setOpenChanger] = useState<Boolean>(false);
-  const [res,setRes]=useState<any>()
   useEffect(() => {
     if (JSON.parse(window.localStorage.getItem("current") as string)) {
       setCurrentUser(
@@ -65,13 +64,12 @@ const Page = () => {
         setBio(res.data[0].bio);
         setUserName(res.data[0].userName);
         setEmail(res.data[0].email);
-    
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  console.log(id,'dfghjk')
+  console.log(id, "dfghjk");
   const pdpGetter = () => {
     axios
       .get(`http://localhost:4000/api/user/profile/${id}`)
@@ -136,7 +134,29 @@ const Page = () => {
   const { data, isError, isLoading } = useQuery("randomFacts", getPosts);
 
   if (isLoading) {
-    return <div>lOADING....</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div role="status">
+          <svg
+            aria-hidden="true"
+            className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+            viewBox="0 0 100 101"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+              fill="currentColor"
+            />
+            <path
+              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+              fill="currentFill"
+            />
+          </svg>
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   const handlePostClick = () => {
@@ -155,13 +175,6 @@ const Page = () => {
         console.log(error);
       });
     window.location.reload();
-  };
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
   };
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files[0];
@@ -255,7 +268,7 @@ const Page = () => {
             className="rounded-full md:h-9 md:w-9 bg-violet-700 p-3 flex absolute top-[79%] left-[73%] transform -translate-y-1/2  "
             onClick={() => {
               setImageSetter("cover");
-              setOpenChanger(!openChanger)
+              setOpenChanger(!openChanger);
             }}
           >
             <MdEdit className="text-white" />
@@ -274,7 +287,6 @@ const Page = () => {
               onClick={() => {
                 setOpenChanger(!openChanger);
                 setImageSetter("pdp");
-                
               }}
               className=" bg-violet-700 w-6 h-6 rounded-full flex absolute left-[52%] top-[95%] justify-center items-center"
             >
@@ -343,50 +355,54 @@ const Page = () => {
                 Upload
               </button>
             )}
-              {imageSetter === "pdp" && (
+            {imageSetter === "pdp" && (
+              <button
+                onClick={() => uploadProfileImage(ProfilePic)}
+                className="mb-5 bg-indigo-500 rounded-[150px] p-3"
+              >
+                Upload Profile Picture
+              </button>
+            )}
+            {imageSetter === "pdp" && (
+              <button
+                onClick={() => {
+                  updatePFP(), window.location.reload();
+                }}
+                className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
+              >
+                Up-date Profile Picture
+              </button>
+            )}
+            {imageSetter === "cover" && (
+              <>
                 <button
-                  onClick={() => uploadProfileImage(ProfilePic)}
-                  className="mb-5 bg-indigo-500 rounded-[150px] p-3"
-                >
-                  Upload Profile Picture
-                </button>
-              )}
-               {imageSetter === "pdp" && (
-                <button
-                  onClick={() => {updatePFP(), window.location.reload();}}
+                  onClick={() => uploadCoverImage(cover)}
                   className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
                 >
-                  Up-date Profile Picture
+                  Upload Cover Picture
                 </button>
-              )}
-              {imageSetter === "cover" && (
-                <>
-                  <button
-                    onClick={() => uploadCoverImage(cover)}
-                    className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
-                  >
-                    Upload Cover Picture
-                  </button>
-                  <button
-                    onClick={() =>{ updateCover() , window.location.reload()}}
-                    className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
-                  >
-                    Up-date Cover Picture
-                  </button>
-                </>
-              )}
+                <button
+                  onClick={() => {
+                    updateCover(), window.location.reload();
+                  }}
+                  className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
+                >
+                  Up-date Cover Picture
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
 
       {/* update PopUp */}
       <div className="grid justify-items-end mr-[75px] mb-[20px]">
-      <button
-        onClick={() => setOpenEditPopup(true)}
-        className='  flex flex-wrap [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal rounded-[70px] py-4 bg-indigo-500  text-white text-[15px] tracking-[0] leading-[normal] whitespace-nowrap'
-      >
-        Edit Profile
-      </button>
+        <button
+          onClick={() => setOpenEditPopup(true)}
+          className='  flex flex-wrap [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal rounded-[70px] py-4 bg-indigo-500  text-white text-[15px] tracking-[0] leading-[normal] whitespace-nowrap'
+        >
+          Edit Profile
+        </button>
       </div>
       <EditPopUp
         isOpen={openEditPopup}
@@ -568,38 +584,38 @@ const Page = () => {
       </div>
       <div className=" flex justify-end lg:pr-[150px] mt-[90px]">
         <div className="shadow  mt-10 rounded-lg h-max ml-3 w-[800px] bg-[#ffffff1a] ">
-          
-
           {/* POST CONTENT */}
-          {data.length>0 && 
-          data?.reverse().map(
-            (post: {
-              id: React.Key | null | undefined;
-              content:
-                | string
-                | number
-                | boolean
-                | React.ReactElement<
-                    any,
-                    string | React.JSXElementConstructor<any>
-                  >
-                | Iterable<React.ReactNode>
-                | React.ReactPortal
-                | React.PromiseLikeOfReactNode
-                | null
-                | undefined;
-              imageUrl: string | undefined;
-            }) => (
-              <Posts
-                key={post.id}
-                // content={post.content}
-                // imageUrl={post.imageUrl}
-                post={post}
-                currentUser={currentUser}
-                pdp={pdp}
-              />
-            )
-          )}
+          {data.length > 0 &&
+            data
+              ?.reverse()
+              .map(
+                (post: {
+                  id: React.Key | null | undefined;
+                  content:
+                    | string
+                    | number
+                    | boolean
+                    | React.ReactElement<
+                        any,
+                        string | React.JSXElementConstructor<any>
+                      >
+                    | Iterable<React.ReactNode>
+                    | React.ReactPortal
+                    | React.PromiseLikeOfReactNode
+                    | null
+                    | undefined;
+                  imageUrl: string | undefined;
+                }) => (
+                  <Posts
+                    key={post.id}
+                    // content={post.content}
+                    // imageUrl={post.imageUrl}
+                    post={post}
+                    currentUser={currentUser}
+                    pdp={pdp}
+                  />
+                )
+              )}
         </div>
       </div>
     </>
