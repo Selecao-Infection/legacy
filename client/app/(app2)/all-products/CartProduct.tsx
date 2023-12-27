@@ -32,13 +32,13 @@ const CartProduct = ({ product }: { product: ProductType }) => {
     return (
         <>
             <div className="rounded-lg bg-gray-500 shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-wrap md:items-center md:justify-center  justify-start pt-5 px-3.5 pb-4 text-half-white">
-                <div className=" max-h-[2px] h-full w-full " >
+                {/* <div className=" max-h-[2px] h-full w-full " >
                 <button className="button  ">
                     <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
                         <path d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128ZM128,72a12,12,0,1,0-12-12A12,12,0,0,0,128,72Zm0,112a12,12,0,1,0,12,12A12,12,0,0,0,128,184Z"></path></svg>
               
                 </button>
-                </div>
+                </div> */}
                
                 <div className="relative flex-wrap w-[258px] h-[398.5px] md:place-items-start ">
 

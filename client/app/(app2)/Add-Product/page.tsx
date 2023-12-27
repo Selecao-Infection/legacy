@@ -200,7 +200,7 @@ const AddProduct = () => {
 </div>
             </>} */}
 
-            <div className=" h-full relative overflow-hidden flex flex-row items-center justify-center py-[38px] px-[35px] box-border text-left text-[29px] text-white font-poppins lg:pl-[200px] lg:pr-[200px] lg:box-border md:pl-[100px] md:pr-[100px] md:box-border sm:pl-2.5 sm:pr-2.5 sm:box-border">
+            <div className=" h-full relative overflow-hidden flex flex-row items-center justify-center py-[38px] px-[35px] box-border text-left text-[29px] text-white font-semibold font-poppins lg:pl-[200px] lg:pr-[200px] lg:box-border md:pl-[100px] md:pr-[100px] md:box-border sm:pl-2.5 sm:pr-2.5 sm:box-border">
                 <div className=" h-full max-w-[660px] self-stretch flex-1 rounded-[20px] bg-gray-700 flex flex-col items-start justify-start py-[59px] px-[38px] box-border gap-[50px] min-w-[320px] sm:w-[360px] sm:self-stretch sm:h-full">
                     <div className="w-[237px] flex flex-row items-center justify-start gap-[20px]">
                         <img
@@ -217,7 +217,7 @@ const AddProduct = () => {
                             <div className="self-stretch flex flex-row items-start justify-between">
                                 <div className="self-stretch flex-1 flex flex-row items-start justify-between max-h-[50px]">
                                     <input
-                                        className="[border:none] [outline:none] font-medium font-poppins text-xl bg-[transparent] self-stretch flex-1 relative text-white text-left overflow-hidden text-ellipsis whitespace-nowrap"
+                                        className="[border:none] [outline:none] font-semibold   text-xl bg-[transparent] self-stretch flex-1 relative text-white text-left overflow-hidden text-ellipsis whitespace-nowrap"
                                         placeholder="Product Name"
                                         type="text"
                                         value={productName}
