@@ -48,7 +48,7 @@ const SignUp = () => {
 
       if (response.data) {
         window.localStorage.setItem('current', JSON.stringify(response.data))
-        router.push('/home')
+        router.push('/brand/signin')
         toast.success('Successfully')
 
       }
@@ -57,7 +57,7 @@ const SignUp = () => {
       console.error("Error submitting data:", error);
       toast.error("Wrong Email or Password !!")
       throw error;
-      
+
     }
   };
 
@@ -78,7 +78,7 @@ const SignUp = () => {
 
             setPdp(url);
             toast.success('Successfully')
-           
+
 
           })
           .catch((error) => {
@@ -167,7 +167,7 @@ const SignUp = () => {
               <span className="text-white text-lg font-semibold font-['SF Pro Display'] tracking-tight">
                 Already a Brand?
               </span>
-              <Link href="/auth/signup">
+              <Link href="/brand/signin">
                 <span className="text-indigo-500 text-lg font-medium font-['SF Pro Display'] tracking-tight">
                   <a className='font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline' >
                     Sign In

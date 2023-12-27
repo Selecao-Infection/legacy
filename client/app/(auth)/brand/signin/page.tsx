@@ -73,7 +73,7 @@ const SignIn = () => {
                             <span className="text-white text-lg font-semibold font-['SF Pro Display'] tracking-tight">
                                 Don't have an account yet New?
                             </span>
-                            <Link href="/auth/signup">
+                            <Link href="/brand/signup">
                                 <span className="text-indigo-500 text-lg font-medium font-['SF Pro Display'] tracking-tight">
                                     <a className='font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline' >
                                         Create An Account
