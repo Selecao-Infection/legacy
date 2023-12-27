@@ -12,6 +12,7 @@ export const getAll = async (req: Request, res: Response) => {
   try {
     const questions: Question[] = await prisma.question.findMany({
       select: {
+        id: true,
         userId: true,
         content: true,
         User: {

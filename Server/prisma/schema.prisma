@@ -1,4 +1,3 @@
-
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -25,6 +24,7 @@ model User {
   favorites Favorites[]
   followers Followers[]
   basket    Basket[]
+  replies   Replies[]
 }
 
 model Brand {
@@ -35,24 +35,24 @@ model Brand {
   imageUrl  String?
   products  Product[]
   followers Followers[]
-  cover String?
+  cover     String?
 }
 
 model Product {
-  id          String   @id @default(uuid())
+  id          String      @id @default(uuid())
   productName String
   price       Int
-  likes       Int     @default(0)
+  likes       Int         @default(0)
   category    String
   imageUrl    String[]
-  gender   String
+  gender      String
   description String
-  rating      Int     @default(0)
-  new         Boolean  @default(true)
+  rating      Int         @default(0)
+  new         Boolean     @default(true)
   brandId     String
-  Brand     Brand       @relation(fields: [brandId], references: [id])
-  favorites Favorites[]
-  basket    Basket[]
+  Brand       Brand       @relation(fields: [brandId], references: [id])
+  favorites   Favorites[]
+  basket      Basket[]
 }
 
 model Post {
@@ -60,6 +60,8 @@ model Post {
   content  String
   imageUrl String
   userId   String
+  Created_At DateTime  @default(now())
+  Updated_At DateTime  @default(now())
   User     User   @relation(fields: [userId], references: [id])
 }
 
@@ -68,7 +70,8 @@ model Question {
   content String
   userId  String
 
-  User User @relation(fields: [userId], references: [id])
+  User    User      @relation(fields: [userId], references: [id])
+  replies Replies[]
 }
 
 model Favorites {
@@ -93,5 +96,14 @@ model Basket {
   Product   Product @relation(fields: [productId], references: [id])
   productId String
   User      User    @relation(fields: [userId], references: [id])
-  qty Int @default(0)
+  qty       Int     @default(0)
+}
+
+model Replies {
+  id         String    @id @default(uuid())
+  Question   Question? @relation(fields: [questionId], references: [id])
+  questionId String?
+  User       User?     @relation(fields: [userId], references: [id])
+  userId     String?
+  content String
 }
