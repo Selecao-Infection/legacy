@@ -11,6 +11,8 @@ import { jwtDecode } from "jwt-decode";
 import { useQuery } from "react-query";
 import Posts from "./Posts";
 import EditPopUp from "./EditPopUp";
+import IsLoading from "../all-products/IsLoading";
+
 interface UploadedFile {
   name: string;
   size: string;
@@ -35,11 +37,11 @@ const Page = () => {
   const [coverPic, setCoverPic] = useState<string>("");
   const [cover, setCover] = useState<UploadedFile | null>(null);
   const [id, setId] = useState<string | null>(null);
-  const [bio,setBio]= useState<string>("")
-  const [userName,setUserName]=useState<string>("")
-  const [email,setEmail]= useState<string>("")
+  const [bio, setBio] = useState<string>("")
+  const [userName, setUserName] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
   const [openEditPopup, setOpenEditPopup] = useState<boolean>(false);
-  
+
 
   useEffect(() => {
     if (JSON.parse(window.localStorage.getItem("current") as string)) {
@@ -52,12 +54,12 @@ const Page = () => {
   useEffect(() => {
     handleId();
   }, [currentUser]);
-  
+
   const handleId = () => {
     const decodedId = currentUser?.id;
     setId(decodedId);
   };
-console.log(openEditPopup,"show me the reason ");
+  console.log(openEditPopup, "show me the reason ");
 
 
   const Covergetter = () => {
@@ -68,7 +70,7 @@ console.log(openEditPopup,"show me the reason ");
         setBio(res.data[0].bio)
         setUserName(res.data[0].userName)
         setEmail(res.data[0].email)
-        console.log(res.data[0],'gggggggggggg')
+        console.log(res.data[0], 'gggggggggggg')
       })
       .catch((err) => {
         console.log(err);
@@ -140,7 +142,11 @@ console.log(openEditPopup,"show me the reason ");
   const { data, isError, isLoading } = useQuery("randomFacts", getPosts);
 
   if (isLoading) {
-    return <div>lOADING....</div>;
+    return (
+      <div>
+        <IsLoading />
+      </div>
+    )
   }
 
   const handlePostClick = () => {
@@ -201,7 +207,7 @@ console.log(openEditPopup,"show me the reason ");
       }
     );
     const uu = console.log(uploadTask.snapshot);
-    
+
   };
   const uploadProfileImage = (file: File) => {
     const storageRef = ref(storage, `Profile/${file.name}`);
@@ -247,9 +253,9 @@ console.log(openEditPopup,"show me the reason ");
       }
     );
   };
-const handleCloseEditPopUp = ()=>{
-  setOpenEditPopup(!openEditPopup)
-}
+  const handleCloseEditPopUp = () => {
+    setOpenEditPopup(!openEditPopup)
+  }
   const handleClosePoP = () => setOpenPopup(!openPopup);
   return (
     <>
@@ -293,18 +299,18 @@ const handleCloseEditPopUp = ()=>{
         </div>
       </div>
       {/* userName */}
-      <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px]" > 
-              <p>{userName}</p>
+      <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px]" >
+        <p>{userName}</p>
       </div>
       {/* bio */}
       <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px]">
-       <p>{bio}</p>
+        <p>{bio}</p>
       </div>
       {/* update PopUp */}
-      <button onClick={()=> setOpenEditPopup(true)} className='relative w-fit [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal text-white text-[16px] tracking-[0] leading-[normal] whitespace-nowrap'>
-          Edit Profile
-        </button>
-        <EditPopUp isOpen={openEditPopup} closeEditPopUp={handleCloseEditPopUp} currentUser={currentUser} email={email}/>
+      <button onClick={() => setOpenEditPopup(true)} className='relative w-fit [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal text-white text-[16px] tracking-[0] leading-[normal] whitespace-nowrap'>
+        Edit Profile
+      </button>
+      <EditPopUp isOpen={openEditPopup} closeEditPopUp={handleCloseEditPopUp} currentUser={currentUser} email={email} />
       <div className=" flex justify-evenly gap-5 flex-wrap">
         <div className="shadow  mt-4 mr-4 rounded-lg h-max w-[400px] bg-[#ffffff1a] p-2.5 ">
           <div className="flex justify-between">
@@ -492,7 +498,7 @@ const handleCloseEditPopUp = ()=>{
               >
                 x
               </button>
-       
+
               <input
                 type="file"
                 accept="image/png"
@@ -546,18 +552,18 @@ const handleCloseEditPopUp = ()=>{
             (post: {
               id: React.Key | null | undefined;
               content:
-                | string
-                | number
-                | boolean
-                | React.ReactElement<
-                    any,
-                    string | React.JSXElementConstructor<any>
-                  >
-                | Iterable<React.ReactNode>
-                | React.ReactPortal
-                | React.PromiseLikeOfReactNode
-                | null
-                | undefined;
+              | string
+              | number
+              | boolean
+              | React.ReactElement<
+                any,
+                string | React.JSXElementConstructor<any>
+              >
+              | Iterable<React.ReactNode>
+              | React.ReactPortal
+              | React.PromiseLikeOfReactNode
+              | null
+              | undefined;
               imageUrl: string | undefined;
             }) => (
               <Posts

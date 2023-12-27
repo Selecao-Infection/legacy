@@ -1,7 +1,7 @@
 "use client "
+import { Toaster, toast } from 'sonner'
 
-
-import Header from "../Nav/Fot/navbar"
+// import Header from "../Nav/Fot/navbar"
 
 
 export default function AuthLayout({
@@ -12,7 +12,9 @@ export default function AuthLayout({
 }) {
   return (
 <section> 
+<Toaster richColors position="top-right" expand={false} />
         {children}
+
 </section>
 
   
