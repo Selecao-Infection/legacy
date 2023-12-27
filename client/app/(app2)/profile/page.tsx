@@ -532,7 +532,7 @@ const Page = () => {
               <div className="my-4">
                 <textarea
                   id="content"
-                  placeholder={`What's on your mind,${userName} ?`}
+                  placeholder={`What's on your mind,@${userName} ?`}
                   onChange={(e) => {
                     setContent(e.target.value);
                   }}
