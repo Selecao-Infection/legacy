@@ -62,7 +62,7 @@ const EmailEdit: React.FC<EmailEditProps> = ({ editPopUp, closePopUp, currentUse
               <div className='w-1/3 flex space-x-2 justify-center items-center hover:bg-[#ffffff1a] dark:hover:bg-dark-third text-xl sm:text-3xl py-2 rounded-lg cursor-point'>
                 <span
                   className='text-xs sm:text-sm font-semibold text-gray-100 dark:text-dark-txt'
-                  onClick={editEmail}>
+                  onClick={()=>{editEmail(), window.location.reload()  }}>
                   Confirm
                 </span>
               </div>

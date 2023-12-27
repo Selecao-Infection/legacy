@@ -17,10 +17,10 @@ const Home :React.FC = () => {
 
           <div className=" flex flex-col items-center lg:max-w-[30%] gap-8 ">
           <h1 className="text-2xl  md:text-3xl lg:text-4xl xl:text-5xl text-white text-left font-bold mb-6">
-            Shoes are the Spirit of Fashion
+            ICE is the Spirit of Fashion
           </h1>
           <div className="text-gray-500 text-left m-4 mb-6">
-            Shoes define style, telling a unique story through personal choices.
+            Diamonds define style, telling a unique story through personal choices.
             They are the essence of self-expression and individuality in
             fashion.
           </div>
@@ -211,11 +211,11 @@ const Home :React.FC = () => {
           <AllCollection/>
 
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center text-black">
       <div className="  flex flex-col gap-8 justify-center ">
-        <h1 className="text-white text-4xl font-bold ">New & Trending</h1>
+        <h1 className="text-black text-4xl font-bold ">New & Trending</h1>
 
-        <p className="text-gray-500 ">
+        <p >
         Step into elegance with our latest
         </p>
       </div>
@@ -315,16 +315,7 @@ const Home :React.FC = () => {
           Get Started
         </button>
         </div>
-        
-        {/* <h1 className="text-3xl text-white font-bold mb-10 justify-center">
-          Highest Quality Collection
-        </h1>
-        <button
-          className= "text-white bg-gray-300 font-bold pl-6  pr-6 p-2 mt-4 rounded-full "
-          // onClick={handleGetStartedClick}
-        >
-          Get Started
-        </button> */}
+ 
       </div>
       </div>
         
@@ -335,89 +326,5 @@ const Home :React.FC = () => {
 };
 
 
-{/*
-      <div className="flex flex-col gap-4 p-4 mx-auto mt-[10rem] ">
-        <h1 className="text-white text-6xl font-bold ">New & Trending</h1>
-        <p className="text-gray-500">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui deleniti
-          inventore labore voluptas eligendi modi rerum! <br /> Commodi nam
-          illum ex eveniet aliquid, quos vitae repellendus corrupti cupiditate,
-          suscipit distinctio hic.
-        </p>
-      </div>
-
-      <NewTreding/>
-
-      <div className="flex flex-col gap-4 p-4 mx-auto mt-[10rem] ">
-        <h1 className="text-white text-6xl font-bold ">Upcoming Creators</h1>
-        <p className="text-gray-500">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui deleniti
-          inventore labore voluptas elig
-        </p>
-      </div>
-      <CreatorCard />
-      <div className="flex flex-col gap-4 p-4 mx-auto mt-[10rem] ">
-        <h1 className="text-white text-6xl font-bold ">Upcoming Brands</h1>
-        <p className="text-gray-500">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui deleniti
-          inventore labore voluptas elig
-        </p>
-      </div>
-      <BrandsCard />
-      <div className="text-white text-2xl md:text-3xl lg:text-4xl  md:mt-[10rem]">
-        Frequently Asked Questions
-        <h1 className="text-gray-500 text-md md:text-xl lg:text-2xl">
-          Wanna Ask Something?
-        </h1>
-      </div>
-      <div className="flex mt-10 justify-center items-center">
-        <div className=" flex flex-col flex-1 justify-center items-center">
-          <input
-            type="text"
-            className="w-[80%] bg-transparent mb-5 pb-4 border-b-[1px] border-input placeholder:text-gray-500 text-white w-[26%] "
-            placeholder="what is in your mind                                                                                   +"
-          />
-          <input
-            type="text"
-            className="w-[80%] bg-transparent mb-5 pb-4 border-b-[1px] border-input placeholder:text-gray-500 text-white w-[26%] "
-            placeholder="what is in your mind                                                                                   +"
-          />
-          <input
-            type="text"
-            className="w-[80%] bg-transparent mb-5 pb-4 border-b-[1px] border-input placeholder:text-gray-500 text-white w-[26%] "
-            placeholder="what is in your mind                                                                                    +"
-          />
-        </div>
-        <div className="  flex flex-col flex-1 justify-center items-center">
-          <input
-            type="text"
-            className="w-[80%] bg-transparent mb-5 pb-4 border-b-[1px] border-input placeholder:text-gray-500 text-white w-[26%] "
-            placeholder="what is in your mind                                                                                    +"
-          />
-          <input
-            type="text"
-            className="w-[80%] bg-transparent mb-5 pb-4 border-b-[1px] border-input placeholder:text-gray-500 text-white w-[26%] "
-            placeholder="what is in your mind                                                                                    +"
-          />
-          <input
-            type="text"
-            className="w-[80%] bg-transparent mb-5 pb-4 border-b-[1px] border-input placeholder:text-gray-500 text-white w-[26%] "
-            placeholder="what is in your mind                                                                                    +"
-          />
-        </div>
-      </div>
-          <button className="text-white bg-violet-500 font-bold pl-6 pr-6 p-2 mt-4 rounded-full">FAQ</button>
-      <div className="bg-purple-500 p-[5%] mx-9 rounded-md mt-[10%]">
-        <h1 className="text-3xl text-white font-bold mb-10">
-          Highest Quality Collection
-        </h1>
-        <button
-          className="text-white bg-gray-300 font-bold pl-6  pr-6 p-2 mt-4 rounded-full "
-          // onClick={handleGetStartedClick}
-        >
-          Get Started
-        </button>
-      </div>
-    </div> */}
 
 export default Home;

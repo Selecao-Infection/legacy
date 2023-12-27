@@ -4,12 +4,13 @@ import { storage } from "../../../firebase";
 import React, { useState, ChangeEvent, useEffect } from "react";
 import { FaCamera } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
-import ProfilepicturePopUp from "./profilepicturePopUp";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useQuery } from "react-query";
 import Posts from "./Posts";
 import EditPopUp from "./EditPopUp";
+import { toast } from 'sonner'
+
 import IsLoading from "../all-products/IsLoading";
 
 interface UploadedFile {
@@ -40,7 +41,11 @@ const Page = () => {
   const [email, setEmail] = useState<string>("");
   const [openEditPopup, setOpenEditPopup] = useState<boolean>(false);
   const [openChanger, setOpenChanger] = useState<Boolean>(false);
-  const [res,setRes]=useState<any>()
+  const [openEdit, setOpenEdit] = useState<boolean>(false);
+  const [postId, setPostId] = useState("");
+  const [updatedContent, setUpdatedContent] = useState<string>("");
+
+
   useEffect(() => {
     if (JSON.parse(window.localStorage.getItem("current") as string)) {
       setCurrentUser(
@@ -57,25 +62,21 @@ const Page = () => {
     const decodedId = currentUser?.id;
     setId(decodedId);
   };
-  console.log(openEditPopup, "show me the reason ");
 
   const Covergetter = () => {
     axios
       .get(`http://localhost:4000/api/user/profile/${id}`)
       .then((res) => {
-
-        
         setCoverPic(res.data[0].coverUrl);
         setBio(res.data[0].bio);
         setUserName(res.data[0].userName);
         setEmail(res.data[0].email);
-    
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  console.log(id,'dfghjk')
+
   const pdpGetter = () => {
     axios
       .get(`http://localhost:4000/api/user/profile/${id}`)
@@ -110,6 +111,7 @@ const Page = () => {
         console.error("Error updating profile picture:", error);
       });
   };
+
   const updateCover = () => {
     const userId = currentUser?.id;
     if (!userId || !cover) {
@@ -130,15 +132,14 @@ const Page = () => {
   // Fetcher function
   const getPosts = async () => {
     const res = await fetch("http://localhost:4000/api/get/post", {
+      method: "POST",
       next: {
         revalidate: 120,
       },
     });
     return res.json();
   };
-  // Using the hook
   const { data, isError, isLoading } = useQuery("randomFacts", getPosts);
-
   if (isLoading) {
     return (
       <div>
@@ -147,30 +148,25 @@ const Page = () => {
     )
   }
 
+
   const handlePostClick = () => {
     const post = {
       content: content,
       imageUrl: imageUrl,
       userId: currentUser?.id,
     };
-
     axios
       .post("http://localhost:4000/api/post/post/create", post)
       .then((response) => {
         console.log(response);
+        toast.success('Post added Successfully!')
       })
       .catch((error) => {
         console.log(error);
       });
     window.location.reload();
   };
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
 
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files[0];
     if (imageSetter === "post") {
@@ -185,7 +181,6 @@ const Page = () => {
   const uploadPostImage = (file: File) => {
     const storageRef = ref(storage, `Posts/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
-
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -194,12 +189,13 @@ const Page = () => {
         console.log(progress);
       },
       (error) => {
+        toast.warning("Please choose a Picture.")
         console.error(error);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log(downloadURL, "download");
-
+          toast.success('Image Uploaded Successfully!')
           setImageUrl(downloadURL);
         });
       }
@@ -207,10 +203,10 @@ const Page = () => {
     const uu = console.log(uploadTask.snapshot);
 
   };
+
   const uploadProfileImage = (file: File) => {
     const storageRef = ref(storage, `Profile/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
-
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -219,16 +215,19 @@ const Page = () => {
         console.log(progress);
       },
       (error) => {
+        toast.warning("Please choose a Picture.")
         console.error(error);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log(downloadURL, "download");
+          toast.success('Image Uploaded Successfully!')
           setProfilePic(downloadURL);
         });
       }
     );
   };
+
   const uploadCoverImage = (file: File) => {
     const storageRef = ref(storage, `Cover/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -242,10 +241,12 @@ const Page = () => {
       },
       (error) => {
         console.error(error);
+        toast.warning("Please choose a Picture.")
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log(downloadURL, "download");
+          toast.success('Image Uploaded Successfully!')
           setCover(downloadURL);
         });
       }
@@ -254,7 +255,27 @@ const Page = () => {
   const handleCloseEditPopUp = () => {
     setOpenEditPopup(!openEditPopup);
   };
+  console.log(postId)
   const handleClosePoP = () => setOpenPopup(!openPopup);
+  const postUpdatehandler = (postId :string) => {
+    if (!postId) {
+      console.error("postId is missing.");
+      return;
+    }
+    axios
+      .put(`http://localhost:4000/api/put/post/update/${postId}`, {
+        content: updatedContent,
+      })
+      .then((response) => {
+        console.log("Response:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating post:", error);
+      });
+  };
+  const idSetter = () => {
+    setPostId(data.id);
+  };
   return (
     <>
       {/* Banner */}
@@ -265,7 +286,7 @@ const Page = () => {
             className="rounded-full md:h-9 md:w-9 bg-violet-700 p-3 flex absolute top-[79%] left-[73%] transform -translate-y-1/2  "
             onClick={() => {
               setImageSetter("cover");
-              setOpenChanger(!openChanger)
+              setOpenChanger(!openChanger);
             }}
           >
             <MdEdit className="text-white" />
@@ -284,7 +305,6 @@ const Page = () => {
               onClick={() => {
                 setOpenChanger(!openChanger);
                 setImageSetter("pdp");
-                
               }}
               className=" bg-violet-700 w-6 h-6 rounded-full flex absolute left-[52%] top-[95%] justify-center items-center"
             >
@@ -295,11 +315,11 @@ const Page = () => {
       </div>
       {/* userName */}
       <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px]">
-        <p>{userName}</p>
+        <p className="text-3xl">{userName}</p>
       </div>
       {/* bio */}
       <div className="flex justify-center text-center text-[14px] font-sans text-[#ffffffcc] mb-[50px] ">
-        <p>{bio}</p>
+        <p className="text-xl">{bio}</p>
       </div>
       {/* image Changer */}
       {openChanger && (
@@ -353,50 +373,54 @@ const Page = () => {
                 Upload
               </button>
             )}
-              {imageSetter === "pdp" && (
+            {imageSetter === "pdp" && (
+              <button
+                onClick={() => uploadProfileImage(ProfilePic)}
+                className="mb-5 bg-indigo-500 rounded-[150px] p-3"
+              >
+                Upload Profile Picture
+              </button>
+            )}
+            {imageSetter === "pdp" && (
+              <button
+                onClick={() => {
+                  updatePFP(), window.location.reload();
+                }}
+                className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
+              >
+                Up-date Profile Picture
+              </button>
+            )}
+            {imageSetter === "cover" && (
+              <>
                 <button
-                  onClick={() => uploadProfileImage(ProfilePic)}
-                  className="mb-5 bg-indigo-500 rounded-[150px] p-3"
-                >
-                  Upload Profile Picture
-                </button>
-              )}
-               {imageSetter === "pdp" && (
-                <button
-                  onClick={() => {updatePFP(), window.location.reload();}}
+                  onClick={() => uploadCoverImage(cover)}
                   className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
                 >
-                  Up-date Profile Picture
+                  Upload Cover Picture
                 </button>
-              )}
-              {imageSetter === "cover" && (
-                <>
-                  <button
-                    onClick={() => uploadCoverImage(cover)}
-                    className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
-                  >
-                    Upload Cover Picture
-                  </button>
-                  <button
-                    onClick={() =>{ updateCover() , window.location.reload()}}
-                    className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
-                  >
-                    Up-date Cover Picture
-                  </button>
-                </>
-              )}
+                <button
+                  onClick={() => {
+                    updateCover(), window.location.reload();
+                  }}
+                  className="mb-5 ml-[15px] bg-indigo-500 rounded-[150px] p-3"
+                >
+                  Up-date Cover Picture
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
 
       {/* update PopUp */}
       <div className="grid justify-items-end mr-[75px] mb-[20px]">
-      <button
-        onClick={() => setOpenEditPopup(true)}
-        className='  flex flex-wrap [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal rounded-[70px] py-4 bg-indigo-500  text-white text-[15px] tracking-[0] leading-[normal] whitespace-nowrap'
-      >
-        Edit Profile
-      </button>
+        <button
+          onClick={() => setOpenEditPopup(true)}
+          className=' [font-family : "SF_Pro_Display-Semibold" , Helvetica] font-normal rounded-[30px] w-[120px] py-4 bg-indigo-500  text-white text-[15px] tracking-[0] leading-[normal] whitespace-nowrap'
+        >
+          Edit Profile
+        </button>
       </div>
       <EditPopUp
         isOpen={openEditPopup}
@@ -415,18 +439,6 @@ const Page = () => {
             >
               Photos ❤️
             </span>
-            <span
-              style={{
-                fontFamily: "'SF Pro Display Regular', Helvetica, sans-serif",
-              }}
-              className="font-sans text-[16px] text-[#6c5dd3] whitespace-nowrap font-normal cursor-pointer"
-              onClick={() => setOpenPopup(true)}
-            >
-              See All Photos
-            </span>
-            {openPopup && (
-              <ProfilepicturePopUp handleClosePoP={handleClosePoP} />
-            )}
           </div>
           <div className="flex flex-wrap w-full h-full m-5 p-3 ">
             {data?.map(
@@ -506,7 +518,7 @@ const Page = () => {
               <div className="my-4">
                 <textarea
                   id="content"
-                  placeholder={`What's on your mind,${userName} ?`}
+                  placeholder={`What's on your mind,@${userName} ?`}
                   onChange={(e) => {
                     setContent(e.target.value);
                   }}
@@ -576,42 +588,77 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className=" flex justify-end lg:pr-[150px] mt-[90px]">
-        <div className="shadow  mt-10 rounded-lg h-max ml-3 w-[800px] bg-[#ffffff1a] ">
-          
-
+      <div className=" flex justify-end  lg:pr-[150px] mt-[90px] " >
+        <div
+          className="shadow  mt-10 rounded-lg h-max ml-3 w-[750px]   "
+        >
           {/* POST CONTENT */}
-          {data.length>0 && 
-          data?.reverse().map(
-            (post: {
-              id: React.Key | null | undefined;
-              content:
-              | string
-              | number
-              | boolean
-              | React.ReactElement<
-                any,
-                string | React.JSXElementConstructor<any>
-              >
-              | Iterable<React.ReactNode>
-              | React.ReactPortal
-              | React.PromiseLikeOfReactNode
-              | null
-              | undefined;
-              imageUrl: string | undefined;
-            }) => (
-              <Posts
-                key={post.id}
-                // content={post.content}
-                // imageUrl={post.imageUrl}
-                post={post}
-                currentUser={currentUser}
-                pdp={pdp}
-              />
-            )
-          )}
+          {data &&
+  data.length > 0 &&
+  data
+    ?.reverse()
+    .map((post) => (
+      <div className="flex items-center"> {/* Flex container */}
+        <Posts
+          key={post.id}
+          post={post}
+          currentUser={currentUser}
+          pdp={pdp}
+        />
+        <button
+          className="rounded-[30px] h-6 w-6 sm:h-8 sm:w-8 bg-zinc-500 p-2 m-4 md:p-3"
+          onClick={() => {
+            console.log(post.id);
+            setPostId(post.id);
+            setOpenEdit(true);
+          }}
+        >
+          <MdEdit className="text-white" />
+        </button>
+      </div>
+    ))
+}
         </div>
       </div>
+      <>
+        {openEdit && (
+          <div
+            id="PostContainer"
+            className="fixed inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm "
+          >
+            <div className="p-2 bg-[#494649] w-10/12 md:w-1/2 lg:1/3 shadow-inner border-e-emerald-600 rounded-lg py-5">
+              <div className="w-full p-3 justify-center items-center">
+                <h2 className="font-semibold py-3 text-center text-xl text-[#ebebeb]">
+                  your Post Update goes here
+                </h2>
+                <div className="px-4 mt-5 shadow w-auto self-center rounded-lg dark:bg-dark-second">
+                  <div className="p-2 border-b border-[#ffffff1a] dark:border-dark-third flex space-x-4">
+                    <textarea
+                      className="flex-1 bg-[#ffffff1a] rounded-full flex items-center justify-start pl-4 dark:bg-dark-third text-gray-100 text-lg dark:text-dark-txt"
+                      placeholder="Uppdate your Post here..."
+                      onChange={(e) => setUpdatedContent(e.target.value)}
+                    />
+                  </div>
+                  <div className="p-2 flex justify-center">
+                    <div className="w-1/3 flex space-x-2 justify-center items-center hover:bg-[#ffffff1a] dark:hover:bg-dark-third text-xl sm:text-3xl py-2 rounded-lg cursor-point">
+                      <span
+                        className="text-xs sm:text-sm font-semibold text-gray-100 dark:text-dark-txt"
+                        onClick={() => {
+                          postUpdatehandler(postId);
+                          toast.success("Post Updated succefully!")
+                          window.location.reload();
+                        }}
+                      >
+                        Confirm
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
     </>
   );
 };

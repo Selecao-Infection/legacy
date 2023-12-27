@@ -8,7 +8,7 @@ import {
   deletePost,
 } from "../controller/post_controller";
 
-postRoute.get("/get/post", getAllPosts);
+postRoute.post("/get/post", getAllPosts);
 postRoute.post("/post/post/create", createPost);
-postRoute.put("/put/post/update", updatePost);
+postRoute.put("/put/post/update/:id", updatePost);
 postRoute.delete("/delete/post/delete", deletePost);

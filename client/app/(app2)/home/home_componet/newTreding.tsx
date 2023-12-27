@@ -12,6 +12,7 @@ interface Product {
   category: string;
   like: boolean;
 }
+// console.log("hello");
 
 const NewTrending = () => {
   const [products, setProducts] = useState<Product[]>([]);

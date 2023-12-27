@@ -81,7 +81,7 @@ const List = (props: any) => {
                 return (
                     <div key={index} className="flex-wrap flex gap-10 font-sans text-[20px]">
 
-                        <img src="https://images.squarespace-cdn.com/content/v1/5cedc00da64f4a000176dfe6/1559593047658-T5CWFEDS1H3PS0BPSFNN/IMG_1892.JPG?format=1000w"
+                        <img src={e.Product.imageUrl}
                             className="w-[150px] h-[150px] rounded" />
                         <div className="flex flex-col gap-6 items-center">
                             <div className="flex flex-wrap gap-10">

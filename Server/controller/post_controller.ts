@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
+import { METHODS } from "http";
 
 interface Post {
   content: string;
@@ -11,9 +12,12 @@ interface Post {
 
 const prisma = new PrismaClient();
 
-export const getAllPosts = async (req: Request, res: Response) => {
+export const getAllPosts = async (req: Request, res: Response) => { 
+  const {userId}=req.body
+  console.log(userId);
+  
   try {
-    const getPost: Post[] = await prisma.post.findMany({orderBy:[{Created_At:'desc'}]});
+    const getPost: Post[] = await prisma.post.findMany({orderBy:[{Created_At:'desc'}],where:{userId:userId}});
     res.json(getPost);
   } catch (err) {
     console.error(err);
@@ -36,16 +40,16 @@ export const createPost = async (req: Request, res: Response) => {
 
 export const updatePost = async (req: Request, res: Response) => {
   const { content, imageUrl, userId }: Post = req.body;
-  req.body;
-  const { id } = req.body;
+  
+  const { id } = req.params;
   try {
     const postup: Post = await prisma.post.update({
       where: { id },
-      data: req.body,
+      data:{content : req.body},
     });
     res.json(postup);
   } catch (err) {
-    console.error(err, "Error updating product");
+    console.error(err, "Error updating post");
     res.json(err);
   }
 };
@@ -60,7 +64,7 @@ export const deletePost = async (req: Request, res: Response) => {
 
     res.json(deletedpost);
   } catch (err) {
-    console.error(err, "Error deleting product");
+    console.error(err, "Error deleting post");
     res.json(err);
   }
 };
