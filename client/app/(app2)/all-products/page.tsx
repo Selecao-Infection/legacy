@@ -6,6 +6,7 @@ import FilterBar from "./FilterBar";
 import Products from "./Products";
 import {useQuery} from 'react-query';
 import dummyData from './DummyData.json'
+import IsLoading from "./IsLoading";
 
 interface FilterBarProps {
     filtred: (category: string) => Promise<any>;
@@ -14,14 +15,17 @@ interface FilterBarProps {
   }
 
  type ProductType={
-        id:number;
-        productName: string,
-      price       :number,
-      likes       :number,
-      category   : string,
-      imageUrl   : string,
-      new   :      boolean ,
-      brandId    : string,
+    id:string;
+    productName: string;
+    price: number;
+    likes  : number;
+    category: string;
+    gender:string;
+    imageUrl: string[];
+    brandId: string;
+    description :string;
+    rating : number;   
+    new   :      boolean 
  }
  
     
@@ -95,7 +99,11 @@ if (sort == "Low") {
 
 if (isLoading){
 return(
-    <div>lOADING....</div>
+    <>
+     <IsLoading  />  
+      </>
+       
+      
 )  
 }     
  
@@ -103,11 +111,17 @@ return(
     return (
 
         <>
-            <div className="relative  w-full h-full overflow-hidden flex flex-row items-start justify-start py-0 px-px box-border text-left text-[26px] text-white font-poppins sm:flex-wrap">
-                <div className="self-stretch flex-1 flex flex-row items-start justify-start p-10 gap-[60px]  ">
-                    <FilterBar filtred={filtred} filtredWithGender={filtredWithGender} filtredWithStatus={filtredWithStatus} sortedProducts={sortedProducts} />
-                    <div className="flex-1 h-full flex flex-col items-start justify-start gap-[24px] min-w-[350px] max-w-[960px] text-base text-gray-400">
-
+        
+            <div className="relative  w-full h-full overflow-hidden flex flex-row items-start justify-start   sm:p-6   py-0 px-px box-border text-left text-[26px] text-white font-poppins sm:flex-wrap">
+                <div className="self-stretch flex-1 flex flex-row items-start justify-start   gap-[60px] lg:p-1    ">
+                  
+                  <div className="hidden  h-full sm:flex flex-col items-start justify-start" >
+                  <FilterBar filtred={filtred} filtredWithGender={filtredWithGender} filtredWithStatus={filtredWithStatus} sortedProducts={sortedProducts} />
+                    </div>  
+                    <div className="flex-1 h-full flex flex-col md:items-start md:justify-start justify-center gap-[24px] min-w-[350px] max-w-[1260px] text-base text-gray-400 sm:px-5   ">
+                        <div className="relative  inline-block sm:hidden " >
+                               <FilterBar filtred={filtred} filtredWithGender={filtredWithGender} filtredWithStatus={filtredWithStatus} sortedProducts={sortedProducts} />
+                       </div>
                         <ButtonAddProduct fetchProducts ={fetchProducts}   products= {product} />
                         
                         <Products products= {product} />

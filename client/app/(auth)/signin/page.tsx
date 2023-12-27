@@ -7,85 +7,160 @@ import { useRouter } from 'next/navigation'
 import Google from '../google'
 import Facebook from './facebook'
 import Link from 'next/link'
-const SignIn = ()=> {
-const [email,setEmail]= useState<string>()
-const [password,setPassword]= useState<string>()
-const router = useRouter()
-const submit = async ()=>{
-    if (!email || !password) return;
-    const body = {
-        email : email,
-        password : password,
+import Image from "next/image";
+import ImgSignin from "../../../public/image 8.png"
+import { Toaster, toast } from 'sonner'
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+
+const SignIn = () => {
+    const [email, setEmail] = useState<string>()
+    const [password, setPassword] = useState<string>()
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+    
+    const router = useRouter()
+
+    const submit = async () => {
+        if (!email || !password){ 
+            toast.warning("Please fill all fields.")
+            return;
+        }
+        const body = {
+            email: email,
+            password: password,
+        }
+        try {
+            var res = await axios.post('http://localhost:4000/api/user/signin', body);
+            window.localStorage.setItem('current', JSON.stringify(res.data))
+            router.push('/home')
+
+            toast.success('Successfully')
+        } catch (error) {
+            console.log(error);
+            toast.error("Wrong Email or Password !!")
+            
+
+        }
     }
-    try {
-       var res = await  axios.post('http://localhost:4000/api/user/signin',body);
-       window.localStorage.setItem('current',JSON.stringify(res.data))
-       router.push('/home')
-    } catch (error) {
-        console.log(error);
-        
-    }
-}
 
 
     return (
-        <div>
+        <>
 
 
-        <div className=" flex flex-col-2 gap-64 items-center lg:m-32">
-        <div className="flex flex-col lg:block hidden   ">
-        
-        <img
-            src="https://s3-alpha-sig.figma.com/img/a59c/1e4a/905494d13b92596161da408b21648aa6?Expires=1703462400&Signature=ph1rrOffokpkaiR4HZ8Oto0UR8ExmYlJNwE~n8GUBRj-dY0aM872pO9HOO4OCQnL4pjzj7-RoUDXKjGa7hWNRtLRnl~inYgsjE3UixIJ0E4civNZdYCfEJVVfvQj7Z~mQsUjNH-PPlJfmaNKrQpUdGbqpbn9uUbbIRsTmaQ9HpeoOSOUyUagyWLHVO4IQroHJYpaK5NslbdGnQ8M734dDOkkR3PMRlhLvDaRQXMr311xZlau86vMV2sGUbDz~1~41C~32b0fi-a~OfsdC0UhuhoZH8ZR4xRsUElxBAQI7gmQ1fJYzPJGQ4FWHm6HgwgZRgrIGUWW2VRxT5OSIW6-CA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-            alt=""
-            className=" w-[400px] h-[460px]"
-          />       
-          <div className="font-sans font-semibold text-xl text-center">
-            Explore the world of meta fashion
-          </div>
-           </div>
+            <div className="h-full w-full relative flex flex-col p-6  lg:flex-row gap-20 overflow-hidden items-center  lg:pl-[200px] lg:pr-[200px] lg:box-border md:pl-[100px] md:pr-[100px] md:box-border sm:pl-2.5 sm:pr-2.5 ">
+                <div className=" relative flex flex-col w-full  items-center justify-center  ">
 
-           <div className="w-[527px] h-[699px] bg-white bg-opacity-20 rounded-[10px] flex-col flex items-center gap-6">
-            <div className="flex flex-col items-start m-4 gap-10 ">
-                <div className="text-center text-white text-3xl font-extrabold font-['SF Pro Display'] tracking-tight">Sign In</div>
-                <div><span className="text-white text-lg font-normal font-['SF Pro Display'] tracking-tight">New user?</span> <Link href="/auth/signup"><span className="text-indigo-500 text-lg font-medium font-['SF Pro Display'] tracking-tight"> Create an account</span></Link></div>
-                <div className="flex flex-col gap-14">
-                    <div>
 
-                <div className="text-white text-lg font-normal font-['SF Pro Display'] tracking-tight">Email Address</div>
-                <input  
-                 
-                 onChange={(e)=>setEmail(e.target.value)}
-                className="h-8  bg-white bg-opacity-0 w-[459px]"/>
-                <div className="w-[459px] h-[0px] border border-white border-opacity-50"></div>
+                    <h1 className=" p-7 min-w-[350px] lg:max-w-[950px] md:max-w-[950px] text-3xl  text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+                        Explore The World Of
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r ml-4 from-indigo-600 to-sky-500 ">
+                            Meta Fashion
+                        </span>
+
+                    </h1>
+
+                    <div className=" hidden lg:flex  h-full  items-center justify-center ">
+                        <Image
+                            src={ImgSignin}
+                            alt=""
+                            className=" items-center justify-center"
+                        />
                     </div>
-                    <div>
 
-                <div className="text-white text-lg font-normal font-['SF Pro Display'] tracking-tight">Password</div>
-                <input 
-                onChange={(e)=>setPassword(e.target.value)}
-                 className="h-8 bg-white bg-opacity-0 w-[459px]"/>
-                <div className="w-[459px] h-[0px] border border-white border-opacity-50"></div>
-                    </div>
+
                 </div>
-            </div>
-                <button 
-                onClick={submit}
-                className=" relative  float-right w-[113px] h-8 px-5 py-2.5 bg-gradient-to-bl from-purple-500 to-violet-700 rounded-[121px] justify-center items-center gap-2.5 inline-flex">
-    <div className="text-white text-base font-normal font-['Poppins']">Continue</div> 
-</button>
-          OR ?
 
-          <div className='flex items-center relative right-10 flex-col'>
+                <div className="max-w-[550px] max-h-[710px] w-full h-full p-5 bg-white bg-opacity-20 rounded-[10px] flex-col flex items-center gap-6">
 
-<Google  />
-          <Facebook customRouter={router} />
-          </div>
-           </div>
-    
-  </div>
+
+                    <div className="flex flex-col h-full w-full relative  items-start p-5 gap-10 ">
+                        <div className="text-center text-white text-3xl font-extrabold font-['SF Pro Display'] tracking-tight">
+                            Sign In
+                        </div>
+                        <div>
+                            <span className="text-white text-lg font-semibold font-['SF Pro Display'] tracking-tight">
+                                Don't have an account yet New?
+                            </span>
+                            <Link href="/signup">
+                                <span className="text-indigo-500 text-lg font-medium font-['SF Pro Display'] tracking-tight">
+                                    <a className='font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline' >
+                                        Create An Account
+                                    </a>
+                                </span>
+                            </Link>
+                        </div>
+                        <div className="flex flex-col  w-full gap-14">
+
+                            <div>
+                                <div className=" w-full   text-white text-lg font-semibold font-['SF Pro Display'] tracking-tight">Email Address</div>
+                                <input
+                                    type="email" name="Email" autoComplete="off" placeholder='Enter Your Email'
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="h-8  bg-white bg-opacity-0 w-full" />
+                                <div className="w-full h-[0px] border border-white border-opacity-50"></div>
+                            </div>
+
+                            <div >
+                <div className="text-white text-lg font-semibold  tracking-tight">
+                  Password
+                </div>
+                <div className="relative flex flex-row  w-full gap-1  " >
+                  <input
+                    onChange={(e) => setPassword(e.target.value)}
+                    type={showPassword ? "text" : "password"}
+                    name="Name" placeholder='Enter Your Password '
+                    className="h-8 bg-white bg-opacity-0 w-full" />
+
+                  <div className=" w-full relative justify-center max-w-[30px] "
+                    onClick={() =>
+                      setShowPassword((prev) => !prev)
+                    }
+                  >
+                    {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                  </div>
+                </div>
+
+                <div className="w-full h-[0px] border border-white border-opacity-50"></div>
+              </div>
+                        </div>
+                    </div>
+
+                    <div className=" relative flex flex-col w-full h-full gap-4 p-4 justify-start  items-center   ">
+                        <div className=' flex items-center w-full gap-4 justify-center relative  right-0 flex-col   ' >
+                            <button
+                                onClick={submit}
+                                className=" w-full max-w-[250px] max-h-[56px] relative  bg-blue-200 hover:bg-blue-400 text-black font-bold py-3 px-6 rounded-full shadow-lg shadow-neutral-950 hover:text-white transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce float-right    bg-gradient-to-bl from-purple-500 to-violet-700  justify-center items-center gap-2.5 inline-flex">
+                                <div className="text-white text-base  font-semibold  ">Continue</div>
+                            </button>
+
+                        </div>
+
+                        <div className='font-semibold' >OR ?</div>
+
+                        <div className='flex items-center w-full gap-4 justify-center relative  right-0 flex-col'>
+
+                            <Google />
+                            <div className='max-w-[400px]  ' >
+                                <button className="flex w-full gap-3 cursor-pointer transform transition-all  ease-in-out text-white font-semibold bg-gradient-to-r   px-7 py-3 rounded-full border border-gray-600 hover:scale-105 duration-200 hover:text-gray-200 hover:border-gray-800 hover:from-zinc-700 hover:to-transparent">
+
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" className="text-2xl" height="30px" width="30px" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"></path></svg>
+
+
+                                    Continue With Facebook
+                                </button>
+
+                            </div>
+
+                            {/* <Facebook customRouter={router} /> */}
+                        </div>
 
                     </div>
+                 
+                </div>
+
+            </div>
+
+        </>
     )
 }
 export default SignIn
