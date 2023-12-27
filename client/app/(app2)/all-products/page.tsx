@@ -145,37 +145,3 @@ export default ProductsPage;
 
 
 
-
-
-
-
-// export const getStaticProps: GetStaticProps = async () => {
-//     const products = await fetch(`http://localhost:4000/api/get/product`);
-//     return { props: { products }, revalidate: 60 };
-//   };
-
-
-    // const AllProducts = await fetch(`http://localhost:4000/api/get/product`,{
-    //     next:{
-    //         revalidate:120,
-    //     }
-    // })
-    //     const products :ProductType[]= await AllProducts.json();
-    //     console.log(products,"server produact");
-        
-
-
-    // import axios from "axios";
-// import { GetStaticProps } from "next";
-// type ProductType={
-//     id:number;
-//     productName: string,
-//   price       :number,
-//   likes       :number,
-//   category   : string,
-//   imageUrl   : string,
-//   new   :      boolean ,
-//   brandId    : string,
-
-// }
-// {products}:{products:ProductType[]}

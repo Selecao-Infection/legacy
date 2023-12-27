@@ -79,7 +79,7 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
       </div>
       <div className="mt-8">
         <h2 className="text-3xl font-bold mb-4"> {product.productName}</h2>
-        <p className="mb-4 text-gray-400 white-space:nowrap word-wrap: break-word">
+        <p className="mb-4 text-white-400 white-space:nowrap word-wrap: break-word">
           {product.description}
         </p>
         <div className="flex justify-between items-center">
@@ -87,7 +87,7 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
             ${product.price.toFixed(3)}
           </p>
           <div className="flex items-center space-x-2">
-            <p className="text-gray-500">Rating: {product.rating}</p>
+            <p className="text-white-500">Rating: {product.rating}</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -105,13 +105,13 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
           </div>
         </div>
         <div className="mt-4">
-          <p className="text-gray-500">
+          <p className="text-white-500">
             Category: <span className="font-bold">{product.category}</span>
           </p>
-          <p className="text-gray-500">
+          <p className="text-white-500">
             Likes: <span className="font-bold">{product.likes}</span>
           </p>
-          <p className="text-gray-500">
+          <p className="text-white-500">
             {product.new ? "New Product" : "Not a New Product"}
           </p>
         </div>

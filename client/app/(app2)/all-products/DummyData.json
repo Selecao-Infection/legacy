@@ -1,62 +1,199 @@
 [
-    {
-      "id": "6d320a02-3117-4414-a9ce-957f0d9707c4",
-      "productName": "Ring Diamond",
-      "price": 2211,
-      "likes": 15,
-      "category": "Ring",
-      "imageUrl": ["https://images.unsplash.com/photo-1607703829739-c05b7beddf60?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
-      "gender" : "Women",
-      "new": true,
-      "brandId": "91f98168-376e-482a-9809-8cfe552d43ab",
-      "description": "oefijoezifjoezif"
-    },
-    {
-      "id": "996eaa4a-267b-461c-b4f5-74b6f894e821",
-      "productName": "Chain Diamond",
-      "price": 2211,
-      "likes": 15,
-      "category": "Chain",
-      "imageUrl": ["https://images.unsplash.com/photo-1589128777073-263566ae5e4d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
-      "gender" : "Women",
-      "new": true,
-      "brandId": "91f98168-376e-482a-9809-8cfe552d43ab",
-      "description": "oefijoezifjoezif"
-    },
-    {
-      "id": "ca403377-1400-4d82-b851-eb2df1f3706e",
-      "productName": "Diamond Necklace",
-      "price": 2211,
-      "likes": 15,
-      "category": "Chain",
-      "imageUrl": ["https://images.unsplash.com/photo-1583937443351-f2f669fbe2cf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
-      "gender" : "Women",
-      "new": true,
-      "brandId": "91f98168-376e-482a-9809-8cfe552d43ab",
-      "description": "oefijoezifjoezif"
-    },
-    {
-      "id": "f51cb578-e80a-48e7-b27b-f1ffb5a188dd",
-      "productName": "Diamond Love",
-      "price": 2211,
-      "likes": 15,
-      "category": "Ring",
-      "imageUrl": ["https://images.unsplash.com/photo-1518370265276-f22b706aeac8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
-      "gender" : "Women",
-      "new": true,
-      "brandId": "91f98168-376e-482a-9809-8cfe552d43ab",
-      "description": "oefijoezifjoezif"
-    },
-    {
-      "id": "fcc4d090-e666-4c33-8ce8-963e5b1d96ab",
-      "productName": "Bracelet Diamond",
-      "price": 1111,
-      "likes": 5,
-      "category": "Bracelet",
-      "imageUrl": ["https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
-      "new": true,
-      "gender" : "Women",
-      "brandId": "91f98168-376e-482a-9809-8cfe552d43ab",
-      "description": "oefijoezifjoezif"
-    }
-  ]
+  {
+    "productName": "Diamond Ring ",
+    "price": 50000,
+    "likes": 15,
+    "category": "Ring",
+    "imageUrl": ["https://images.unsplash.com/photo-1607703829739-c05b7beddf60?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "gender" : "Women",
+    "new": false,
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  {
+    
+    "productName": "Diamond Chain ",
+    "price": 82000,
+    "likes": 15,
+    "category": "Chain",
+    "imageUrl": ["https://images.unsplash.com/photo-1589128777073-263566ae5e4d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "gender" : "Women",
+    "new": true,
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  {
+    
+    "productName": "Necklace Diamond ",
+    "price": 2231,
+    "likes": 15,
+    "category": "Chain",
+    "imageUrl": ["https://images.unsplash.com/photo-1583937443351-f2f669fbe2cf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "gender" : "Women",
+    "new": true,
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  {
+    
+    "productName": "Love Diamond ",
+    "price": 2200,
+    "likes": 15,
+    "category": "Ring",
+    "imageUrl": ["https://images.unsplash.com/photo-1518370265276-f22b706aeac8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "gender" : "Women",
+    "new": true,
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  {
+    
+    "productName": "Bracelet Diamond",
+    "price": 15000,
+    "likes": 5,
+    "category": "Bracelet",
+    "imageUrl": ["https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "new": false,
+    "gender" : "Women",
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  
+  
+  
+  
+  
+  
+  
+  {
+    
+    "productName": "Diamond Ring ",
+    "price": 6000,
+    "likes": 15,
+    "category": "Ring",
+    "imageUrl": ["https://images.unsplash.com/photo-1579726670131-487ecc8e1e8a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "gender" : "Women",
+    "new": false,
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  {
+    
+    "productName": "Diamond Anita Austvika ",
+    "price": 3000,
+    "likes": 15,
+    "category": "Chain",
+    "imageUrl": ["https://plus.unsplash.com/premium_photo-1681276169450-4504a2442173?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "gender" : "Women",
+    "new": true,
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  {
+    
+    "productName": "Necklace Diamond ",
+    "price": 4211,
+    "likes": 15,
+    "category": "Chain",
+    "imageUrl": ["https://images.unsplash.com/photo-1583937443351-f2f669fbe2cf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "gender" : "Women",
+    "new": true,
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  {
+    
+    "productName": "Hosniye sadeghi ",
+    "price": 2500,
+    "likes": 15,
+    "category": "Chain",
+    "imageUrl": ["https://images.unsplash.com/photo-1685970731194-e27b477e87ba?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "gender" : "Women",
+    "new": true,
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  {
+    
+    "productName": "Sabrianna",
+    "price": 17000,
+    "likes": 5,
+    "category": "Ring",
+    "imageUrl": ["https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "new": false,
+    "gender" : "Women",
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  
+  
+  
+  
+  
+  
+  
+  
+  {
+    
+    "productName": "GreyAccessories ",
+    "price": 53000,
+    "likes": 15,
+    "category": "Bracelet",
+    "imageUrl": ["https://images.unsplash.com/photo-1619119069152-a2b331eb392a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "gender" : "Women",
+    "new": false,
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  {
+    
+    "productName": "Diamond Michael Myers ",
+    "price": 19000,
+    "likes": 15,
+    "category": "Bracelet",
+    "imageUrl": ["https://images.unsplash.com/photo-1639065643006-e217c4fee12e?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "gender" : "Women",
+    "new": false,
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  {
+    
+    "productName": "BenMathis Seibel ",
+    "price": 9211,
+    "likes": 15,
+    "category": "Watch",
+    "imageUrl": ["https://images.unsplash.com/photo-1636289026470-cb40ece1ebc3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "gender" : "Women",
+    "new": true,
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  {
+    
+    "productName": "Pedro Domingos",
+    "price": 9200,
+    "likes": 15,
+    "category": "Watch",
+    "imageUrl": ["https://images.unsplash.com/photo-1639762738624-8c96f2137168?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "gender" : "Men",
+    "new": true,
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  },
+  {
+    
+    "productName": "Laurenz Heymann",
+    "price": 95000,
+    "likes": 5,
+    "category": "Watch",
+    "imageUrl": ["https://images.unsplash.com/photo-1600003014755-ba31aa59c4b6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    "new": false,
+    "gender" : "Men",
+    "brandId": "5a1a1df6-3a84-4af8-97e7-47ed9bbf430c",
+    "description": "Hello"
+  }
+  
+  
+  
+]
