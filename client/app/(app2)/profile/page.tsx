@@ -10,6 +10,8 @@ import { jwtDecode } from "jwt-decode";
 import { useQuery } from "react-query";
 import Posts from "./Posts";
 import EditPopUp from "./EditPopUp";
+import IsLoading from "../all-products/IsLoading";
+
 interface UploadedFile {
   name: string;
   size: number;
@@ -138,7 +140,11 @@ const Page = () => {
   const { data, isError, isLoading } = useQuery("randomFacts", getPosts);
 
   if (isLoading) {
-    return <div>lOADING....</div>;
+    return (
+      <div>
+        <IsLoading />
+      </div>
+    )
   }
 
   const handlePostClick = () => {
@@ -198,6 +204,8 @@ const Page = () => {
         });
       }
     );
+    const uu = console.log(uploadTask.snapshot);
+
   };
   const uploadProfileImage = (file: File) => {
     const storageRef = ref(storage, `Profile/${file.name}`);
@@ -578,18 +586,18 @@ const Page = () => {
             (post: {
               id: React.Key | null | undefined;
               content:
-                | string
-                | number
-                | boolean
-                | React.ReactElement<
-                    any,
-                    string | React.JSXElementConstructor<any>
-                  >
-                | Iterable<React.ReactNode>
-                | React.ReactPortal
-                | React.PromiseLikeOfReactNode
-                | null
-                | undefined;
+              | string
+              | number
+              | boolean
+              | React.ReactElement<
+                any,
+                string | React.JSXElementConstructor<any>
+              >
+              | Iterable<React.ReactNode>
+              | React.ReactPortal
+              | React.PromiseLikeOfReactNode
+              | null
+              | undefined;
               imageUrl: string | undefined;
             }) => (
               <Posts

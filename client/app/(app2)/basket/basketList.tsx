@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
-
+import IsLoading from "../all-products/IsLoading";
 const List = (props: any) => {
 
     const [update, setUpdate] = useState<boolean>()
@@ -38,7 +38,9 @@ const List = (props: any) => {
 
     if (isLoading) {
         return (
-            <div>Loading...</div>
+            <>
+            <IsLoading />
+            </>
         )
     }
     const Up = async (id: string) => {

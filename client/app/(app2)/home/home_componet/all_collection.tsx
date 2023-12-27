@@ -145,6 +145,7 @@ const AllCollection: React.FC = () => {
                         className={`w-6 h-6 transition-transform text-gray animate-pulse  hover:scale-110 ${
                           product.like ? "text-red" : ""
                         }`}
+                        
                         onClick={() => handleLike(product.id)}
                       >
                         <path

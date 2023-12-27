@@ -110,3 +110,256 @@
     }
   }
   
+
+
+  .success {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 320px;
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    background: #EDFBD8;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px -3px #111;
+  }
+  
+  .success__icon {
+    width: 20px;
+    height: 20px;
+    transform: translateY(-2px);
+    margin-right: 8px;
+  }
+  
+  .success__icon path {
+    fill: #84D65A;
+  }
+  
+  .success__title {
+    font-weight: 500;
+    font-size: 14px;
+    color: #2B641E;
+  }
+  
+  .success__close {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  
+  .success__close path {
+    fill: #2B641E;
+  }
+
+
+  .error {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 320px;
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    background: #EF665B;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px -3px #111;
+  }
+  
+  .error__icon {
+    width: 20px;
+    height: 20px;
+    transform: translateY(-2px);
+    margin-right: 8px;
+  }
+  
+  .error__icon path {
+    fill: #fff;
+  }
+  
+  .error__title {
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+  }
+  
+  .error__close {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  
+  .error__close path {
+    fill: #fff;
+  }
+
+  .warning {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 320px;
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    background: #F7C752;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px -3px #111;
+  }
+  
+  .warning__icon {
+    width: 20px;
+    height: 20px;
+    transform: translateY(-2px);
+    margin-right: 8px;
+  }
+  
+  .warning__icon path {
+    fill: #393A37;
+  }
+  
+  .warning__title {
+    font-weight: 500;
+    font-size: 14px;
+    color: #393A37;
+  }
+  
+  .warning__close {
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  
+  .warning__close path {
+    fill: #393A37;
+  }
+
+
+  .loader {
+    width: 500px;
+    height: 250px;
+  }
+  
+  .circle {
+    fill: rgb(107 33 168);
+  }
+  
+  .circle-one {
+    opacity: 0;
+  }
+  
+  .svg-stroke {
+    fill: transparent;
+    stroke-dasharray: 46.82, 93.64;
+    stroke-dashoffset: 46.82;
+    stroke: rgb(107 33 168);
+    opacity: 1;
+  }
+  
+  .svg-wrap .svg-stroke {
+    animation: stroke-start 1.6s linear, stroke-end 1.6s 0.8s linear infinite;
+  }
+  
+  .svg-wrap .circle-one {
+    animation: dot-one 0s 0.8s, move-dot 1.6s 0.8s linear infinite;
+  }
+  
+  .svg-wrap .circle-two,
+  .svg-wrap .circle-three {
+    animation: move-dot 1.6s 0.8s linear infinite;
+  }
+  
+  @keyframes dot-one {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes stroke-start {
+    50% {
+      stroke-dashoffset: 46.82;
+    }
+  
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  @keyframes stroke-end {
+    50% {
+      stroke-dasharray: 46.82, 93.64;
+      stroke-dashoffset: 0;
+      transform: translateX(0);
+    }
+  
+    100% {
+      stroke-dasharray: 0, 93.64;
+      stroke-dashoffset: -46.82;
+      transform: translateX(10px);
+    }
+  }
+  
+  @keyframes move-dot {
+    50% {
+      transform: translateX(0);
+    }
+  
+    100% {
+      transform: translateX(10px);
+    }
+  }
+
+
+
+
+
+
+
+
+
+  /* works only on a dark background with these paremeters*/
+
+.button {
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  place-items: center;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.button > svg {
+  border-radius: inherit;
+  padding: 0.5rem;
+  fill: #fff;
+ /* SVG color */
+  width: 28px;
+ /* default width 32px */
+  height: 8px;
+ /* default height 32px */
+}
+
+.button > svg:active {
+  background-color: rgba(65, 65, 65, 0.5);
+}
+
+.button > svg:not(:active) {
+  animation: fadeOut 0.9s;
+}
+
+@keyframes fadeOut {
+  0% {
+    outline: 1px solid rgba(90, 90, 90, 0.5);
+ /* If you use border it will take space inside and slightly move the SVG */
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
